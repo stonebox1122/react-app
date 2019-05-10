@@ -1,0 +1,44 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\shend\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react react-dom -S
+
+PATH: 
+  C:\Users\shend\bin;E:\Git\mingw64\bin;E:\Git\usr\local\bin;E:\Git\usr\bin;E:\Git\usr\bin;E:\Git\mingw64\bin;E:\Git\usr\bin;C:\Users\shend\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;E:\Microsoft VS Code\bin;C:\MinGW\bin;E:\Git\cmd;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\Users\shend\AppData\Local\Microsoft\WindowsApps;E:\Microsoft VS Code\bin;C:\Program Files\MongoDB\Server\4.0\bin;C:\Users\shend\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\shend\AppData\Local\Microsoft\WindowsApps;C:\Users\shend\AppData\Roaming\npm;E:\Git\usr\bin\vendor_perl;E:\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.15.2
+
+Node version: 
+  10.15.2
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: connect ETIMEDOUT 104.16.26.35:443
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+
+npm manifest: 
+  {
+    "name": "react-app",
+    "version": "1.0.0",
+    "description": "react-cli by myself",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "webpack --config ./build/webpack.dev.config.js"
+    },
+    "author": "sdx",
+    "license": "ISC",
+    "devDependencies": {
+      "@babel/core": "^7.4.4",
+      "@babel/preset-env": "^7.4.4",
+      "@babel/preset-react": "^7.0.0",
+      "babel-loader": "^8.0.5"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
