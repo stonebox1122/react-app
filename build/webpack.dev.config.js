@@ -4,10 +4,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	mode: 'development',
 	// 入口 
-	entry: path.join(__dirname, '../src/index.js'),
+	entry: {
+		app: [
+			path.join(__dirname, '../src/index.js')
+		],
+		// 公共代码提取1
+		vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
+	},
 	output: {
 		path: path.join(__dirname, '../dist'),
-		filename: 'bundle.js'
+		filename: 'bundle.js',
+		chunkFilename: '[name].[chunkhash].js' // 公共代码提取2
 	},
 	/* src目录下面的以.js结尾的文件, 要使用babel 进行解析*/
 	/*cacheDirectory是用来缓存编译结果，下次编译加速*/
