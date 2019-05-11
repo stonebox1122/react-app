@@ -1,5 +1,4 @@
 const path = require('path');
-
 module.exports = {
 	mode: 'development',
 	// 入口 
@@ -16,5 +15,14 @@ module.exports = {
 	        use: ['babel-loader?cacheDirectory=true'],
 	        include: path.join(__dirname, '../src')
 	    }]
+	},
+	// 配置热更新
+	devServer: {
+		contentBase: path.join(__dirname, '../dist'),
+		compress: true, // gzip压缩
+		host: 'localhost',  // 允许ip访问
+		hot: true, // 热更新
+		historyApiFallback: true, // 解决启动后刷新404
+		port: 8899 // 端口
 	}
 }
