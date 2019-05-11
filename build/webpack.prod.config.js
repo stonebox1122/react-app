@@ -1,13 +1,19 @@
 const path = require('path');
 // 应该是用于将打包好的js插到网页的
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// 将css文件抽离单独打包成css而不是打包进js
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// css压缩
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// 打包前清空
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-	mode: 'development',
+	mode: 'production',
 	// 入口 
 	entry: {
 		app: [
-			"@babel/polyfill",
+      "@babel/polyfill",
 			path.join(__dirname, '../src/index.js')
 		],
 		// 公共代码提取1
@@ -16,7 +22,8 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, '../dist'),
 		filename: 'bundle.js',
-		chunkFilename: '[name].[chunkhash].js' // 公共代码提取2
+    chunkFilename: '[name].[chunkhash].js', // 公共代码提取2
+    publicPath: '/'
 	},
 	/* src目录下面的以.js结尾的文件, 要使用babel 进行解析*/
 	/*cacheDirectory是用来缓存编译结果，下次编译加速*/
@@ -30,7 +37,10 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					'style-loader',
+					{
+						// css单独抽离压缩
+						loader: MiniCssExtractPlugin.loader
+					},
 					{
 					loader: 'css-loader',
 					options: {
@@ -52,36 +62,35 @@ module.exports = {
 			}
 		]
 	},
-	// 配置热更新
-	devServer: {
-		// contentBase: path.join(__dirname, '../dist'),
-		compress: true, // gzip压缩
-		host: 'localhost',  // 允许ip访问
-		hot: true, // 热更新
-		historyApiFallback: true, // 解决启动后刷新404
-		port: 8899, // 端口
-		proxy: {
-			'/api': {
-				target: '192.168.0.106:8080',
-				pathRewrite: {'^/api': ''},
-				changeOrigin: true
-			}
-		}
-	},
 	// devtool优化 打断点看
-	devtool: 'inline-source-map',
+	devtool: 'none',
 	// 文件路径映射
 	resolve: {
 		alias: {
 			'@': path.join(__dirname, '../src/components'),
 			'~': path.join(__dirname, '../src/pages')
 		}
-	},
+  },
+  // 公共块提取
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
 	plugins: [
 		// 将编译后的js自动注入
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: path.join(__dirname, '../public/index.html')
-		})
+		}),
+		// 抽离css
+		new MiniCssExtractPlugin({
+			filename: "[name].[contenthash].css",
+			chunkFilename:"[id].[contenthash].css"
+    }),
+    // 压缩css
+    new OptimizeCssAssetsPlugin(),
+    // 打包前清空
+    new CleanWebpackPlugin()
 	]
 }
