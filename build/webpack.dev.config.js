@@ -1,4 +1,6 @@
 const path = require('path');
+// 应该是用于将打包好的js插到网页的
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	mode: 'development',
 	// 入口 
@@ -10,15 +12,15 @@ module.exports = {
 	/* src目录下面的以.js结尾的文件, 要使用babel 进行解析*/
 	/*cacheDirectory是用来缓存编译结果，下次编译加速*/
 	module: {
-	    rules: [{
-	        test: /\.js$/,
-	        use: ['babel-loader?cacheDirectory=true'],
-	        include: path.join(__dirname, '../src')
-	    }]
+		rules: [{
+			test: /\.js$/,
+			use: ['babel-loader?cacheDirectory=true'],
+			include: path.join(__dirname, '../src')
+		}]
 	},
 	// 配置热更新
 	devServer: {
-		contentBase: path.join(__dirname, '../dist'),
+		// contentBase: path.join(__dirname, '../dist'),
 		compress: true, // gzip压缩
 		host: 'localhost',  // 允许ip访问
 		hot: true, // 热更新
@@ -40,5 +42,12 @@ module.exports = {
 			'@': path.join(__dirname, '../src/components'),
 			'~': path.join(__dirname, '../src/pages')
 		}
-	}
+	},
+	plugins: [
+		// 将编译后的js自动注入
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: path.join(__dirname, '../public/index.html')
+		})
+	]
 }
