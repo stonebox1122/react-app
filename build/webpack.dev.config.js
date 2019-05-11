@@ -23,6 +23,22 @@ module.exports = {
 		host: 'localhost',  // 允许ip访问
 		hot: true, // 热更新
 		historyApiFallback: true, // 解决启动后刷新404
-		port: 8899 // 端口
+		port: 8899, // 端口
+		proxy: {
+			'/api': {
+				target: '192.168.0.106:8080',
+				pathRewrite: {'^/api': ''},
+				changeOrigin: true
+			}
+		}
+	},
+	// devtool优化 打断点看
+	devtool: 'inline-source-map',
+	// 文件路径映射
+	resolve: {
+		alias: {
+			'@': path.join(__dirname, '../src/components'),
+			'~': path.join(__dirname, '../src/pages')
+		}
 	}
 }
