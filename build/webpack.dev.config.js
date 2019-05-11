@@ -1,6 +1,9 @@
 const path = require('path');
 // 应该是用于将打包好的js插到网页的
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// 将css文件抽离单独打包成css而不是打包进js
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
 	mode: 'development',
 	// 入口 
@@ -27,7 +30,12 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				use: ['style-loader', {
+				use: [
+					{
+						// css单独抽离压缩
+						loader: MiniCssExtractPlugin.loader
+					},
+					{
 					loader: 'css-loader',
 					options: {
 						// 开启 CSS Modules
@@ -78,6 +86,11 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: path.join(__dirname, '../public/index.html')
+		}),
+		// 压缩css
+		new MiniCssExtractPlugin({
+			filename: "[name].[contenthash].css",
+			chunkFilename:"[id].[contenthash].css"
 		})
 	]
 }
