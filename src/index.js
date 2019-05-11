@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Hello from './components/Hello';
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import Nav from './components/Nav';
+import getRouters from './router'
 ReactDom.render(
-    <Hello/>, document.getElementById('app'));
+    <Router>
+        <Nav/>
+        { getRouters }
+    </Router>, 
+    document.getElementById('app'));
