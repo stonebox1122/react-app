@@ -12,24 +12,34 @@ module.exports = {
 	/* src目录下面的以.js结尾的文件, 要使用babel 进行解析*/
 	/*cacheDirectory是用来缓存编译结果，下次编译加速*/
 	module: {
-		rules: [{
-			test: /\.js$/,
-			use: ['babel-loader?cacheDirectory=true'],
-			include: path.join(__dirname, '../src')
-		},{
-			test: /\.css$/,
-			// 这里配置各种loader,
-			use: ['style-loader', {
-				loader: 'css-loader',
-				options: {
-					modules: true,
-					// 开启 CSS Modules
-					modules: true,
-					// 自定义生成的类名
-					localIdentName: '[local]_[hash:base64:8]'
-				}
-			}, 'postcss-loader']
-		}]
+		rules: [
+			{
+				test: /\.js$/,
+				use: ['babel-loader?cacheDirectory=true'],
+				include: path.join(__dirname, '../src')
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', {
+					loader: 'css-loader',
+					options: {
+						// 开启 CSS Modules
+						modules: true,
+						// 自定义生成的类名
+						localIdentName: '[local]_[hash:base64:8]'
+					}
+				}, 'postcss-loader']
+			},
+			{
+				text: /\.(png|jpg|jpeg|gif)$/,
+				use: [{
+					loader: 'url-loader',
+					options: {
+						limit: 8291 // 小于8k的转为base64编码
+					}
+				}]
+			}
+		]
 	},
 	// 配置热更新
 	devServer: {
