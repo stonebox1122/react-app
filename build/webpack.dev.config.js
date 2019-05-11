@@ -18,7 +18,17 @@ module.exports = {
 			include: path.join(__dirname, '../src')
 		},{
 			test: /\.css$/,
-			use: ['style-loader', 'css-loader']
+			// 这里配置各种loader,
+			use: ['style-loader', {
+				loader: 'css-loader',
+				options: {
+					modules: true,
+					// 开启 CSS Modules
+					modules: true,
+					// 自定义生成的类名
+					localIdentName: '[local]_[hash:base64:8]'
+				}
+			}, 'postcss-loader']
 		}]
 	},
 	// 配置热更新
