@@ -7,7 +7,7 @@
 */
 const babelConfig = {
 	presets: ["@babel/preset-env", "@babel/preset-react"],
-	plugins: []
+	plugins: ["@babel/plugin-syntax-dynamic-import"] //动态导入
 }
 
 module.exports = babelConfig;
