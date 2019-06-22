@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-
+import React, { Component, Fragment } from 'react';
+import style from './index.module.scss'
 export default class Tabbar extends Component {
   render() {
     return (
-      <div>
-        这是tabbar
+      <Fragment>
         {this.props.children}
-      </div>
+        <div className={style['tabbar-wrap']}>111</div>
+      </Fragment>
     )
   }
 }

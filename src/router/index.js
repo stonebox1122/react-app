@@ -1,6 +1,6 @@
 // 路由列表
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import App from '../App'
 import Tabbar from '../components/TabBar'
 import Home from '../pages/home'
@@ -14,8 +14,13 @@ export default class Routers extends Component {
     return (
       <Router>
         <App>
+          {/* 访问根路径直接定向到首页 */}
+          <Route path="/" component ={() =>
+            <Redirect to="/tab/home"/>
+          }/>
           <Route path="/tab" component = {() => 
             <Tabbar>
+              <Redirect to="/tab/home"/>
               <Switch>
                 <Route path="/tab/home" component={Home}/>
                 <Route path="/tab/goods" component={Goods}/>
