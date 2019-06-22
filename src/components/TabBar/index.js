@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Tab, TabBar, TabBarItem, TabBody } from 'react-weui'
 import {withRouter} from 'react-router';
-// import style from './index.module.scss'
+import style from './index.module.scss'
 
 // 引入tabicon
 import Home_n from './img/tab_home.png'
@@ -50,25 +50,25 @@ class Tabbar extends Component {
       <Fragment>
         <Tab>
           <TabBody>{this.props.children}</TabBody>
-          <TabBar>
+          <TabBar className={style['tabbar-wrap']}>
             <TabBarItem 
-              label="home" 
+              label="首页" 
               icon={<img src={ this.state.tab === 0 ? Home_s : Home_n } alt="home"/>}
               active={this.state.tab === 0}
               onClick = {() => {this.handleChangeTab(0) }}
               />
             <TabBarItem
-              label="goods"
+              label="商品"
               icon={<img src={ this.state.tab === 1 ? Goods_s : Goods_n } alt="goods"/>}
               active={this.state.tab === 1}
               onClick = {() => {this.handleChangeTab(1)}}/>
             <TabBarItem
-              label="cart"
+              label="购物车"
               icon={<img src={ this.state.tab === 2 ? Cart_s : Cart_n } alt="cart"/>}
               active={this.state.tab === 2}
               onClick = {() => {this.handleChangeTab(2)}}/>
             <TabBarItem
-              label="mine"
+              label="我的"
               icon={<img src={ this.state.tab === 3 ? Mine_s : Mine_n } alt="mine"/>}
               active={this.state.tab === 3}
               onClick = {() => {this.handleChangeTab(3)}}/>
