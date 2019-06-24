@@ -5,21 +5,20 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import style from './index.module.scss'
 class NavgationBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  }
+  back = () => {
+    console.log('back')
   }
-  render() { 
-    const { left, right, children: title } = this.props;
+  render() {
+    const { left, right, children: title, handleLeft, handleRight } = this.props;
     return (
       <div className={style['nav-wrap']}>
-        <div className={style['left-item']}>
+        <div className={style['left-item']} onClick = { handleLeft ? handleLeft : this.back }>
           { left }
         </div>
         <div className={style['center-item']}>
           { title }
         </div>
-        <div className={style['right-item']}>
+        <div className={style['right-item']} onClick = { handleRight }>
           { right }
         </div>
       </div>
@@ -41,11 +40,14 @@ NavgationBar.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.string
-  ])
+  ]),
+  handleLeft: PropTypes.func,
+  handleRight: PropTypes.func
 }
+
 // 对父组件的传值设置默认值
 NavgationBar.defaultProps = {
-  left: '返回',
+  left: 'back',
   right: '下一步',
   children: '吉善'
 }
