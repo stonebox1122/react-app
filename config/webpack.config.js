@@ -25,7 +25,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-
+const postcssPxToViewport = require('postcss-px-to-viewport');
 const postcssNormalize = require('postcss-normalize');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -101,6 +101,15 @@ module.exports = function(webpackEnv) {
             // so that it honors browserslist config in package.json
             // which in turn let's users customize the target behavior as per their needs.
             postcssNormalize(),
+            postcssPxToViewport({ 
+              viewportWidth: 750, // (Number) The width of the viewport. 
+              viewportHeight: 1334, // (Number) The height of the viewport. 
+              unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to. 
+              viewportUnit: 'vw', // (String) Expected units. 
+              selectorBlackList: ['.ignore', '.hairlines', 'weui'], // (Array) The selectors to ignore and leave as px. 
+              minPixelValue: 1, // (Number) Set the minimum pixel value to replace. 
+              mediaQuery: false // (Boolean) Allow px to be converted in media queries. 
+            })
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },

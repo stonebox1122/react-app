@@ -15,7 +15,7 @@ export default class Routers extends Component {
       <Router>
         <App>
           {/* 访问根路径直接定向到首页 */}
-          <Route path="/" component ={() =>
+          <Route path="/" exact component ={() =>
             <Redirect to="/tab/home"/>
           }/>
           <Route path="/tab" component = {() => 
