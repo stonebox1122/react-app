@@ -1,0 +1,22 @@
+.cell-wrap {
+  display: flex;
+  align-items: center;
+  height: 87px;
+  line-height: 87px;
+  font-size: 27px;
+  color: #999;
+  border-bottom: 1px solid #F5F5F5;
+  .label {
+    flex: 2;
+    color: #333;
+  }
+  .input {
+    flex: 3;
+    border: none;
+    outline: none;
+    color: #c9c9ce;
+  }
+  .solt {
+    flex: 3;
+  }
+}

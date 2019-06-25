@@ -3,17 +3,20 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
+import {withRouter} from 'react-router';
+
 import style from './index.module.scss'
+
 class NavgationBar extends Component {
   back = () => {
-    console.log('back')
+    this.props.history.push('/tab/home');
   }
   render() {
     const { left, right, children: title, handleLeft, handleRight } = this.props;
     return (
       <div className={style['nav-wrap']}>
         <div className={style['left-item']} onClick = { handleLeft ? handleLeft : this.back }>
-          { left }
+          { left ? left : <img className={style['back-icon']} src={require('./img/nav_menu_return.png')} alt="back" /> }
         </div>
         <div className={style['center-item']}>
           { title }
@@ -47,9 +50,8 @@ NavgationBar.propTypes = {
 
 // 对父组件的传值设置默认值
 NavgationBar.defaultProps = {
-  left: 'back',
   right: '下一步',
   children: '吉善'
 }
 
-export default NavgationBar;
+export default withRouter(NavgationBar);

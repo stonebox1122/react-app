@@ -14,7 +14,16 @@
   .right-item {
     text-align: right;
   }
+  .left-item {
+    display: flex;
+    align-items: center;
+    .back-icon {
+      width: 20px;
+      height: 34px;
+    }
+  }
   .center-item {
     flex: 2;
+    font-size: 34px;
   }
 }
