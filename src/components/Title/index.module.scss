@@ -1,0 +1,10 @@
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 24px;
+  font-size: 32px;
+  border-left: 8px solid $mcolor;
+  .more {
+    color: #666666;
+  }
+}

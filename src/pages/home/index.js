@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import NavgationBar from '@/NavgationBar'
+import Title from '@/Title'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
@@ -41,17 +42,21 @@ export default class Home extends Component {
           </li>
           <li className={style.item}>
             <img className={style.icon} src={require('./img/home_btn_hot.png')} alt="hot"/>
-            <p className={style.label}>签到</p>
+            <p className={style.label}>最热</p>
           </li>
           <li className={style.item}>
             <img className={style.icon} src={require('./img/home_btn_free.png')} alt="free"/>
-            <p className={style.label}>签到</p>
+            <p className={style.label}>免费</p>
           </li>
           <li className={style.item}>
             <img className={style.icon} src={require('./img/home_btn_all.png')} alt="all"/>
-            <p className={style.label}>签到</p>
+            <p className={style.label}>全部</p>
           </li>
         </ul>
+        {/* 能量塔 */}
+        <section className={style.wrap}>
+          <Title title = "能量塔"/>
+        </section>
       </Fragment>
     )
   }

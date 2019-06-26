@@ -441,7 +441,14 @@ module.exports = function(webpackEnv) {
                   sourceMap: isEnvProduction && shouldUseSourceMap,
                 },
                 'sass-loader'
-              ),
+              ).concat({
+                // 这行的意思是引入加载器 sass-resources-loader
+                loader: 'sass-resources-loader',
+                options: {
+                  // 这里是需要引入全局的资源文件，它可以是一个字符串或者是一个数组， 通常用数组去代替。
+                  resources: path.resolve(__dirname, '../src/common/css/index.scss')
+                }
+              }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
@@ -460,7 +467,14 @@ module.exports = function(webpackEnv) {
                   getLocalIdent: getCSSModuleLocalIdent,
                 },
                 'sass-loader'
-              ),
+              ).concat({
+                // 这行的意思是引入加载器 sass-resources-loader
+                loader: 'sass-resources-loader',
+                options: {
+                  // 这里是需要引入全局的资源文件，它可以是一个字符串或者是一个数组， 通常用数组去代替。
+                  resources: path.resolve(__dirname, '../src/common/css/index.scss')
+                }
+              })
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
