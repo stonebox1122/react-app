@@ -26,3 +26,24 @@
     color: $mcolor;
   }
 }
+.third-login-wrap {
+  position: absolute;
+  bottom: 281px;
+  width: 100vw;
+  .third-login {
+    display: flex;
+    justify-content: center;
+    .icon {
+      margin: 0 29px;
+      width: 80px;
+      height: 80px;
+    }
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+}

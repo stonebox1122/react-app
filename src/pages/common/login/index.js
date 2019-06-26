@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
+import { LoadMore } from 'react-weui'
 import Verification from '@/Verification'
 import style from './index.module.scss'
 
@@ -70,6 +71,19 @@ class Login extends PureComponent {
           <p>还没账户？<span className={style.highlight}>立即注册</span></p>
           <p>忘记密码？</p>
         </div>
+
+        {/* 第三方登陆 */}
+        <section className={style['third-login-wrap']}>
+          <LoadMore showLine>或从以下方式登录</LoadMore>
+          <div className={style['third-login']}>
+            <img className={style.icon} alt="img" src={require('./img/login_btn_weixin.png')}/>
+            <img className={style.icon} alt="img" src={require('./img/login_btn_qq.png')}/>
+            <img className={style.icon} alt="img" src={require('./img/login_btn_weibo.png')}/>
+          </div>
+        </section>
+        
+        {/* 底部花边 */}
+        <img className={style.footer} alt="img" src={require('./img/login_image.png')}></img>
       </div>
     )
   }
