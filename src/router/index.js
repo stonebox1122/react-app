@@ -9,6 +9,7 @@ import Cart from '../pages/cart'
 import Mine from '../pages/mine'
 
 import Login from '../pages/common/login'
+import Registered from '../pages/common/login/registered'
 export default class Routers extends Component {
   render() {
     return (
@@ -30,6 +31,7 @@ export default class Routers extends Component {
             </Tabbar>
           }/>
           <Route path="/login" component ={Login}/>
+          <Route path="/registered" component = {Registered}/>
         </App>
       </Router>
     )

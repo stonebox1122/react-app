@@ -9,7 +9,8 @@ import style from './index.module.scss'
 
 class NavgationBar extends Component {
   back = () => {
-    this.props.history.push('/tab/home');
+    // console.log(this.props.history)
+    this.props.history.goBack();
   }
   render() {
     const { left, right, children: title, handleLeft, handleRight } = this.props;

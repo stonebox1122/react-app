@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
+import { Link } from 'react-router-dom'
+import { LoadMore } from 'react-weui'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
-import { LoadMore } from 'react-weui'
 import Verification from '@/Verification'
+
 import style from './index.module.scss'
 
 class Login extends PureComponent {
@@ -68,8 +70,8 @@ class Login extends PureComponent {
 
         {/* menu */}
         <div className={ style.menu }>
-          <p>还没账户？<span className={style.highlight}>立即注册</span></p>
-          <p>忘记密码？</p>
+          <p>还没账户？<Link to="/registered" className={style.highlight}>立即注册</Link></p>
+          <p hidden = {this.state.right === 1}>忘记密码？</p>
         </div>
 
         {/* 第三方登陆 */}
