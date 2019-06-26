@@ -5,6 +5,7 @@ import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
 export default class Home extends Component {
   componentDidMount () {
+    // 初始化轮播图插件
     new Swiper('.swiper-container',{
       loop: true,
       autoplay: {
@@ -23,6 +24,7 @@ export default class Home extends Component {
           left=" "
           right=""
         />
+        {/*轮播图部分  */}
         <div className={`swiper-container ${style['banner-h']}`}>
           <div className="swiper-wrapper">
             <img alt="img" className="swiper-slide" src="http://f.hiphotos.baidu.com/image/h%3D300/sign=00af05b334f33a87816d061af65d1018/8d5494eef01f3a29f863534d9725bc315d607c8e.jpg"/>
@@ -31,6 +33,25 @@ export default class Home extends Component {
           </div>
           <div className='swiper-pagination'></div>
         </div>
+        {/* menu */}
+        <ul className={style.menu}>
+          <li className={style.item}>
+            <img className={style.icon} src={require('./img/home_btn_check.png')} alt="check"/>
+            <p className={style.label}>签到</p>
+          </li>
+          <li className={style.item}>
+            <img className={style.icon} src={require('./img/home_btn_hot.png')} alt="hot"/>
+            <p className={style.label}>签到</p>
+          </li>
+          <li className={style.item}>
+            <img className={style.icon} src={require('./img/home_btn_free.png')} alt="free"/>
+            <p className={style.label}>签到</p>
+          </li>
+          <li className={style.item}>
+            <img className={style.icon} src={require('./img/home_btn_all.png')} alt="all"/>
+            <p className={style.label}>签到</p>
+          </li>
+        </ul>
       </Fragment>
     )
   }
