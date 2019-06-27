@@ -1,0 +1,39 @@
+.goods-wrap {
+  display: flex;
+  margin-bottom: 40px;
+  .img {
+    width: 206px;
+    height: 100%;
+    border-radius: 8px;
+  }
+  .info-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    overflow: hidden;
+    .title {
+      font-size: 32px;
+      line-height: 40px;
+      @extend %ell;
+    }
+    .sub-title {
+      flex: 1;
+      margin: 15px 0;
+      font-size: 24px;
+      line-height: 32px;
+      color: #666666;
+      overflow: hidden;
+    }
+    .tag {
+      text-align: right;
+      font-size: 26px;
+      line-height: 40px;
+    }
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 26px;
+      line-height: 40px;
+    }
+  }
+}

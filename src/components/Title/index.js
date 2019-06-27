@@ -12,7 +12,9 @@ class Title extends PureComponent {
       <div className={style.wrap}>
         <span>{ title }</span>
         <div>
-          <span className = {style.more}>更多</span>
+          <span className = {style.more}>
+            更多 <img className = {style['icon-more']} alt="more" src={require('./img/home_btn_more.png')}/>
+          </span>
         </div>
       </div>
     );

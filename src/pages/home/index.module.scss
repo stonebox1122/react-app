@@ -23,6 +23,40 @@
   }
 }
 
-.wrap {
+.card-wrap {
   padding: 0 30px;
+  margin-bottom: 60px;
+  // 第一种布局
+  .goods_wrap {
+    display: flex;
+    .goods {
+      flex: 1;
+      overflow: hidden;
+      &:nth-child(odd) {
+        margin-right: 19px;
+      }
+      &:nth-child(even) {
+        margin-left: 19px;
+      }
+    }
+  }
+  .goods2_wrap {
+    .bottom-left {
+      display: flex;
+      align-items: center;
+      color: #666;
+      font-size: 22px;
+      line-height: 40px;
+      .hot {
+        margin-right: 24px;
+        width: 18px;
+        height: 24px;
+      }
+    }
+    .bottom-right {
+      color: #333333;
+      font-size:34px;
+      font-weight: blod;
+    }
+  }
 }

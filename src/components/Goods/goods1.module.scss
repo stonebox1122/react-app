@@ -1,0 +1,33 @@
+// goods_1
+.container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  .img-wrap {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    .img {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+  }
+}
+.info-wrap {
+  line-height: 40px;
+  margin-top: 20.5px;
+  margin-bottom: 0.5px;
+  .title {
+    font-size: 25px;
+    @extend %ell;
+  }
+  .price {
+    color: #ff2121;
+    font-size: 20px;
+  }
+}

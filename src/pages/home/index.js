@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import NavgationBar from '@/NavgationBar'
 import Title from '@/Title'
+import Goods1 from '@/Goods/goods_1'
+import Goods2 from '@/Goods/goods_2'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
-export default class Home extends Component {
+class Home extends Component {
   componentDidMount () {
     // 初始化轮播图插件
     new Swiper('.swiper-container',{
@@ -17,6 +19,19 @@ export default class Home extends Component {
         el: '.swiper-pagination',
       }
     })
+  }
+  // goods2 label底部左边
+  btl = (num) => {
+    return (
+      <div className={style['bottom-left']}>
+        <img src={require('./img/home_icon_hot.png')} alt="hot" className={style.hot}/>
+      {num}人购买</div>
+    )
+  }
+  btr = (num) => {
+    return (
+      <div className={style['bottom-right']}>￥{num}</div>
+    )
   }
   render() {
     return (
@@ -54,10 +69,32 @@ export default class Home extends Component {
           </li>
         </ul>
         {/* 能量塔 */}
-        <section className={style.wrap}>
+        <section className={style['card-wrap']}>
           <Title title = "能量塔"/>
+          <ul className={style['goods_wrap']}>
+            <li className = {style.goods}>
+              <Goods1/>
+            </li>
+            <li className = {style.goods}>
+              <Goods1/>
+            </li>
+          </ul>
+        </section>
+        {/* 能量课程 */}
+        <section className={style['card-wrap']}>
+          <Title title = "能量课程"/>
+          <ul className={style['goods2_wrap']}>
+            <li>
+              <Goods2 
+                bottom_left = { this.btl(1200) }
+                bottom_right = { this.btr(4999.00) }
+              />
+            </li>
+          </ul>
         </section>
       </Fragment>
     )
   }
 }
+
+export default Home

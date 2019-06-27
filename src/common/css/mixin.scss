@@ -1,1 +1,62 @@
 $mcolor: #FFC105;
+
+
+
+
+// 超出部分省略号  使用%placehoder占位符的不会单独渲染.ell这样式
+%ell {
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**
+ * 多行截断
+ * num: 行数
+ * lh: line-height
+ * bg: 背景色
+ */
+ @mixin clamp ($num, $lh, $w: 20px, $bg: #fff) {
+  height: $num * $lh;
+  line-height: $lh;
+  overflow: hidden;
+  background: $bg;
+  p {
+    /*
+      宽度100% 并右浮动
+      通过margin定位回before的宽度占用的
+    */
+    float: right;
+    margin-left: -$w;
+    width: 100%;
+    word-break: break-all;
+  }
+  &::before {
+    // 高度必须和文本区域一致,这样p超出后原位置才会换行到before这里
+    // 宽度必须大于等于after的宽度,不然浮动无法换行
+    float: left;
+    width: $w;
+    content: '';
+    height: $num * $lh;
+  }
+  &::after {
+    float: right;
+    content: "...";
+    height: $lh;
+    line-height:$lh;
+    /* 为三个省略号的宽度 */
+    width: $w;
+    /* 移动省略号位置 */
+    position: relative;
+    left: 100%;
+    transform: translate3d(-100%, -100%, 0);
+    text-align: right;
+    /* 为了展示效果更好 */
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to($bg), color-stop(50%, $bg));
+    background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), $bg 50%, $bg);
+    background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), $bg 50%, $bg);
+    background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), $bg 50%, $bg);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), $bg 50%, $bg);
+  }
+}
