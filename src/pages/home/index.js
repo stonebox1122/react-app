@@ -36,11 +36,22 @@ class Home extends Component {
       <div className={style['bottom-price']}>￥{num}</div>
     )
   }
-
   // 设置标题
-  setTitle = (title) => {
+  setTitleClamp2 = (title) => {
     return (
       <p className={style.title}>{ title }</p>
+    )
+  }
+
+  // setTitleClamp1
+  setTitleClamp1 = (title) => {
+    return (
+      <p className={style.title1}>{ title }</p>
+    )
+  }
+  setSubTitle = (subtitle) => {
+    return (
+      <p className={style.subtitle}>{ subtitle }</p>
     )
   }
 
@@ -110,23 +121,104 @@ class Home extends Component {
             <li className = {style.goods}>
               <Goods3
                 imgH = "128px"
-                title = { this.setTitle('wishing你爸爸wishing你爸爸') }
+                title = { this.setTitleClamp2('wishing你爸爸wishing你爸爸') }
                 sub_title = { this.buyNum(1200) }
               />
             </li>
             <li className = {style.goods}>
               <Goods3
                 imgH = "128px"
-                title = { this.setTitle('wishing你爸爸wishing你爸爸') }
+                title = { this.setTitleClamp2('wishing你爸爸wishing你爸爸') }
                 sub_title = { this.buyNum(1200) }
               />
             </li>
             <li className = {style.goods}>
               <Goods3
                 imgH = "128px"
-                title = { this.setTitle('wishing你爸爸wishing你爸爸') }
+                title = { this.setTitleClamp2('wishing你爸爸wishing你爸爸') }
                 sub_title = { this.buyNum(1200) }
               />
+            </li>
+          </ul>
+        </section>
+        {/* 精彩尝鲜 */}
+        <section className={style['card-wrap']}>
+          <Title title= "免费视频"/>
+          <ul className={style['goods3_wrap']}>
+            <li className = {style.goods}>
+              <Goods3
+                imgH = "91px"
+                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
+                sub_title = { this.setSubTitle(1200) }
+              />
+            </li>
+            <li className = {style.goods}>
+              <Goods3
+                imgH = "91px"
+                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
+                sub_title = { this.setSubTitle(1200) }
+              />
+            </li>
+          </ul>
+          <ul className={style['goods3_wrap']}>
+            <li className = {style.goods}>
+              <Goods3
+                imgH = "91px"
+                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
+                sub_title = { this.setSubTitle(1200) }
+              />
+            </li>
+            <li className = {style.goods}>
+              <Goods3
+                imgH = "91px"
+                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
+                sub_title = { this.setSubTitle(1200) }
+              />
+            </li>
+          </ul>
+        </section>
+        {/* 精品推荐 */}
+        <section className={style['card-wrap']}>
+          <Title title="精品推荐"/>
+          <ul className={style['goods4_wrap']}>
+            <li className={style.item}>
+              <Goods3
+                imgH="115px"
+                title = {
+                  <p className={style.title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
+                }
+                sub_title = {
+                  <p className={style.sub_title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
+                }
+              />
+            </li>
+          </ul>
+        </section>
+        {/* 能量健康 */}
+        <section className={style['card-wrap']}>
+          <Title title="能量健康"/>
+        </section>
+        {/* 优品区 */}
+        <section className={style['card-wrap']}>
+          <Title title="优品区"/>
+          <ul className={style['goods_wrap']}>
+            <li className = {style.goods}>
+              <Goods1/>
+            </li>
+            <li className = {style.goods}>
+              <Goods1/>
+            </li>
+          </ul>
+        </section>
+        {/* 精品区 */}
+        <section className={style['card-wrap']}>
+          <Title title="精品区"/>
+          <ul className={style['goods_wrap']}>
+            <li className = {style.goods}>
+              <Goods1/>
+            </li>
+            <li className = {style.goods}>
+              <Goods1/>
             </li>
           </ul>
         </section>

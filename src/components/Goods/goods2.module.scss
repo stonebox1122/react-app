@@ -2,9 +2,11 @@
   display: flex;
   margin-bottom: 40px;
   .img {
+    flex: 0 0 206px;
     width: 206px;
     height: 100%;
     border-radius: 8px;
+    object-fit: cover;
   }
   .info-wrap {
     display: flex;
