@@ -40,8 +40,9 @@
       }
     }
   }
+  // 第二种布局
   .goods2_wrap {
-    .bottom-left {
+    .bottom-num {
       display: flex;
       align-items: center;
       color: #666;
@@ -53,10 +54,46 @@
         height: 24px;
       }
     }
-    .bottom-right {
+    .bottom-price {
       color: #333333;
       font-size:34px;
       font-weight: blod;
+    }
+  }
+  // 第三种布局
+  .goods3_wrap {
+    display: flex;
+    .goods {
+      flex: 1;
+      overflow: hidden;
+      &:nth-child(1) {
+        margin-right: 24px;
+      }
+      &:nth-child(2) {
+        margin: 0 12px;
+      }
+      &:nth-child(3) {
+        margin-left: 24px;
+      }
+      .title {
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 26px;
+        line-height: 32px;
+        @include clamp(2, 30px)
+      }
+      .bottom-num {
+        display: flex;
+        align-items: center;
+        color: #666;
+        font-size: 22px;
+        line-height: 40px;
+        .hot {
+          margin-right: 24px;
+          width: 18px;
+          height: 24px;
+        }
+      }
     }
   }
 }

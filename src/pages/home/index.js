@@ -3,6 +3,7 @@ import NavgationBar from '@/NavgationBar'
 import Title from '@/Title'
 import Goods1 from '@/Goods/goods_1'
 import Goods2 from '@/Goods/goods_2'
+import Goods3 from '@/Goods/goods_3'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
@@ -20,19 +21,29 @@ class Home extends Component {
       }
     })
   }
-  // goods2 label底部左边
-  btl = (num) => {
+  // 购买人数
+  buyNum = (num) => {
     return (
-      <div className={style['bottom-left']}>
+      <div className={style['bottom-num']}>
         <img src={require('./img/home_icon_hot.png')} alt="hot" className={style.hot}/>
-      {num}人购买</div>
+        <span>{num}人购买</span>
+      </div>
     )
   }
-  btr = (num) => {
+  // 设置价格
+  setPrice = (num) => {
     return (
-      <div className={style['bottom-right']}>￥{num}</div>
+      <div className={style['bottom-price']}>￥{num}</div>
     )
   }
+
+  // 设置标题
+  setTitle = (title) => {
+    return (
+      <p className={style.title}>{ title }</p>
+    )
+  }
+
   render() {
     return (
       <Fragment>
@@ -86,8 +97,35 @@ class Home extends Component {
           <ul className={style['goods2_wrap']}>
             <li>
               <Goods2 
-                bottom_left = { this.btl(1200) }
-                bottom_right = { this.btr(4999.00) }
+                bottom_left = { this.buyNum(1200) }
+                bottom_right = { this.setPrice(4999.00) }
+              />
+            </li>
+          </ul>
+        </section>
+        {/* 免费视频 */}
+        <section className={style['card-wrap']}>
+          <Title title= "免费视频"/>
+          <ul className={style['goods3_wrap']}>
+            <li className = {style.goods}>
+              <Goods3
+                imgH = "128px"
+                title = { this.setTitle('wishing你爸爸wishing你爸爸') }
+                sub_title = { this.buyNum(1200) }
+              />
+            </li>
+            <li className = {style.goods}>
+              <Goods3
+                imgH = "128px"
+                title = { this.setTitle('wishing你爸爸wishing你爸爸') }
+                sub_title = { this.buyNum(1200) }
+              />
+            </li>
+            <li className = {style.goods}>
+              <Goods3
+                imgH = "128px"
+                title = { this.setTitle('wishing你爸爸wishing你爸爸') }
+                sub_title = { this.buyNum(1200) }
               />
             </li>
           </ul>

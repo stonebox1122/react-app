@@ -1,0 +1,16 @@
+// goods_3
+.container {
+  position: relative;
+  width: 100%;
+  .img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+}
+.info-wrap {
+  line-height: 40px;
+  margin-top: 20.5px;
+  margin-bottom: 0.5px;
+}
