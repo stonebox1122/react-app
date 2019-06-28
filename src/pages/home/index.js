@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router';
 import NavgationBar from '@/NavgationBar'
 import Title from '@/Title'
 import Goods1 from '@/Goods/goods_1'
@@ -7,6 +8,7 @@ import Goods3 from '@/Goods/goods_3'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
+
 class Home extends Component {
   componentDidMount () {
     // 初始化轮播图插件
@@ -53,6 +55,13 @@ class Home extends Component {
     return (
       <p className={style.subtitle}>{ subtitle }</p>
     )
+  }
+  // 跳转
+  to = (index) => {
+    this.props.history.push({
+      pathname: '/video',
+      state: {index}
+    })
   }
 
   render() {
@@ -104,7 +113,7 @@ class Home extends Component {
         </section>
         {/* 能量课程 */}
         <section className={style['card-wrap']}>
-          <Title title = "能量课程"/>
+          <Title title = "能量课程"  to={() => this.to(0)}/>
           <ul className={style['goods2_wrap']}>
             <li>
               <Goods2 
@@ -116,7 +125,7 @@ class Home extends Component {
         </section>
         {/* 免费视频 */}
         <section className={style['card-wrap']}>
-          <Title title= "免费视频"/>
+          <Title title= "免费视频" to={() => this.to(1)}/>
           <ul className={style['goods3_wrap']}>
             <li className = {style.goods}>
               <Goods3
@@ -143,7 +152,7 @@ class Home extends Component {
         </section>
         {/* 精彩尝鲜 */}
         <section className={style['card-wrap']}>
-          <Title title= "免费视频"/>
+          <Title title= "精彩尝鲜"  to={() => this.to(2)}/>
           <ul className={style['goods3_wrap']}>
             <li className = {style.goods}>
               <Goods3
@@ -179,7 +188,7 @@ class Home extends Component {
         </section>
         {/* 精品推荐 */}
         <section className={style['card-wrap']}>
-          <Title title="精品推荐"/>
+          <Title title="精品推荐"  to={() => this.to(3)}/>
           <ul className={style['goods4_wrap']}>
             <li className={style.item}>
               <Goods3
@@ -227,4 +236,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default withRouter(Home)

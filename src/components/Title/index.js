@@ -7,12 +7,12 @@ class Title extends PureComponent {
     this.state = {  }
   }
   render() {
-    const { title } = this.props 
+    const { title, to } = this.props 
     return (
       <div className={style.wrap}>
         <span>{ title }</span>
         <div>
-          <span className = {style.more}>
+          <span className = {style.more} onClick= { to }>
             更多 <img className = {style['icon-more']} alt="more" src={require('./img/home_btn_more.png')}/>
           </span>
         </div>
@@ -22,7 +22,8 @@ class Title extends PureComponent {
 }
 
 Title.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  to: PropTypes.func
 }
  
 export default Title;

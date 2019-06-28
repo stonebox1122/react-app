@@ -5,24 +5,54 @@ import style from './index.module.scss'
 class VideoList extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = {
+      currentIndex: this.props.location.state.index || 0,
+      title: ''
+    }
   }
-  changeTab (index) {
-    console.log(index)
+  componentDidMount() {
+    const index = this.props.location.state.index;
+    let title;
+    switch (index) {
+      case 0:
+        title = '全部视频'
+        break;
+      case 1:
+        title = '免费视频'
+        break;
+      case 2:
+        title = '精彩尝鲜'
+        break;
+      case 3:
+        title = '精品推荐'
+        break;
+      default:
+        title = '全部视频'
+        break;
+    }
+    this.setState({
+      title
+    })
+  }
+  
+  changeTab = (index) => {
+    this.setState({
+      currentIndex: index
+    })
   }
   render() {
     const TabList = [
       {title: '全部', key: 0},
       {title: '免费视频', key: 1},
       {title: '精彩尝鲜', key: 2},
-      {title: '精彩视频', key: 3}
+      {title: '精品推荐', key: 3}
     ]
     return (
       <div className={style.container}>
         <NavgationBar
           right=""
-        >免费视频</NavgationBar>
-        <Tab list= {TabList} currentIndex = "1" changeCurr={this.changeTab}/>
+        >{this.state.title}</NavgationBar>
+        <Tab list= {TabList} currentIndex = {this.state.currentIndex} changeCurr={this.changeTab}/>
         {/* 商品列表 */}
         
       </div>

@@ -51,7 +51,7 @@ class Tab extends PureComponent {
  */
 Tab.propTypes = {
   list: PropTypes.array,
-  currentIndex: PropTypes.string,
+  currentIndex: PropTypes.number,
   changeCurr:PropTypes.func
 }
 export default Tab;
