@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import App from '../App'
 import Tabbar from '../components/TabBar'
 import Home from '../pages/home'
+import Video from '../pages/home/chindren/video'
 import Goods from '../pages/goods'
 import Cart from '../pages/cart'
 import Mine from '../pages/mine'
@@ -30,7 +31,8 @@ export default class Routers extends Component {
               </Switch>
             </Tabbar>
           }/>
-          <Route path="/login" component ={Login}/>
+          <Route path="/video" component = {Video}/>
+          <Route path="/login" component = {Login}/>
           <Route path="/registered" component = {Registered}/>
         </App>
       </Router>
