@@ -7,10 +7,17 @@ class Course extends PureComponent {
     super(props);
     this.state = {  }
   }
+  back = () => {
+    // 让父组件隐藏
+    console.log('hide')
+  }
   render() { 
     return (
       <section className={style['course-list']}>
-        <NavgationBar>能量课程</NavgationBar>
+        <NavgationBar
+          handleLeft = {this.back}
+          right = ""
+        >能量课程</NavgationBar>
       </section>
     );
   }

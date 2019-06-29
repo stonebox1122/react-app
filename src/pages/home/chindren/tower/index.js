@@ -7,10 +7,17 @@ class Tower extends PureComponent {
     super(props);
     this.state = {  }
   }
+  back = () => {
+    // 让父组件隐藏
+    console.log('hide')
+  }
   render() { 
     return (
       <section className={style['tower-list']}>
-        <NavgationBar>能量塔</NavgationBar>
+        <NavgationBar
+          handleLeft = {this.back}
+          right = ""
+        >能量塔</NavgationBar>
       </section>
     );
   }

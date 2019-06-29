@@ -36,7 +36,10 @@ class VideoList extends Component {
       currentIndex: index
     })
   }
-  
+  back = () => {
+    // 让父组件隐藏
+    console.log('hide')
+  }
   changeTab = (index) => {
     this.setState({
       currentIndex: index
@@ -53,6 +56,7 @@ class VideoList extends Component {
       <div className={style.container}>
         <NavgationBar
           right=""
+          handleLeft = {this.back}
         >{this.state.title}</NavgationBar>
         <Tab list= {TabList} currentIndex = {this.state.currentIndex} changeCurr={this.changeTab}/>
         {/* 商品列表 */}

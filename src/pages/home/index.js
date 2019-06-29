@@ -7,7 +7,7 @@ import Title from '@/Title'
 import Goods1 from '@/Goods/goods_1'
 import Goods2 from '@/Goods/goods_2'
 import Goods3 from '@/Goods/goods_3'
-
+import { toFixed2 } from '../../common/js/utils'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
@@ -59,7 +59,7 @@ class Home extends Component {
   // 设置价格
   setPrice = (num) => {
     return (
-      <div className={style['bottom-price']}>￥{num}</div>
+      <div className={style['bottom-price']}>￥{toFixed2(num)}</div>
     )
   }
   // 设置标题
@@ -88,7 +88,7 @@ class Home extends Component {
   }
 
   // 子组件显示
-  handleShowCom = (name, info) => {
+  handleShowCom = (name, info={}) => {
     this.setState({
       showCom: true,
       comName: name,
@@ -166,7 +166,7 @@ class Home extends Component {
             <li>
               <Goods2 
                 bottom_left = { this.buyNum(1200) }
-                bottom_right = { this.setPrice(4999.00) }
+                bottom_right = { this.setPrice(4999) }
               />
             </li>
           </ul>

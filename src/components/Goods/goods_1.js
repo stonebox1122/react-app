@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { toFixed2 } from '../../common/js/utils'
+
 import style from './goods1.module.scss'
 class Goods1 extends PureComponent {
   render() {
@@ -16,7 +18,7 @@ class Goods1 extends PureComponent {
             { info.title }
           </p>
           <p className={style.price}>
-            { info.price }
+            { toFixed2(info.price) }
           </p>
         </div>
       </section>
@@ -32,7 +34,7 @@ Goods1.defaultProps = {
   info: {
     img: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg',
     title: '商品标题商品标题商品标题商品标题商品标题商品标题',
-    price: 123.11
+    price: 123.1
   }
 }
  
