@@ -132,3 +132,7 @@
     }
   }
 }
+
+.full-screen {
+  @extend %full-screen;
+}

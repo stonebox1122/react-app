@@ -1,15 +1,30 @@
 import React, { Component, Fragment } from 'react';
+import Loadable from 'react-loadable';
 import { withRouter } from 'react-router';
 import NavgationBar from '@/NavgationBar'
+import Loading from '@/Loading'
 import Title from '@/Title'
 import Goods1 from '@/Goods/goods_1'
 import Goods2 from '@/Goods/goods_2'
 import Goods3 from '@/Goods/goods_3'
+
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
 
+const Course = Loadable({
+  loader: () => import('./chindren/Course'),
+  loading:Loading
+})
+
 class Home extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showCom: false,
+      comName: ''
+    }
+  }
   componentDidMount () {
     // 初始化轮播图插件
     new Swiper('.swiper-container',{
@@ -44,7 +59,6 @@ class Home extends Component {
       <p className={style.title}>{ title }</p>
     )
   }
-
   // setTitleClamp1
   setTitleClamp1 = (title) => {
     return (
@@ -62,6 +76,24 @@ class Home extends Component {
       pathname: '/video',
       state: {index}
     })
+  }
+
+  // 子组件显示
+  handleShowCom = (name) => {
+    this.setState({
+      showCom: true,
+      comName: name
+    })
+  }
+  //  动态改变显示的动态组件
+  showCom = () => {
+    const name = this.state.comName
+    switch (name) {
+      case 'Course':
+        return <Course/>
+      default:
+        break;
+    }
   }
 
   render() {
@@ -113,7 +145,7 @@ class Home extends Component {
         </section>
         {/* 能量课程 */}
         <section className={style['card-wrap']}>
-          <Title title = "能量课程"  to={() => this.to(0)}/>
+          <Title title = "能量课程"  to={() => this.handleShowCom('Course')}/>
           <ul className={style['goods2_wrap']}>
             <li>
               <Goods2 
@@ -231,6 +263,14 @@ class Home extends Component {
             </li>
           </ul>
         </section>
+        {/* 动态组件 */}
+        {
+          this.state.showCom ? 
+          <section className={style['full-screen']}>
+            { this.showCom() }
+          </section>
+          : ''
+        }
       </Fragment>
     )
   }
