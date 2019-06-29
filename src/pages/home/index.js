@@ -13,8 +13,16 @@ import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
 
 const Course = Loadable({
-  loader: () => import('./chindren/Course'),
-  loading:Loading
+  loader: () => import('./chindren/course'),
+  loading: Loading
+})
+const Tower = Loadable({
+  loader: () => import('./chindren/tower'),
+  loading: Loading
+})
+const Video = Loadable({
+  loader: () => import('./chindren/video'),
+  loading: Loading
 })
 
 class Home extends Component {
@@ -22,7 +30,8 @@ class Home extends Component {
     super(props)
     this.state = {
       showCom: false,
-      comName: ''
+      comName: '',
+      video_current_index: 0
     }
   }
   componentDidMount () {
@@ -73,16 +82,17 @@ class Home extends Component {
   // 跳转
   to = (index) => {
     this.props.history.push({
-      pathname: '/video',
-      state: {index}
+      // pathname: '/video',
+      // state: {index}
     })
   }
 
   // 子组件显示
-  handleShowCom = (name) => {
+  handleShowCom = (name, info) => {
     this.setState({
       showCom: true,
-      comName: name
+      comName: name,
+      video_current_index: info.index
     })
   }
   //  动态改变显示的动态组件
@@ -91,6 +101,12 @@ class Home extends Component {
     switch (name) {
       case 'Course':
         return <Course/>
+      case 'Tower':
+        return <Tower/>
+      case 'Video':
+        return (
+          <Video currentIndex={this.state.video_current_index}/>
+        )
       default:
         break;
     }
@@ -133,7 +149,7 @@ class Home extends Component {
         </ul>
         {/* 能量塔 */}
         <section className={style['card-wrap']}>
-          <Title title = "能量塔"/>
+          <Title title = "能量塔" to={() => this.handleShowCom('Tower')}/>
           <ul className={style['goods_wrap']}>
             <li className = {style.goods}>
               <Goods1/>
@@ -157,7 +173,7 @@ class Home extends Component {
         </section>
         {/* 免费视频 */}
         <section className={style['card-wrap']}>
-          <Title title= "免费视频" to={() => this.to(1)}/>
+          <Title title= "免费视频" to={() => this.handleShowCom('Video', {index: 1})}/>
           <ul className={style['goods3_wrap']}>
             <li className = {style.goods}>
               <Goods3
@@ -184,7 +200,7 @@ class Home extends Component {
         </section>
         {/* 精彩尝鲜 */}
         <section className={style['card-wrap']}>
-          <Title title= "精彩尝鲜"  to={() => this.to(2)}/>
+          <Title title= "精彩尝鲜"  to={() => this.handleShowCom('Video', {index: 2})}/>
           <ul className={style['goods3_wrap']}>
             <li className = {style.goods}>
               <Goods3
@@ -220,7 +236,7 @@ class Home extends Component {
         </section>
         {/* 精品推荐 */}
         <section className={style['card-wrap']}>
-          <Title title="精品推荐"  to={() => this.to(3)}/>
+          <Title title="精品推荐"  to={() => this.handleShowCom('Video', {index: 3})}/>
           <ul className={style['goods4_wrap']}>
             <li className={style.item}>
               <Goods3

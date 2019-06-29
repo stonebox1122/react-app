@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import NavgationBar from '@/NavgationBar'
 import Tab from '@/Tab'
 import style from './index.module.scss'
@@ -6,12 +7,12 @@ class VideoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: this.props.location.state.index || 0,
+      currentIndex: props.currentIndex,
       title: ''
     }
   }
   componentDidMount() {
-    const index = this.props.location.state.index;
+    const index = this.props.currentIndex;
     let title;
     switch (index) {
       case 0:
@@ -31,7 +32,8 @@ class VideoList extends Component {
         break;
     }
     this.setState({
-      title
+      title,
+      currentIndex: index
     })
   }
   
@@ -59,5 +61,11 @@ class VideoList extends Component {
     );
   }
 }
- 
+
+VideoList.propTypes = {
+  currentIndex: PropTypes.number
+}
+VideoList.defaultProps = {
+  currentIndex: 0
+}
 export default VideoList;
