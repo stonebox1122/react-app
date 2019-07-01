@@ -3,6 +3,7 @@ import { connect  } from 'react-redux';
 import * as actionCreators from './store/actionCreators'
 import Loadable from 'react-loadable';
 import { withRouter } from 'react-router';
+import { LoadMore } from 'react-weui';
 import NavgationBar from '@/NavgationBar'
 import Loading from '@/Loading'
 import Title from '@/Title'
@@ -257,6 +258,30 @@ class Home extends Component {
         {/* 能量健康 */}
         <section className={style['card-wrap']}>
           <Title title="能量健康"/>
+          <ul className={style['goods5_wrap']}>
+            <li className = {style.item}>
+              <Goods3
+                imgH="135px"
+                title = {
+                  <p className={style.title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
+                }
+                sub_title = {
+                  <p className={style.sub_title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
+                }
+              />
+            </li>
+            <li className = {style.item}>
+              <Goods3
+                imgH="135px"
+                title = {
+                  <p className={style.title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
+                }
+                sub_title = {
+                  <p className={style.sub_title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
+                }
+              />
+            </li>
+          </ul>
         </section>
         {/* 优品区 */}
         <section className={style['card-wrap']}>
@@ -290,6 +315,7 @@ class Home extends Component {
           </section>
           : ''
         }
+        <LoadMore showLine>没有更多了</LoadMore>
       </Fragment>
     )
   }
