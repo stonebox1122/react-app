@@ -10,7 +10,10 @@ class GoodsList extends PureComponent {
   render() { 
     return (
       <section className={style['goods-list']}>
-        <NavgationBar>全部商品</NavgationBar>
+        <NavgationBar
+          left = ' '
+          right= ''
+        >全部商品</NavgationBar>
       </section>
     );
   }

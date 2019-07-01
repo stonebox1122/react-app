@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import { connect  } from 'react-redux';
+import * as actionCreators from './store/actionCreators'
 import Loadable from 'react-loadable';
 import { withRouter } from 'react-router';
 import NavgationBar from '@/NavgationBar'
@@ -12,6 +14,7 @@ import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
 
+// 按需加载组件
 const Course = Loadable({
   loader: () => import('./chindren/course'),
   loading: Loading
@@ -29,7 +32,6 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showCom: false,
       comName: '',
       video_current_index: 0
     }
@@ -79,7 +81,7 @@ class Home extends Component {
       <p className={style.subtitle}>{ subtitle }</p>
     )
   }
-  // 跳转
+  // 路由跳转
   to = (index) => {
     this.props.history.push({
       // pathname: '/video',
@@ -90,10 +92,11 @@ class Home extends Component {
   // 子组件显示
   handleShowCom = (name, info={}) => {
     this.setState({
-      showCom: true,
       comName: name,
       video_current_index: info.index
     })
+    // 通过redux控制显示子组件
+    this.props.toggleCom()
   }
   //  动态改变显示的动态组件
   showCom = () => {
@@ -281,7 +284,7 @@ class Home extends Component {
         </section>
         {/* 动态组件 */}
         {
-          this.state.showCom ? 
+          this.props.isShowCom ? 
           <section className={style['full-screen']}>
             { this.showCom() }
           </section>
@@ -292,4 +295,17 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home)
+const mapState = (state) => ({
+  // 这里获取的是合并后的home下的状态
+  isShowCom: state.getIn(['home','isShowCom'])
+})
+
+const mapDispatch = (dispatch) => ({
+  // 切换子组件的显隐
+  toggleCom () {
+    const action = actionCreators.toggleComponent();
+    dispatch(action)
+  }
+})
+
+export default connect(mapState, mapDispatch)(withRouter(Home))

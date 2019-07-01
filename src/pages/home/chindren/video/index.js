@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect  } from 'react-redux';
+import * as actionCreators from '../../store/actionCreators'
 import PropTypes from 'prop-types'
 import NavgationBar from '@/NavgationBar'
 import Tab from '@/Tab'
@@ -36,10 +38,6 @@ class VideoList extends Component {
       currentIndex: index
     })
   }
-  back = () => {
-    // 让父组件隐藏
-    console.log('hide')
-  }
   changeTab = (index) => {
     this.setState({
       currentIndex: index
@@ -56,7 +54,7 @@ class VideoList extends Component {
       <div className={style.container}>
         <NavgationBar
           right=""
-          handleLeft = {this.back}
+          handleLeft = {this.props.back}
         >{this.state.title}</NavgationBar>
         <Tab list= {TabList} currentIndex = {this.state.currentIndex} changeCurr={this.changeTab}/>
         {/* 商品列表 */}
@@ -72,4 +70,12 @@ VideoList.propTypes = {
 VideoList.defaultProps = {
   currentIndex: 0
 }
-export default VideoList;
+
+const mapDispatch = (dispatch) => ({
+  back () {
+    const action = actionCreators.toggleComponent();
+    dispatch(action)
+  }
+})
+
+export default connect(null,mapDispatch)(VideoList);
