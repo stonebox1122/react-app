@@ -13,9 +13,7 @@ class Scroll extends PureComponent {
   render() { 
     return (
       <div id="scroll" className={style.container}>
-        {/* <div> */}
-          { this.props.children }
-        {/* </div> */}
+        { this.props.children }
       </div>
     );
   }

@@ -1,14 +1,26 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
+import Goods1 from '@/Goods/goods_1'
 import style from './index.module.scss'
 class GoodsList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {  }
   }
-  componentDidMount() {
-
+  // 商品列表
+  mapList = (list) => {
+    return list.map(e => {
+      return (
+        <li key = {e.title} className={style.item}>
+          <Goods1 info = {e}/>
+          <div className={style.bottom}>
+          
+          </div>
+        </li>
+      )
+    })
   }
   render() {
     return (
@@ -19,8 +31,8 @@ class GoodsList extends PureComponent {
         >全部商品</NavgationBar>
         <div id="wrap" className={style['list-wrap']}>
           <Scroll>
-            <ul>
-              <li>...</li>
+            <ul className={style.container}>
+              { this.mapList(this.props.list) }
             </ul>
           </Scroll>
         </div>
@@ -28,5 +40,10 @@ class GoodsList extends PureComponent {
     );
   }
 }
- 
-export default GoodsList;
+
+// 将redux数据映射到props
+const mapState = (state) => ({
+  list: state.getIn(['goods', 'list']).toJS()
+})
+
+export default connect(mapState)(GoodsList);

@@ -18,7 +18,12 @@ class Goods1 extends PureComponent {
             { info.title }
           </p>
           <p className={style.price}>
-            { toFixed2(info.price) }
+            <span>￥{ toFixed2(info.price) }</span>
+            {
+              info.del_price ?
+              <span className={style.del}>￥{toFixed2(info.price)}</span>
+              : ""
+            }
           </p>
         </div>
       </section>

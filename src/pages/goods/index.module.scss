@@ -5,5 +5,19 @@
   .list-wrap {
     flex: 1;
     overflow: hidden;
+    .container {
+      display: flex;
+      padding: 30px;
+      .item {
+        width: 50%;
+        box-sizing: border-box;
+        &:nth-child(even) {
+          padding-left: 19px;
+        }
+        &:nth-child(odd) {
+          padding-right: 19px;
+        }
+      }
+    }
   }
 }

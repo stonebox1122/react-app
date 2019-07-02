@@ -2,7 +2,9 @@
 import { combineReducers } from 'redux-immutable';
 
 import { reducer as homeReducer } from '../pages/home/store'
+import { reducer as goodsReducer } from '../pages/goods/store'
 
 export default combineReducers({
-  home: homeReducer
+  home: homeReducer,
+  goods: goodsReducer
 })

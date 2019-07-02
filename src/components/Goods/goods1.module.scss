@@ -28,6 +28,12 @@
   }
   .price {
     color: #ff2121;
-    font-size: 20px;
+    font-size: 30px;
+    .del {
+      margin-left: 12px;
+      color: #999999;
+      font-size: 22px;
+      text-decoration: line-through;
+    }
   }
 }
