@@ -899,6 +899,18 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@better-scroll/core@^2.0.0-alpha.16":
+  version "2.0.0-alpha.16"
+  resolved "https://registry.yarnpkg.com/@better-scroll/core/-/core-2.0.0-alpha.16.tgz#9dd82617ed7849bee1a94c06db923c58d902ba24"
+  integrity sha512-GbYPPwGvca9ODIGHQt5a9GKY+PdFkDhW8sEW0+CNY/BMs3Qb+ynOLedLXH94aoHeGeFAfltSEE7IUIbE5MMrTw==
+  dependencies:
+    "@better-scroll/shared-utils" "^2.0.0-alpha.16"
+
+"@better-scroll/shared-utils@^2.0.0-alpha.16":
+  version "2.0.0-alpha.16"
+  resolved "https://registry.yarnpkg.com/@better-scroll/shared-utils/-/shared-utils-2.0.0-alpha.16.tgz#1242a702b741996f33c1a3769482c2bbce02dddf"
+  integrity sha512-2dqgoJp1oGtqSHOe3wdb/424ZA9y0EX1mqRxmmK4XRlwH4OCgm/JLDA111aXblYxHTKuqbF8OMUwgGJMdJiSBg==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"

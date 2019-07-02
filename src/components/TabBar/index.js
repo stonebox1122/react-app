@@ -38,7 +38,7 @@ class Tabbar extends Component {
         this.props.history.push('/tab/cart');
         break;
       case 3:
-        this.props.history.push('/tab/home');
+        this.props.history.push('/tab/mine');
         break;
       default:
           this.props.history.push('/tab/home');
