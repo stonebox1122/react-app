@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect  } from 'react-redux';
+import { toFixed2 } from '$src/common/js/utils'
+
 import * as actionCreators from '../../store/actionCreators'
 import PropTypes from 'prop-types'
 import NavgationBar from '@/NavgationBar'
 import Tab from '@/Tab'
+import Scroll from '@/Scroll'
+import Goods2 from '@/Goods/goods_2'
+
 import style from './index.module.scss'
 class VideoList extends Component {
   constructor(props) {
@@ -43,6 +48,35 @@ class VideoList extends Component {
       currentIndex: index
     })
   }
+  // 购买人数
+  buyNum = (num) => {
+    return (
+      <div className={style['bottom-num']}>
+        <img src={require('../../img/home_icon_hot.png')} alt="hot" className={style.hot}/>
+        <span>{num}人购买</span>
+      </div>
+    )
+  }
+  // 设置价格
+  setPrice = (num) => {
+    return (
+      <div className={style['bottom-price']}>￥{toFixed2(num)}</div>
+    )
+  }
+  // 商品列表
+  mapList = (list) => {
+    return list.map(e => {
+      return (
+        <li className={style.item}>
+          <Goods2
+            info = {e}
+            imgH="103px"
+            bottom_left = { this.buyNum(1200) }
+            bottom_right = { this.setPrice(4999) }/>
+        </li>
+      )
+    })
+  }
   render() {
     const TabList = [
       {title: '全部', key: 0},
@@ -58,7 +92,13 @@ class VideoList extends Component {
         >{this.state.title}</NavgationBar>
         <Tab list= {TabList} currentIndex = {this.state.currentIndex} changeCurr={this.changeTab}/>
         {/* 商品列表 */}
-        
+        <div className={style['list-wrap']}>
+          <Scroll>
+            <ul>
+              { this.mapList(this.props.list) }
+            </ul>
+          </Scroll>
+        </div>
       </div>
     );
   }
@@ -70,6 +110,10 @@ VideoList.propTypes = {
 VideoList.defaultProps = {
   currentIndex: 0
 }
+// 将redux数据映射到props
+const mapState = (state) => ({
+  list: state.getIn(['goods', 'list']).toJS()
+})
 
 const mapDispatch = (dispatch) => ({
   back () {
@@ -78,4 +122,4 @@ const mapDispatch = (dispatch) => ({
   }
 })
 
-export default connect(null,mapDispatch)(VideoList);
+export default connect(mapState, mapDispatch)(VideoList);

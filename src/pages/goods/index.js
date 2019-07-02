@@ -29,7 +29,7 @@ class GoodsList extends PureComponent {
           left = ' '
           right= ''
         >全部商品</NavgationBar>
-        <div id="wrap" className={style['list-wrap']}>
+        <div className={style['list-wrap']}>
           <Scroll>
             <ul className={style.container}>
               { this.mapList(this.props.list) }
