@@ -1,8 +1,5 @@
 $mcolor: #FFC105;
 
-
-
-
 // 超出部分省略号  使用%placehoder占位符的不会单独渲染.ell这样式
 %ell {
   overflow: hidden;
@@ -70,4 +67,11 @@ $mcolor: #FFC105;
   height: 100vh;
   z-index: 9999;
   background-color: #fff;
+}
+
+%center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

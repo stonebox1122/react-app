@@ -4,6 +4,17 @@
   height: 100%;
   .list-wrap {
     flex: 1;
+    .wrap {
+      min-height: 100%;
+      // 购物车为空的时候的占位图
+      .empty {
+        .img {
+          width: 500px;
+          height: 500px;
+          @extend %center;
+        }
+      }
+    }
   }
   .edit {
     display: flex;
