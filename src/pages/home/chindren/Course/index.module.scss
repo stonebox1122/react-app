@@ -3,16 +3,19 @@
   flex-direction: column;
   .list-wrap {
     padding: 30px;
-    .bottom-num {
-      display: flex;
-      align-items: center;
-      color: #666;
-      font-size: 22px;
-      line-height: 40px;
-      .hot {
-        margin-right: 24px;
-        width: 18px;
-        height: 24px;
+    .item {
+      margin-bottom: 40px;
+      .bottom-num {
+        display: flex;
+        align-items: center;
+        color: #666;
+        font-size: 22px;
+        line-height: 40px;
+        .hot {
+          margin-right: 24px;
+          width: 18px;
+          height: 24px;
+        }
       }
     }
     .bottom-price {

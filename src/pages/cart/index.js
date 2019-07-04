@@ -1,24 +1,20 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import * as actionCreator from './store/actionCreator'
 import NavgationBar from '@/NavgationBar';
 import Scroll from '@/Scroll';
+import Goods2 from '@/Goods/goods_2'
+import NumberController from '@/NumberController'
 import {Icon} from 'react-weui';
 import style from './index.module.scss';
 class Cart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectAll: true,
       navRight: true
     }
   }
-  // 全选/取消全选
-  toggleSelectAll = () => {
-    let flag = this.state.selectAll
-    this.setState({
-      selectAll: !flag
-    })
-  }
+
   // 删除模式/结算模式
   handlEdit = () => {
     let flag = this.state.navRight
@@ -28,7 +24,7 @@ class Cart extends PureComponent {
   }
   // 渲染购物车的商品列表
   renderList = () => {
-    let { list } = this.props
+    let { list, toggleSelect, changeNum } = this.props
     // 购物车为空时的占位
     if (list.length <= 0) {
       return (
@@ -37,16 +33,36 @@ class Cart extends PureComponent {
         </li>
       )
     } else {
-      return list.map(e => {
+      const newList = list.map(e => {
         return (
-          <li >e.title</li>
+          <li className={style.item} key={e.id}>
+            <Icon onClick = {() => toggleSelect(e.id)} value={e.selected ? "success" : "circle"}/>
+            <div className={style.goods}>
+              <Goods2
+                height="90px" 
+                bottom_left = {
+                  <div>{e.price}</div>
+                }
+                bottom_right = {
+                  <div className={style['bottom-right']}>
+                    <NumberController
+                      num={e.num}
+                      handleDecrease={() => changeNum({id: e.id, way: 'decrease'})}
+                      handleIncrease={() => changeNum({id: e.id, way: 'increase'})}/>
+                  </div>
+                }
+              />
+            </div>
+          </li>
         )
       })
+      return newList
     }
   }
 
   render() { 
-    const {selectAll, navRight} = this.state
+    const { navRight} = this.state
+    const  { selectAll, toggleSelectAll } = this.props
     return (
       <section className={style['goods-list']}>
         <NavgationBar
@@ -64,7 +80,7 @@ class Cart extends PureComponent {
         </div>
         {/* 编辑 */}
         <div className = {style.edit}>
-          <div className={style.select} onClick={this.toggleSelectAll}>
+          <div className={style.select} onClick={toggleSelectAll}>
             <Icon value={selectAll? 'success': 'circle'}/>
             <span className={style.text}>全选</span>
           </div>
@@ -85,7 +101,24 @@ class Cart extends PureComponent {
 }
  
 const mapState = (state) => ({
-  list: state.getIn(['cart', 'list']).toJS()
+  list: state.getIn(['cart', 'list']).toJS(),
+  selectAll: state.getIn(['cart', 'selectAll'])
 })
 
-export default connect(mapState,null)(Cart);
+const mapDispatch = (dispatch) => ({
+  toggleSelect (id) {
+    const action = actionCreator.toggleSelect({id})
+    dispatch(action)
+  },
+  // 全选/取消全选
+  toggleSelectAll () {
+    const action = actionCreator.toggleSelectAll()
+    dispatch(action)
+  },
+  // 改变购物车中的数量
+  changeNum (option) {
+    const action=actionCreator.changeNum(option)
+    dispatch(action)
+  }
+})
+export default connect(mapState,mapDispatch)(Cart);

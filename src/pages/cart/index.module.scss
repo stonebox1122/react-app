@@ -6,12 +6,28 @@
     flex: 1;
     .wrap {
       min-height: 100%;
+      padding: 28px;
+      box-sizing: border-box;
       // 购物车为空的时候的占位图
       .empty {
         .img {
           width: 500px;
           height: 500px;
           @extend %center;
+        }
+      }
+      // 购物车不为空的时候
+      .item {
+        display: flex;
+        align-items: center;
+        .goods {
+          flex: 1;
+          overflow: hidden;
+          .bottom-right {
+            width: 180px;
+            height: 44px;
+            margin-right: 2px;
+          }
         }
       }
     }

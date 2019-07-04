@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  text-align: center;
+  box-sizing: border-box;
+  .increase, .decrease {
+    display: inline-block;
+    position: relative;
+    flex: 1;
+    &::after {
+      content: '';
+      width: 35%;
+      @extend %center;
+      border-top: 1px solid #C2C2C2;
+    }
+  }
+  .increase::before {
+    content: '';
+    height: 35%;
+    @extend %center;
+    border-left: 1px solid #C2C2C2;
+  }
+  .num {
+    flex: 1;
+    color: #666666;
+    border-left: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+  }
+}

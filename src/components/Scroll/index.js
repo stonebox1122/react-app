@@ -7,6 +7,7 @@ class Scroll extends PureComponent {
       pullUpLoad: true,
       wheel: true,
       scrollbar: true,
+      click: true
     })
   }
   
