@@ -5,6 +5,7 @@ import NavgationBar from '@/NavgationBar';
 import Scroll from '@/Scroll';
 import Goods2 from '@/Goods/goods_2'
 import NumberController from '@/NumberController'
+import ConfirmOrder from '~/cart/children/ConfirmOrder'
 import {Icon} from 'react-weui';
 import style from './index.module.scss';
 class Cart extends PureComponent {
@@ -22,6 +23,7 @@ class Cart extends PureComponent {
       navRight: !flag
     })
   }
+
   // 渲染购物车的商品列表
   renderList = () => {
     let { list, toggleSelect, changeNum } = this.props
@@ -61,8 +63,8 @@ class Cart extends PureComponent {
   }
 
   render() { 
-    const { navRight} = this.state
-    const  { selectAll, toggleSelectAll } = this.props
+    const { navRight } = this.state
+    const  { selectAll, toggleSelectAll, isShowCom, toggleShowCom } = this.props
     return (
       <section className={style['goods-list']}>
         <NavgationBar
@@ -90,11 +92,15 @@ class Cart extends PureComponent {
               <div className={style.info}>122</div>
               : ''
             }
-            <div className={`${style.btn} ${navRight ? '': style.del}`}>
+            <div className={`${style.btn} ${navRight ? '': style.del}`} onClick={toggleShowCom}>
               { navRight ? '结算': '删除' }
             </div>
           </div>
         </div>
+        {/* 确认订单页面 */}
+        {
+          isShowCom ? <ConfirmOrder/> : ''
+        }
       </section>
     );
   }
@@ -102,7 +108,8 @@ class Cart extends PureComponent {
  
 const mapState = (state) => ({
   list: state.getIn(['cart', 'list']).toJS(),
-  selectAll: state.getIn(['cart', 'selectAll'])
+  selectAll: state.getIn(['cart', 'selectAll']),
+  isShowCom: state.getIn(['cart', 'isShowCom'])
 })
 
 const mapDispatch = (dispatch) => ({
@@ -118,6 +125,11 @@ const mapDispatch = (dispatch) => ({
   // 改变购物车中的数量
   changeNum (option) {
     const action=actionCreator.changeNum(option)
+    dispatch(action)
+  },
+  // 是否显示子页面
+  toggleShowCom () {
+    const action = actionCreator.toggleComponent()
     dispatch(action)
   }
 })
