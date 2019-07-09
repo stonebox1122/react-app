@@ -10,7 +10,8 @@ const defalutState = fromJS({
     price: 7789,
     selected: false
   }],
-  selectAll: false
+  selectAll: false,
+  addressList: []
 })
 
 export default (state=defalutState, action) => {

@@ -11,9 +11,9 @@ class GoodsList extends PureComponent {
   }
   // 商品列表
   mapList = (list) => {
-    return list.map(e => {
+    return list.map((e, index) => {
       return (
-        <li key = {e.title} className={style.item}>
+        <li key = {e.title} className={style.item} key={index}>
           <Goods1 info = {e}/>
           <div className={style.bottom}>
           

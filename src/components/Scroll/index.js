@@ -3,7 +3,7 @@ import BScroll from '@better-scroll/core'
 import style from './index.module.scss'
 class Scroll extends PureComponent {
   componentDidMount() {
-    this.myScroll = new BScroll('#scroll', {
+    this.myScroll = new BScroll('.scroll', {
       pullUpLoad: true,
       wheel: true,
       scrollbar: true,
@@ -13,7 +13,7 @@ class Scroll extends PureComponent {
   
   render() { 
     return (
-      <div id="scroll" className={style.container}>
+      <div className={`${style.container} scroll`}>
         { this.props.children }
       </div>
     );
