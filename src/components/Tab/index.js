@@ -45,13 +45,16 @@ class Tab extends PureComponent {
   }
 }
 /**
- * @param{list}: // tab标题
- * @param{currentIndex}: 父组件设置当前current
+ * @param{list}: // tab标题 
+ * @param{currentIndex}: 父组件设置当前current 最小为1
  * @func {changeCurr}: 修改curr时调用父组件的方法
  */
 Tab.propTypes = {
   list: PropTypes.array,
   currentIndex: PropTypes.number,
   changeCurr:PropTypes.func
+}
+Tab.defaultTypes = {
+  currentIndex: 1
 }
 export default Tab;

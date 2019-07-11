@@ -5,13 +5,14 @@ import { Provider } from 'react-redux';
 import store from '../store/index'
 import App from '../App'
 import Tabbar from '../components/TabBar'
-import Home from '../pages/home'
-import Goods from '../pages/goods'
-import Cart from '../pages/cart'
-import Mine from '../pages/mine'
+import Home from '~/home'
+import Goods from '~/goods'
+import Cart from '~/cart'
+import Mine from '~/mine'
 
-import Login from '../pages/common/login'
-import Registered from '../pages/common/login/registered'
+import Detail from '~/goods/children/detail'
+import Login from '~/common/login'
+import Registered from '~/common/login/registered'
 export default class Routers extends Component {
   render() {
     return (
@@ -33,6 +34,7 @@ export default class Routers extends Component {
                 </Switch>
               </Tabbar>
             }/>
+            <Route path="/detail" component = {Detail}/>
             <Route path="/login" component = {Login}/>
             <Route path="/registered" component = {Registered}/>
           </App>
