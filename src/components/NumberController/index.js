@@ -21,7 +21,9 @@ class NumController extends PureComponent {
 
 NumController.propTypes = {
   num: PropTypes.number,
-  handleBtn: PropTypes.func
+  handleDecrease: PropTypes.func,
+  handleIncrease: PropTypes.func
+  // handleBtn: PropTypes.func
 }
 
 NumController.defaultTypes = {
