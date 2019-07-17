@@ -111,7 +111,8 @@ class Detail extends PureComponent {
         </div>
         {/* 底部结算按钮 */}
         <div className={style.bottom}>
-          
+          <div className={style.server}>s</div>
+          <div className={style.addCart}>加入购物车</div>
         </div>
       </div>
     );

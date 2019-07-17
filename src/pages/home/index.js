@@ -24,8 +24,8 @@ const Tower = Loadable({
   loader: () => import('./chindren/tower'),
   loading: Loading
 })
-const Video = Loadable({
-  loader: () => import('./chindren/video'),
+const VideoList = Loadable({
+  loader: () => import('./chindren/videoList'),
   loading: Loading
 })
 
@@ -107,9 +107,9 @@ class Home extends Component {
         return <Course/>
       case 'Tower':
         return <Tower/>
-      case 'Video':
+      case 'VideoList':
         return (
-          <Video currentIndex={this.state.video_current_index}/>
+          <VideoList currentIndex={this.state.video_current_index}/>
         )
       default:
         break;
@@ -177,7 +177,7 @@ class Home extends Component {
         </section>
         {/* 免费视频 */}
         <section className={style['card-wrap']}>
-          <Title title= "免费视频" to={() => this.handleShowCom('Video', {index: 1})}/>
+          <Title title= "免费视频" to={() => this.handleShowCom('VideoList', {index: 1})}/>
           <ul className={style['goods3_wrap']}>
             <li className = {style.goods}>
               <Goods3
@@ -204,7 +204,7 @@ class Home extends Component {
         </section>
         {/* 精彩尝鲜 */}
         <section className={style['card-wrap']}>
-          <Title title= "精彩尝鲜"  to={() => this.handleShowCom('Video', {index: 2})}/>
+          <Title title= "精彩尝鲜"  to={() => this.handleShowCom('VideoList', {index: 2})}/>
           <ul className={style['goods3_wrap']}>
             <li className = {style.goods}>
               <Goods3
@@ -240,7 +240,7 @@ class Home extends Component {
         </section>
         {/* 精品推荐 */}
         <section className={style['card-wrap']}>
-          <Title title="精品推荐"  to={() => this.handleShowCom('Video', {index: 3})}/>
+          <Title title="精品推荐"  to={() => this.handleShowCom('VideoList', {index: 3})}/>
           <ul className={style['goods4_wrap']}>
             <li className={style.item}>
               <Goods3

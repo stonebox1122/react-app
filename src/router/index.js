@@ -4,15 +4,49 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { Provider } from 'react-redux';
 import store from '../store/index'
 import App from '../App'
-import Tabbar from '../components/TabBar'
-import Home from '~/home'
-import Goods from '~/goods'
-import Cart from '~/cart'
-import Mine from '~/mine'
+import Loadable from 'react-loadable'
+import Loading from '@/Loading'
+import Tabbar from '@/TabBar'
 
-import Detail from '~/goods/children/detail'
-import Login from '~/common/login'
-import Registered from '~/common/login/registered'
+const Home = Loadable({
+  loader: () => import('~/home'),
+  loading: Loading
+})
+
+const Goods = Loadable({
+  loader: () => import('~/goods'),
+  loading: Loading
+})
+
+const Cart = Loadable({
+  loader: () => import('~/cart'),
+  loading: Loading
+})
+
+const Mine = Loadable({
+  loader: () => import('~/mine'),
+  loading: Loading
+})
+
+const Detail = Loadable({
+  loader: () => import('~/goods/children/detail'),
+  loading: Loading
+})
+
+const Login = Loadable({
+  loader: () => import('~/common/login'),
+  loading: Loading
+})
+
+const Registered = Loadable({
+  loader: () => import('~/common/login/registered'),
+  loading: Loading
+})
+const Video = Loadable({
+  loader: () => import('~/common/video'),
+  loading: Loading
+})
+
 export default class Routers extends Component {
   render() {
     return (
@@ -34,6 +68,7 @@ export default class Routers extends Component {
                 </Switch>
               </Tabbar>
             }/>
+            <Route path="/video" component = {Video}/>
             <Route path="/detail" component = {Detail}/>
             <Route path="/login" component = {Login}/>
             <Route path="/registered" component = {Registered}/>
