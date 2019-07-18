@@ -3,20 +3,62 @@ import { Link } from 'react-router-dom'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
 import Verification from '@/Verification'
+import { testPhoneNum } from '$src/common/js/utils'
 
-
+import { sendCode } from '$src/api'
 import style from './index.module.scss'
 
 class Login extends PureComponent {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      share: '',
+      phone: '',
+      code: ''
+    }
   }
 
-  login = () => {
+  // 注册
+  registered = () => {
 
   }
-
+  // 发送验证码
+  sendMsg = () => {
+    // 先检测手机号对不对 对的话 发送验证码
+    let phonenum = this.state.phone
+    if (testPhoneNum(phonenum)) {
+      let query = {
+        mobile: phonenum,
+        type: '1'
+      }
+      sendCode(query).then(res => {
+        console.log(res)
+      })
+    }
+  }
+  // 输入改变
+  changeInputNum (options) {
+    let { v } = options
+    switch (options.name) {
+      case 'share':
+        this.setState({
+          share: v
+        })
+        break;
+      case 'phone':
+        this.setState({
+          phone: v
+        })
+        break;
+      case 'code':
+        this.setState({
+          code: v
+        })
+        break;
+      default:
+        break;
+    }
+  }
   render () {
     // navbar的右侧
     const rightItem = <Link to="/login" className={style['right-item']}>登录</Link>
@@ -33,23 +75,28 @@ class Login extends PureComponent {
         {/* 输入框 */}
         <section className={style['input-wrap']}>
           <Cell
+            name="share"
             label = "分享人"
             placeHoder="请输入分享人ID"
+            changeInput= {this.changeInputNum.bind(this)}
           />
           <Cell
+            name="phone"
             label = "手机号"
             placeHoder="请输入您的手机号"
+            changeInput= {this.changeInputNum.bind(this)}
           />
           <Cell
+            name="code"
             label = "验证码"
             placeHoder="请输入验证码"
-            solt= { <Verification/> }
+            changeInput= {this.changeInputNum.bind(this)}
+            slot= { <Verification sendMsg = { this.sendMsg }/> }
           />
         </section>
         {/* 登陆 */}
-        <div className={style.login}>立即注册</div>
+        <div className={style.login} onClick={this.registered}>立即注册</div>
 
-        
         {/* 底部花边 */}
         <img className={style.footer} alt="img" src={require('./img/login_image.png')}></img>
       </div>

@@ -1,5 +1,6 @@
 // 获取验证码组件
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import style from './index.module.scss'
 class Verification extends PureComponent {
   constructor(props) {
@@ -9,7 +10,12 @@ class Verification extends PureComponent {
      }
   }
   countdown = () => {
+    // 倒计时中点击无效
     if (this.state.msg !== '获取验证码') {
+      return
+    }
+    // 调用父组件发送验证码接口 发送成功了开始倒计时
+    if(!this.props.sendMsg()) {
       return
     }
     let i = 60
@@ -35,5 +41,9 @@ class Verification extends PureComponent {
     );
   }
 }
- 
+
+Verification.propTypes = {
+  sendMsg: PropTypes.func
+}
+
 export default Verification;
