@@ -26,7 +26,6 @@ class Login extends PureComponent {
   render () {
     // navbar的右侧
     const rightItem = <span className={style['right-item']}>{!this.state.right ? '短信登录' : '账户登录'}</span>
-
     return (
       <div>
         {/* 顶部导航 */}

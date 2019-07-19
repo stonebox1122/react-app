@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
+import { Modal } from 'antd-mobile'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
 import Verification from '@/Verification'
@@ -14,10 +15,17 @@ class Login extends PureComponent {
     this.state = {
       share: '',
       phone: '',
-      code: ''
+      code: '',
+      modal: false,
+      errText: ""
     }
   }
-
+  onClose = () => {
+    let flag = this.state.modal;
+    this.setState({
+      modal: !flag
+    })
+  }
   // 注册
   registered = () => {
 
@@ -33,6 +41,11 @@ class Login extends PureComponent {
       }
       sendCode(query).then(res => {
         console.log(res)
+      })
+    } else {
+      this.setState({
+        modal: true,
+        errText: '请输入正确的手机号'
       })
     }
   }
@@ -99,6 +112,19 @@ class Login extends PureComponent {
 
         {/* 底部花边 */}
         <img className={style.footer} alt="img" src={require('./img/login_image.png')}></img>
+
+        {/* 弹窗 */}
+
+        <Modal
+          visible={this.state.modal}
+          transparent
+          maskClosable={true}
+          title="错误"
+          footer={[{ text: '确定', onPress: () => {  this.onClose(); } }]}
+        >
+          { this.state.errText }
+        </Modal>
+
       </div>
     )
   }
