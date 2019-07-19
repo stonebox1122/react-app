@@ -20,15 +20,7 @@ axios.interceptors.request.use((config) => {
 // 响应拦截器
 axios.interceptors.response.use(response => {
   if (response.status === 200) {
-    switch (response.data.code) {
-      case 0:
-        return Promise.resolve(response.data)
-      case -1:
-        // 去登陆等
-        break;
-      default:
-        return Promise.reject(response.data)
-    }
+    return Promise.resolve(response.data)
   } else {
     return Promise.reject(response)
   }

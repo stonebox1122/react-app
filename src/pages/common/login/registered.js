@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react'
+import { connect  } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { Modal } from 'antd-mobile'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
 import Verification from '@/Verification'
 import { testPhoneNum } from '$src/common/js/utils'
-
+import * as actionCreators from './store/actionCreators';
 import { sendCode } from '$src/api'
 import style from './index.module.scss'
 
@@ -15,20 +16,32 @@ class Login extends PureComponent {
     this.state = {
       share: '',
       phone: '',
-      code: '',
-      modal: false,
-      errText: ""
+      code: ''
     }
-  }
-  onClose = () => {
-    let flag = this.state.modal;
-    this.setState({
-      modal: !flag
-    })
   }
   // 注册
   registered = () => {
+    // 表单校验
+    let { share, phone, code } = this.state
 
+    if (share.length < 4 || share.length > 6) {
+      this.props.toggleModal('请确认分享人ID是否有误')
+      return
+    }
+    if (!testPhoneNum(phone)) {
+      this.props.toggleModal('请输入正确的手机号')
+      return
+    }
+    if (code.length !== 6) {
+      this.props.toggleModal('请输入正确的验证码')
+      return
+    }
+    let query = {
+      refno: share,
+      mobile: phone,
+      code
+    }
+    this.props.subForm(query)
   }
   // 发送验证码
   sendMsg = () => {
@@ -40,13 +53,15 @@ class Login extends PureComponent {
         type: '1'
       }
       sendCode(query).then(res => {
-        console.log(res)
+        if (res.code !== '1') {
+          this.setState({
+            modal: true,
+            errText: res.msg
+          })
+        }
       })
     } else {
-      this.setState({
-        modal: true,
-        errText: '请输入正确的手机号'
-      })
+      this.props.toggleModal('请输入正确的手机号')
     }
   }
   // 输入改变
@@ -114,19 +129,34 @@ class Login extends PureComponent {
         <img className={style.footer} alt="img" src={require('./img/login_image.png')}></img>
 
         {/* 弹窗 */}
-
         <Modal
-          visible={this.state.modal}
+          visible={this.props.showModal}
           transparent
           maskClosable={true}
           title="错误"
-          footer={[{ text: '确定', onPress: () => {  this.onClose(); } }]}
+          footer={[{ text: '确定', onPress: () => {  this.props.toggleModal() } }]}
         >
-          { this.state.errText }
+          { this.props.modalText }
         </Modal>
-
       </div>
     )
   }
 }
-export default Login
+
+const mapState = (state) => ({
+  showModal: state.getIn(['login', 'showModal']),
+  modalText: state.getIn(['login', 'modalText'])
+})
+
+const mapDispatch = (dispatch) => ({
+  subForm (form) {
+    const action =  actionCreators.registered(form)
+    dispatch(action)
+  },
+  toggleModal (msg) {
+    const action = actionCreators.toggleModal(msg || this.modalText)
+    dispatch(action)
+  }
+})
+
+export default connect(mapState, mapDispatch)(Login)
