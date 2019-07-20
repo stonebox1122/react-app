@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react'
 import { connect  } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router';
 import { Modal } from 'antd-mobile'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
 import Verification from '@/Verification'
 import { testPhoneNum } from '$src/common/js/utils'
 import * as actionCreators from './store/actionCreators';
-import { sendCode } from '$src/api'
+import { sendCode, subRegistered } from '$src/api'
 import style from './index.module.scss'
 
 class Login extends PureComponent {
@@ -54,10 +55,10 @@ class Login extends PureComponent {
       }
       sendCode(query).then(res => {
         if (res.code !== '1') {
-          this.setState({
-            modal: true,
-            errText: res.msg
-          })
+          this.props.toggleModal(res.msg)
+        } else {
+          // 调用子组件倒计时
+          this.verification.countdown()
         }
       })
     } else {
@@ -90,7 +91,6 @@ class Login extends PureComponent {
   render () {
     // navbar的右侧
     const rightItem = <Link to="/login" className={style['right-item']}>登录</Link>
-
     return (
       <div>
         {/* 顶部导航 */}
@@ -119,7 +119,7 @@ class Login extends PureComponent {
             label = "验证码"
             placeHoder="请输入验证码"
             changeInput= {this.changeInputNum.bind(this)}
-            slot= { <Verification sendMsg = { this.sendMsg }/> }
+            slot= { <Verification ref={Verification => this.verification = Verification} sendMsg = { this.sendMsg }/> }
           />
         </section>
         {/* 登陆 */}
@@ -150,8 +150,20 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   subForm (form) {
-    const action =  actionCreators.registered(form)
-    dispatch(action)
+    subRegistered(form).then(res => {
+      if (res.code === '1') {
+        let info = Object.assign(res.data, {islogin: true})
+        dispatch(actionCreators.setInfo(info))
+        console.log(this);
+        this.history.push({
+          pathname: '/tab/mine'
+        })
+      } else {
+        dispatch(actionCreators.toggleModal(res.msg))
+      }
+    })
+    // const action =  actionCreators.registered(form)
+    // dispatch(action)
   },
   toggleModal (msg) {
     const action = actionCreators.toggleModal(msg || this.modalText)
@@ -159,4 +171,4 @@ const mapDispatch = (dispatch) => ({
   }
 })
 
-export default connect(mapState, mapDispatch)(Login)
+export default connect(mapState, mapDispatch)(withRouter(Login))

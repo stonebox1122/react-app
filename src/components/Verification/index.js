@@ -9,23 +9,26 @@ class Verification extends PureComponent {
       msg: '获取验证码'
      }
   }
-  countdown = () => {
+  componentWillUnmount () {
+    clearInterval(this.timer)
+  }
+  check = () => {
     // 倒计时中点击无效
     if (this.state.msg !== '获取验证码') {
       return
     }
     // 调用父组件发送验证码接口 发送成功了开始倒计时
-    if(!this.props.sendMsg()) {
-      return
-    }
+    this.props.sendMsg()
+  }
+  countdown = () => {
     let i = 60
-    let timer = setInterval(() =>{
+    this.timer = setInterval(() =>{
       i--
       if (i<=0) {
         this.setState({
           msg: '获取验证码'
         })
-        clearInterval(timer)
+        clearInterval(this.timer)
         return
       }
       this.setState({
@@ -35,7 +38,7 @@ class Verification extends PureComponent {
   }
   render() { 
     return (
-      <div className={ style.verification } onClick={ this.countdown }>
+      <div className={ style.verification } onClick={ this.check }>
         { this.state.msg }
       </div>
     );

@@ -6,13 +6,19 @@ const defaultState = fromJS({
   showModal: false,
   modalText: '',
   uid: '',
-  token: ''
+  token: '',
+  islogin: false
 })
 
 export default (state=defaultState, action) => {
   switch (action.type) {
     case types.SET_INFO:
-      return state;
+      let {uid,token,islogin} = action
+      return state.merge({
+        uid: fromJS(uid),
+        token: fromJS(token),
+        islogin: fromJS(islogin)
+      })
     case types.TOGGLE_MODAL:
       let flag = state.get('showModal');
       return state.set('showModal', !flag).set('modalText', action.msg);
