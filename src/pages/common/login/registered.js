@@ -11,7 +11,7 @@ import * as actionCreators from './store/actionCreators';
 import { sendCode, subRegistered } from '$src/api'
 import style from './index.module.scss'
 
-class Login extends PureComponent {
+class Registered extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -171,4 +171,4 @@ const mapDispatch = (dispatch) => ({
   }
 })
 
-export default connect(mapState, mapDispatch)(withRouter(Login))
+export default connect(mapState, mapDispatch)(withRouter(Registered))

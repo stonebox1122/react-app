@@ -12,11 +12,11 @@ class Cell extends PureComponent {
     changeInput({name, v})
   }
   render() { 
-    const { type, label, placeHoder, slot } = this.props
+    const { type, label, placeHoder, slot, value } = this.props
     return (
       <div className={ style['cell-wrap'] }>
         <p className={ style.label } >{ label }</p>
-        <input onChange= {(e) => this.change(e)} type = { type } placeholder={ placeHoder } className={ style.input } />
+        <input value={value} onChange= {(e) => this.change(e)} type = { type } placeholder={ placeHoder } className={ style.input } />
         <div className={ style.slot }>{ slot }</div>
       </div>
     );
@@ -26,6 +26,7 @@ class Cell extends PureComponent {
 Cell.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
+  value: PropTypes.string,
   placeHoder: PropTypes.string,
   label: PropTypes.oneOfType([
     PropTypes.element,
