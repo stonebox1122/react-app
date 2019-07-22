@@ -10,7 +10,7 @@ class Goods2 extends PureComponent {
         <img src = {info.img} className={style.img} alt="img"/>
         <div className={style['info-wrap']}>
           <p className={style.title}>{info.title}</p>
-          <p className={style['sub-title']}>{info.sub_title}</p>
+          <p className={style['sub-title']}>{info.subtitle}</p>
           <div className={style.tag}>
             { tag }
           </div>
@@ -40,7 +40,10 @@ Goods2.defaultProps = {
   info: {
     img: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg',
     title: '商品标题商品标题商品标题商品标题商品标题商品标题',
-    sub_title: 123.11
+    subtitle: 123.11,
+    sales: 11,
+    gid: '',
+    price: ''
   },
   height: '128px'
 }

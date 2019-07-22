@@ -10,7 +10,6 @@ import Title from '@/Title'
 import Goods1 from '@/Goods/goods_1'
 import Goods2 from '@/Goods/goods_2'
 import Goods3 from '@/Goods/goods_3'
-import { toFixed2 } from '../../common/js/utils'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
 import style from './index.module.scss'
@@ -34,10 +33,34 @@ class Home extends Component {
     super(props)
     this.state = {
       comName: '',
-      video_current_index: 0
+      video_current_index: 0,
+      menu: [{
+        key: 'check',
+        title: '签到',
+        src: '',
+        icon: './img/home_btn_check.png'
+      },{
+        key: 'hot',
+        title: '最热',
+        src: '',
+        icon: './img/home_btn_hot.png'
+      },{
+        key: 'free',
+        title: '免费',
+        src: '',
+        icon: './img/home_btn_free.png'
+      },{
+        key: 'all',
+        title: '全部',
+        src: '',
+        icon: './img/home_btn_all.png'
+      }]
     }
   }
   componentDidMount () {
+    let {token,getHomeMsg} = this.props
+    // 加载数据
+    getHomeMsg({token : token || '888888'})
     // 初始化轮播图插件
     new Swiper('.swiper-container',{
       loop: true,
@@ -62,7 +85,7 @@ class Home extends Component {
   // 设置价格
   setPrice = (num) => {
     return (
-      <div className={style['bottom-price']}>￥{toFixed2(num)}</div>
+      <div className={style['bottom-price']}>{num}</div>
     )
   }
   // 设置标题
@@ -99,6 +122,19 @@ class Home extends Component {
     // 通过redux控制显示子组件
     this.props.toggleCom()
   }
+  // 数组切割
+  spliceArr = (arr) => {
+    let newArr = []
+    for (let index = 0; index < arr.length; index+=2) {
+      let subArr = []
+      subArr.push(arr[index])
+      if (arr[index+1]) {
+        subArr.push(arr[index+1])
+      }
+      newArr.push(subArr)
+    }
+    return newArr
+  }
   //  动态改变显示的动态组件
   showCom = () => {
     const name = this.state.comName
@@ -117,6 +153,8 @@ class Home extends Component {
   }
 
   render() {
+    let { banners, list_nlt, list_nlkc, list_mfsp, list_jccx, list_jptj, list_nljk, list_ypq, list_jpq } = this.props
+    list_jccx = this.spliceArr(list_jccx)
     return (
       <Fragment>
         <NavgationBar
@@ -126,185 +164,185 @@ class Home extends Component {
         {/*轮播图部分  */}
         <div className={`swiper-container ${style['banner-h']}`}>
           <div className="swiper-wrapper">
-            <img alt="img" className="swiper-slide" src="http://f.hiphotos.baidu.com/image/h%3D300/sign=00af05b334f33a87816d061af65d1018/8d5494eef01f3a29f863534d9725bc315d607c8e.jpg"/>
-            <img alt="img" className="swiper-slide" src="http://g.hiphotos.baidu.com/image/h%3D300/sign=b5e4c905865494ee982209191df4e0e1/c2cec3fdfc03924590b2a9b58d94a4c27d1e2500.jpg"/>
-            <img alt="img" className="swiper-slide" src="http://g.hiphotos.baidu.com/image/h%3D300/sign=342e12b86563f624035d3f03b745eb32/203fb80e7bec54e7f0e0839fb7389b504fc26a27.jpg"/>
+            {
+              banners.map(item => {
+                return (
+                  <img alt="img" className="swiper-slide" src={item.banner} key = {item.uid}/>
+                )
+              })
+            }
           </div>
           <div className='swiper-pagination'></div>
         </div>
         {/* menu */}
         <ul className={style.menu}>
-          <li className={style.item}>
-            <img className={style.icon} src={require('./img/home_btn_check.png')} alt="check"/>
-            <p className={style.label}>签到</p>
-          </li>
-          <li className={style.item}>
-            <img className={style.icon} src={require('./img/home_btn_hot.png')} alt="hot"/>
-            <p className={style.label}>最热</p>
-          </li>
-          <li className={style.item}>
-            <img className={style.icon} src={require('./img/home_btn_free.png')} alt="free"/>
-            <p className={style.label}>免费</p>
-          </li>
-          <li className={style.item}>
-            <img className={style.icon} src={require('./img/home_btn_all.png')} alt="all"/>
-            <p className={style.label}>全部</p>
-          </li>
+          {
+            this.state.menu.map(item => {
+              return (
+              <li className={style.item} key = {item.key}>
+                <img className={style.icon} src={require(`${item.icon}`)} alt={item.key}/>
+                <p className={style.label}>{item.title}</p>
+              </li>
+              )
+            })
+          }
         </ul>
         {/* 能量塔 */}
         <section className={style['card-wrap']}>
           <Title title = "能量塔" to={() => this.handleShowCom('Tower')}/>
           <ul className={style['goods_wrap']}>
-            <li className = {style.goods}>
-              <Goods1/>
-            </li>
-            <li className = {style.goods}>
-              <Goods1/>
-            </li>
+            {
+              list_nlt.map(e => {
+                return (
+                  <li className = {style.goods} key = {e.gid}>
+                    <Goods1 info={e}/>
+                  </li>
+                )
+              })
+            }
           </ul>
         </section>
         {/* 能量课程 */}
         <section className={style['card-wrap']}>
           <Title title = "能量课程"  to={() => this.handleShowCom('Course')}/>
           <ul className={style['goods2_wrap']}>
-            <li>
-              <Goods2 
-                bottom_left = { this.buyNum(1200) }
-                bottom_right = { this.setPrice(4999) }
-              />
-            </li>
+            {
+              list_nlkc.map(e => {
+                return (
+                  <li className = {style.mb} key={e.gid}>
+                    <Goods2 
+                      info = {e}
+                      bottom_left = { this.buyNum(`${e.sales}`) }
+                      bottom_right = { this.setPrice(`${e.price}`) }
+                    />
+                  </li>
+                )
+              })
+            }
           </ul>
         </section>
         {/* 免费视频 */}
         <section className={style['card-wrap']}>
           <Title title= "免费视频" to={() => this.handleShowCom('VideoList', {index: 1})}/>
           <ul className={style['goods3_wrap']}>
-            <li className = {style.goods}>
-              <Goods3
-                imgH = "128px"
-                title = { this.setTitleClamp2('wishing你爸爸wishing你爸爸') }
-                sub_title = { this.buyNum(1200) }
-              />
-            </li>
-            <li className = {style.goods}>
-              <Goods3
-                imgH = "128px"
-                title = { this.setTitleClamp2('wishing你爸爸wishing你爸爸') }
-                sub_title = { this.buyNum(1200) }
-              />
-            </li>
-            <li className = {style.goods}>
-              <Goods3
-                imgH = "128px"
-                title = { this.setTitleClamp2('wishing你爸爸wishing你爸爸') }
-                sub_title = { this.buyNum(1200) }
-              />
-            </li>
+            {
+              list_mfsp.map(e => {
+                return (
+                  <li key = {e.gid} className = {style.goods}>
+                    <Goods3
+                      imgH = "128px"
+                      img={e.img}
+                      title = { this.setTitleClamp2(`${e.title}`) }
+                      sub_title = { this.buyNum(1200) }
+                    />
+                  </li>
+                )
+              })
+            }
           </ul>
         </section>
         {/* 精彩尝鲜 */}
         <section className={style['card-wrap']}>
           <Title title= "精彩尝鲜"  to={() => this.handleShowCom('VideoList', {index: 2})}/>
-          <ul className={style['goods3_wrap']}>
-            <li className = {style.goods}>
-              <Goods3
-                imgH = "91px"
-                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
-                sub_title = { this.setSubTitle(1200) }
-              />
-            </li>
-            <li className = {style.goods}>
-              <Goods3
-                imgH = "91px"
-                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
-                sub_title = { this.setSubTitle(1200) }
-              />
-            </li>
-          </ul>
-          <ul className={style['goods3_wrap']}>
-            <li className = {style.goods}>
-              <Goods3
-                imgH = "91px"
-                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
-                sub_title = { this.setSubTitle(1200) }
-              />
-            </li>
-            <li className = {style.goods}>
-              <Goods3
-                imgH = "91px"
-                title = { this.setTitleClamp1('wishing你爸爸wishing你爸爸') }
-                sub_title = { this.setSubTitle(1200) }
-              />
-            </li>
-          </ul>
+          {
+            list_jccx.map((e,i) => {
+              return (
+                <ul className={style['goods3_wrap']} key = {i}>
+                  {
+                    e.map(item => {
+                      return (
+                        <li className = {style.goods} key = {item.gid}>
+                          <Goods3
+                            imgH = "91px"
+                            img={item.img}
+                            title = { this.setTitleClamp1(`${item.title}`) }
+                            sub_title = { this.setSubTitle(`${item.subtitle}`) }
+                          />
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              )
+            })
+          }
         </section>
         {/* 精品推荐 */}
         <section className={style['card-wrap']}>
           <Title title="精品推荐"  to={() => this.handleShowCom('VideoList', {index: 3})}/>
           <ul className={style['goods4_wrap']}>
-            <li className={style.item}>
-              <Goods3
-                imgH="115px"
-                title = {
-                  <p className={style.title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
-                }
-                sub_title = {
-                  <p className={style.sub_title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
-                }
-              />
-            </li>
+            {
+              list_jptj.map(e => {
+                return (
+                  <li className={style.item} key = {e.gid}>
+                    <Goods3
+                      imgH="115px"
+                      img={e.img}
+                      title = {
+                        <p className={style.title}>{e.title}</p>
+                      }
+                      sub_title = {
+                        <p className={style.sub_title}>{e.subtitle}</p>
+                      }
+                    />
+                  </li>
+                )
+              })
+            }
           </ul>
         </section>
         {/* 能量健康 */}
         <section className={style['card-wrap']}>
           <Title title="能量健康"/>
           <ul className={style['goods5_wrap']}>
-            <li className = {style.item}>
-              <Goods3
-                imgH="135px"
-                title = {
-                  <p className={style.title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
-                }
-                sub_title = {
-                  <p className={style.sub_title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
-                }
-              />
-            </li>
-            <li className = {style.item}>
-              <Goods3
-                imgH="135px"
-                title = {
-                  <p className={style.title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
-                }
-                sub_title = {
-                  <p className={style.sub_title}>丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法丰厚的覅uafha撒旦教爱搜if骄傲的说法</p>
-                }
-              />
-            </li>
+            {
+              list_nljk.map(e => {
+                return (
+                  <li key ={e.gid} className = {style.item}>
+                    <Goods3
+                      imgH="135px"
+                      img={e.img}
+                      title = {
+                        <p className={style.title}>{e.title}</p>
+                      }
+                      sub_title = {
+                        <p className={style.sub_title}>{e.subtitle}</p>
+                      }
+                    />
+                  </li>
+                )
+              })
+            }
           </ul>
         </section>
         {/* 优品区 */}
         <section className={style['card-wrap']}>
           <Title title="优品区"/>
           <ul className={style['goods_wrap']}>
-            <li className = {style.goods}>
-              <Goods1/>
-            </li>
-            <li className = {style.goods}>
-              <Goods1/>
-            </li>
+            {
+              list_ypq.map(e => {
+                return (
+                  <li key = {e.gid} className = {style.goods}>
+                    <Goods1 info={e}/>
+                  </li>
+                )
+              })
+            }
           </ul>
         </section>
         {/* 精品区 */}
         <section className={style['card-wrap']}>
           <Title title="精品区"/>
           <ul className={style['goods_wrap']}>
-            <li className = {style.goods}>
-              <Goods1/>
-            </li>
-            <li className = {style.goods}>
-              <Goods1/>
-            </li>
+          {
+              list_jpq.map(e => {
+                return (
+                  <li key = {e.gid} className = {style.goods}>
+                    <Goods1 info={e}/>
+                  </li>
+                )
+              })
+            }
           </ul>
         </section>
         {/* 动态组件 */}
@@ -323,13 +361,28 @@ class Home extends Component {
 
 const mapState = (state) => ({
   // 这里获取的是合并后的home下的状态
-  isShowCom: state.getIn(['home','isShowCom'])
+  isShowCom: state.getIn(['home','isShowCom']),
+  token: state.getIn(['login', 'token']),
+  banners: state.getIn(['home', 'banners']).toJS(),
+  list_nlt: state.getIn(['home', 'list_nlt']).toJS(),
+  list_nlkc: state.getIn(['home', 'list_nlkc']).toJS(),
+  list_mfsp: state.getIn(['home', 'list_mfsp']).toJS(),
+  list_jccx: state.getIn(['home', 'list_jccx']).toJS(),
+  list_jptj: state.getIn(['home', 'list_jptj']).toJS(),
+  list_nljk: state.getIn(['home', 'list_nljk']).toJS(),
+  list_ypq: state.getIn(['home', 'list_ypq']).toJS(),
+  list_jpq: state.getIn(['home', 'list_jpq']).toJS(),
 })
 
 const mapDispatch = (dispatch) => ({
   // 切换子组件的显隐
   toggleCom () {
     const action = actionCreators.toggleComponent();
+    dispatch(action)
+  },
+  // 请求首页数据
+  getHomeMsg (query) {
+    const action = actionCreators.getHomeMsg(query)
     dispatch(action)
   }
 })

@@ -3,7 +3,7 @@ import qs  from 'qs'
 import {baseUrl} from './config'
 
 import store from '../store'
-import * as actionCreator from '~/home/store/actionCreators'
+import * as actionCreator from '~/common/store/actionCreators'
 
 axios.defaults.baseURL = baseUrl
 axios.defaults.timeout = 10000

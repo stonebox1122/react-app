@@ -30,7 +30,7 @@ Goods3.propTypes = {
 }
 
 Goods3.defaultProps = {
-  img: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg'
+  img: ''
 }
  
 export default Goods3;

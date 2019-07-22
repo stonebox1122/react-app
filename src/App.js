@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
 import { getStore } from '$src/common/js/utils'
-import * as actionCreators from './pages/common/login/store/actionCreators';
+import * as actionCreators from '~/common/login/store/actionCreators';
 import { Toast } from 'react-weui'
 
 class App extends PureComponent {
@@ -20,6 +20,7 @@ class App extends PureComponent {
     return (
       <div style={{height:"100vh", width:"100vw", position:"fixed", background: "#fff"}}>
         { this.props.children }
+        {/* 全局的loading组件，api请求时 */}
         <Toast icon="loading" show={this.props.loading}>加载中</Toast>
       </div>
     )
@@ -27,7 +28,7 @@ class App extends PureComponent {
 }
 
 const mapState = (state) => ({
-  loading: state.getIn(['home', 'loading'])
+  loading: state.getIn(['common', 'loading'])
 })
 
 const mapDispatch = (dispatch) => ({
