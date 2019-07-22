@@ -2,6 +2,9 @@ import axios from 'axios'
 import qs  from 'qs'
 import {baseUrl} from './config'
 
+import store from '../store'
+import * as actionCreator from '~/home/store/actionCreators'
+
 axios.defaults.baseURL = baseUrl
 axios.defaults.timeout = 10000
 // 请求头信息是为post请求设置
@@ -12,13 +15,14 @@ axios.defaults.headers = {
 
 // 请求的全局拦截
 axios.interceptors.request.use((config) => {
-  // stores.commit('IS_LOAGING')  // 可以在这里更改loading
+  store.dispatch(actionCreator.toggleLoading())
   return config
 }, (err) => {
   return Promise.reject(err)
 })
 // 响应拦截器
 axios.interceptors.response.use(response => {
+  store.dispatch(actionCreator.toggleLoading())
   if (response.status === 200) {
     return Promise.resolve(response.data)
   } else {
@@ -32,7 +36,6 @@ axios.interceptors.response.use(response => {
     return Promise.reject(error.response)
   }
 })
-
 
 // post 方法
 export function post (url, params) {

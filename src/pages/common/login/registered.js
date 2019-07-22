@@ -8,13 +8,14 @@ import Cell from '@/Cell'
 import Verification from '@/Verification'
 import { testPhoneNum } from '$src/common/js/utils'
 import * as actionCreators from './store/actionCreators';
-import { sendCode, subRegistered } from '$src/api'
+import { sendCode, subRegistered, initPer } from '$src/api'
 import style from './index.module.scss'
 
 class Registered extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
+      truename: '',
       share: '',
       phone: '',
       code: ''
@@ -73,6 +74,10 @@ class Registered extends PureComponent {
         this.setState({
           share: v
         })
+        // 这里调接口查询
+        if (v.length>=4) {
+          this.initPerson(v)
+        }
         break;
       case 'phone':
         this.setState({
@@ -87,6 +92,20 @@ class Registered extends PureComponent {
       default:
         break;
     }
+  }
+  initPerson (refno) {
+    initPer({refno}).then(res => {
+      console.log(res);
+      if (res.code === '1') {
+        this.setState({
+          truename: res.data.truename
+        })
+      } else {
+        this.setState({
+          truename: '没有该分享人'
+        })
+      }
+    })
   }
   render () {
     // navbar的右侧
@@ -107,6 +126,7 @@ class Registered extends PureComponent {
             label = "分享人"
             placeHoder="请输入分享人ID"
             changeInput= {this.changeInputNum.bind(this)}
+            slot={<span>{this.state.truename}</span>}
           />
           <Cell
             name="phone"
