@@ -4,8 +4,6 @@ import * as types from './actionTypes';
 import { setStore } from '$src/common/js/utils'
 
 const defaultState = fromJS({
-  showModal: false,
-  modalText: '',
   uid: '',
   token: '',
   islogin: false
@@ -23,9 +21,6 @@ export default (state=defaultState, action) => {
         token: fromJS(token),
         islogin: fromJS(islogin)
       })
-    case types.TOGGLE_MODAL:
-      let flag = state.get('showModal');
-      return state.set('showModal', !flag).set('modalText', action.msg);
     default:
       // 注意这里要默认返回
       return state;

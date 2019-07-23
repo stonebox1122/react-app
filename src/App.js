@@ -2,8 +2,10 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
 import { getStore } from '$src/common/js/utils'
-import * as actionCreators from '~/common/login/store/actionCreators';
+import * as loginActionCreators from '~/common/login/store/actionCreators';
+import * as commonActionCreators from '~/common/store/actionCreators'
 import { Toast } from 'react-weui'
+import { Modal } from 'antd-mobile'
 
 class App extends PureComponent {
   componentDidMount() {
@@ -22,18 +24,35 @@ class App extends PureComponent {
         { this.props.children }
         {/* 全局的loading组件，api请求时 */}
         <Toast icon="loading" show={this.props.loading}>加载中</Toast>
+        {/* 弹窗 */}
+        <Modal
+          visible={this.props.showModal}
+          transparent
+          maskClosable={true}
+          title={this.props.modalTitle}
+          footer={[{ text: '确定', onPress: () => {  this.props.toggleModal() } }]}
+        >
+          { this.props.modalText }
+        </Modal>
       </div>
     )
   }
 }
 
 const mapState = (state) => ({
-  loading: state.getIn(['common', 'loading'])
+  loading: state.getIn(['common', 'loading']),
+  showModal: state.getIn(['common', 'showModal']),
+  modalText: state.getIn(['common', 'modalText']),
+  modalTitle: state.getIn(['common', 'modalTitle'])
 })
 
 const mapDispatch = (dispatch) => ({
   init (info) {
-    dispatch(actionCreators.setInfo(info))
+    dispatch(loginActionCreators.setInfo(info))
+  },
+  toggleModal (msg) {
+    const action = commonActionCreators.toggleModal(msg || this.modalText)
+    dispatch(action)
   }
 })
 

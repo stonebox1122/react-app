@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 import { connect  } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
-import { Modal } from 'antd-mobile'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
 import Verification from '@/Verification'
 import { testPhoneNum } from '$src/common/js/utils'
 import * as actionCreators from './store/actionCreators';
+import * as commonActionCreators from '../store/actionCreators';
 import { sendCode, subRegistered, initPer } from '$src/api'
 import style from './index.module.scss'
 
@@ -147,26 +147,10 @@ class Registered extends PureComponent {
 
         {/* 底部花边 */}
         <img className={style.footer} alt="img" src={require('./img/login_image.png')}></img>
-
-        {/* 弹窗 */}
-        <Modal
-          visible={this.props.showModal}
-          transparent
-          maskClosable={true}
-          title="错误"
-          footer={[{ text: '确定', onPress: () => {  this.props.toggleModal() } }]}
-        >
-          { this.props.modalText }
-        </Modal>
       </div>
     )
   }
 }
-
-const mapState = (state) => ({
-  showModal: state.getIn(['login', 'showModal']),
-  modalText: state.getIn(['login', 'modalText'])
-})
 
 const mapDispatch = (dispatch) => ({
   subForm (form) {
@@ -179,16 +163,16 @@ const mapDispatch = (dispatch) => ({
           pathname: '/tab/mine'
         })
       } else {
-        dispatch(actionCreators.toggleModal(res.msg))
+        dispatch(commonActionCreators.toggleModal(res.msg))
       }
     })
     // const action =  actionCreators.registered(form)
     // dispatch(action)
   },
   toggleModal (msg) {
-    const action = actionCreators.toggleModal(msg || this.modalText)
+    const action = commonActionCreators.toggleModal(msg || this.modalText)
     dispatch(action)
   }
 })
 
-export default connect(mapState, mapDispatch)(withRouter(Registered))
+export default connect(null, mapDispatch)(withRouter(Registered))

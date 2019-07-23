@@ -18,3 +18,12 @@ export const loginByCode = (params) => post('/jsmall/app/main/msglogin', params)
 
 // 2.1 加载首页
 export const initHomePage = (params) => get('/jsmall/app/index/i', params)
+
+// 2.2 加载能量塔、能量健康、优品区、精品区、能量课程列表
+export const getList = params => get('/jsmall/app/index/ii', params)
+
+// 2.3 加载视频（免费视频、精彩尝鲜、精品推荐）列表
+export const getVideoList = params => get('/jsmall/app/index/iii', params)
+
+// 2.4 加载所有商品列表
+export const getAllGoodsList = params => get('/jsmall/app/index/all', params)

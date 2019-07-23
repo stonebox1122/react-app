@@ -3,11 +3,19 @@ import { connect } from 'react-redux';
 import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import Goods1 from '@/Goods/goods_1'
+import { getAllGoodsList } from '$src/api'
 import style from './index.module.scss'
 class GoodsList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {  }
+  }
+  componentDidMount() {
+    // 初始化数据
+    this.getList()  
+  }
+  getList = () => {
+    console.log('getlist')
   }
   // 商品列表
   mapList = (list) => {
@@ -15,9 +23,7 @@ class GoodsList extends PureComponent {
       return (
         <li key = {index} className={style.item}>
           <Goods1 info = {e}/>
-          <div className={style.bottom}>
-          
-          </div>
+          <div className={style.bottom}></div>
         </li>
       )
     })
