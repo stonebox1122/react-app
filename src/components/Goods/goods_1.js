@@ -19,8 +19,8 @@ class Goods1 extends PureComponent {
           <p className={style.price}>
             <span>{ info.price }</span>
             {
-              info.del_price ?
-              <span className={style.del}>{info.price}</span>
+              info.marketprice ?
+              <span className={style.del}>{info.marketprice}</span>
               : ""
             }
           </p>
@@ -41,6 +41,7 @@ Goods1.defaultProps = {
     title: '',
     subtitle: '1231231',
     price: 0,
+    marketprice: 0,
     sales: 0
   }
 }

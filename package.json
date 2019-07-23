@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "7.4.3",
     "@better-scroll/core": "^2.0.0-alpha.16",
+    "@better-scroll/pull-up": "^2.0.0-alpha.20",
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",

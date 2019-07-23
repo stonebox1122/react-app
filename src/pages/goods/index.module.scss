@@ -5,17 +5,42 @@
   .list-wrap {
     flex: 1;
     overflow: hidden;
-    .container {
+    .wrap {
       display: flex;
-      padding: 30px;
+      flex-wrap: warp;
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      padding: 0 30px;
       .item {
         width: 50%;
         box-sizing: border-box;
+        margin-bottom: 24px;
         &:nth-child(even) {
           padding-left: 19px;
         }
         &:nth-child(odd) {
           padding-right: 19px;
+        }
+        .bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-size: 24px;
+          color: #999;
+          .hot {
+            padding: 4px;
+            border-radius: 4px;
+            color: #FFA756;
+            border: 1px solid #FFA756;
+          }
+          .discount {
+            padding: 4px;
+            border-radius: 4px;
+            color: #FF224E;
+            border: 1px solid #FF224E;
+          }
         }
       }
     }
