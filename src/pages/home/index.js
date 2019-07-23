@@ -106,10 +106,9 @@ class Home extends Component {
     )
   }
   // 路由跳转
-  to = (index) => {
+  to = () => {
     this.props.history.push({
-      // pathname: '/video',
-      // state: {index}
+      pathname: '/video'
     })
   }
 
@@ -151,7 +150,6 @@ class Home extends Component {
         break;
     }
   }
-
   render() {
     let { banners, list_nlt, list_nlkc, list_mfsp, list_jccx, list_jptj, list_nljk, list_ypq, list_jpq } = this.props
     list_jccx = this.spliceArr(list_jccx)

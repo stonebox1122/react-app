@@ -1,5 +1,6 @@
 // actionCreator 主要是为了格式化dispath
 import * as types from './actionTypes'
+import * as commonActionCreators from '~/common/store/actionCreators'
 import { initHomePage } from '$src/api'
 // 子页面的展示隐藏
 export const toggleComponent = () => {
@@ -22,6 +23,8 @@ export const getHomeMsg = (query) => {
     initHomePage(query).then(res => {
       if (res.code === '1') {
         dispatch(initHome(res.data))
+      } else {
+        dispatch(commonActionCreators.toggleModal(res.msg))
       }
     })
   }

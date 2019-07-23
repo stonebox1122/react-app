@@ -19,20 +19,21 @@ class App extends PureComponent {
     this.props.init(info)
   }
   render () {
+    let {children, loading, showModal, modalTitle, toggleModal, modalText } = this.props
     return (
       <div style={{height:"100vh", width:"100vw", position:"fixed", background: "#fff"}}>
-        { this.props.children }
+        { children }
         {/* 全局的loading组件，api请求时 */}
-        <Toast icon="loading" show={this.props.loading}>加载中</Toast>
+        <Toast icon="loading" show={loading}>加载中</Toast>
         {/* 弹窗 */}
         <Modal
-          visible={this.props.showModal}
+          visible={showModal}
           transparent
           maskClosable={true}
-          title={this.props.modalTitle}
-          footer={[{ text: '确定', onPress: () => {  this.props.toggleModal() } }]}
+          title={modalTitle}
+          footer={[{ text: '确定', onPress: () => { toggleModal() } }]}
         >
-          { this.props.modalText }
+          { modalText }
         </Modal>
       </div>
     )
