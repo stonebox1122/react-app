@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
 import * as actionCreators from '../../store/actionCreators'
 import { toFixed2 } from '$src/common/js/utils'
-
 import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import Goods2 from '@/Goods/goods_2'
@@ -28,19 +27,7 @@ class Course extends PureComponent {
       <div className={style['bottom-price']}>￥{toFixed2(num)}</div>
     )
   }
-  // 商品列表
-  mapList = (list) => {
-    return list.map(e => {
-      return (
-        <li key = {e.title} className={style.item}>
-          <Goods2
-            info = {e}
-            bottom_left = { this.buyNum(1200) }
-            bottom_right = { this.setPrice(4999) }/>
-        </li>
-      )
-    })
-  }
+
   render() { 
     return (
       <section className={style['course-list']}>
@@ -51,7 +38,18 @@ class Course extends PureComponent {
         <div className={style['list-wrap']}>
           <Scroll>
             <ul className={style.container}>
-              { this.mapList(this.props.list) }
+              { 
+                this.props.list.map(e => {
+                  return (
+                    <li key = {e.title} className={style.item}>
+                      <Goods2
+                        info = {e}
+                        bottom_left = { this.buyNum(1200) }
+                        bottom_right = { this.setPrice(4999) }/>
+                    </li>
+                  )
+                }) 
+              }
             </ul>
           </Scroll>
         </div>

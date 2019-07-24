@@ -16,15 +16,15 @@ import style from './index.module.scss'
 
 // 按需加载组件
 const Course = Loadable({
-  loader: () => import('./chindren/course'),
+  loader: () => import('./children/course'),
   loading: Loading
 })
 const Tower = Loadable({
-  loader: () => import('./chindren/tower'),
+  loader: () => import('./children/tower'),
   loading: Loading
 })
 const VideoList = Loadable({
-  loader: () => import('./chindren/videoList'),
+  loader: () => import('./children/videoList'),
   loading: Loading
 })
 

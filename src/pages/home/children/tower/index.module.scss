@@ -7,10 +7,15 @@
     overflow: hidden;
     .container {
       display: flex;
-      padding: 30px;
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      padding: 0 30px;
       .item {
         width: 50%;
         box-sizing: border-box;
+        margin-bottom: 24px;
         &:nth-child(even) {
           padding-left: 19px;
         }
