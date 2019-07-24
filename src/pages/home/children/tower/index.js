@@ -18,7 +18,7 @@ class Tower extends PureComponent {
   }
 
   getList = () => {
-    let { token, currPage, pageSize, getTowerList, hasMore } = this.props
+    let { token, currPage, pageSize, getList, hasMore } = this.props
     if (hasMore) {
       let query = {
         token,
@@ -26,7 +26,7 @@ class Tower extends PureComponent {
         pageSize,
         type: 1
       }
-      getTowerList(query)
+      getList(query)
     }
   }
   
@@ -72,8 +72,8 @@ const mapDispatch = (dispatch) => ({
     const action = homeActionCreators.toggleComponent();
     dispatch(action)
   },
-  getTowerList (query) {
-    const action = towerActionCreators.getTowerList(query);
+  getList (query) {
+    const action = towerActionCreators.getList(query);
     dispatch(action)
   }
 })

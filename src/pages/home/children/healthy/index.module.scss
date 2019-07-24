@@ -1,0 +1,28 @@
+.tower-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .list-wrap {
+    flex: 1;
+    overflow: hidden;
+    .container {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      padding: 30px;
+      .item {
+        width: 50%;
+        box-sizing: border-box;
+        margin-bottom: 24px;
+        &:nth-child(even) {
+          padding-left: 19px;
+        }
+        &:nth-child(odd) {
+          padding-right: 19px;
+        }
+      }
+    }
+  }
+}

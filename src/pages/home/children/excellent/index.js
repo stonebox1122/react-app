@@ -1,15 +1,14 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
 import * as homeActionCreators from '../../store/actionCreators'
-import * as towerActionCreators from './store/actionCreators'
-import { toFixed2 } from '$src/common/js/utils'
-import NavgationBar from '@/NavgationBar'
-import Scroll from '@/Scroll'
-import Goods2 from '@/Goods/goods_2'
+import * as excellentActionCreators from './store/actionCreators'
 import { LoadMore } from 'react-weui';
 
+import NavgationBar from '@/NavgationBar'
+import Goods1 from '@/Goods/goods_1'
+import Scroll from '@/Scroll'
 import style from './index.module.scss'
-class Course extends PureComponent {
+class Tower extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {  }
@@ -25,48 +24,30 @@ class Course extends PureComponent {
         token,
         currPage,
         pageSize,
-        type: 2
+        type: 7
       }
       getList(query)
     }
   }
-  // 购买人数
-  buyNum = (num) => {
-    return (
-      <div className={style['bottom-num']}>
-        <img src={require('../../img/home_icon_hot.png')} alt="hot" className={style.hot}/>
-        <span>{num}人购买</span>
-      </div>
-    )
-  }
-  // 设置价格
-  setPrice = (num) => {
-    return (
-      <div className={style['bottom-price']}>￥{toFixed2(num)}</div>
-    )
-  }
-
+  
   render() { 
     return (
-      <section className={style['course-list']}>
+      <section className={style['tower-list']}>
         <NavgationBar
           handleLeft = {this.props.back}
           right = ""
-        >能量课程</NavgationBar>
+        >优品区</NavgationBar>
         <div className={style['list-wrap']}>
-          <Scroll>
+          <Scroll pullUpHandler={this.getList}>
             <ul className={style.container}>
-              { 
+              {
                 this.props.list.map(e => {
                   return (
                     <li key = {e.title} className={style.item}>
-                      <Goods2
-                        info = {e}
-                        bottom_left = { this.buyNum(1200) }
-                        bottom_right = { this.setPrice(4999) }/>
+                      <Goods1 info = {e}/>
                     </li>
                   )
-                }) 
+                })
               }
               <LoadMore showLine>{this.props.loadText}</LoadMore>
             </ul>
@@ -78,22 +59,23 @@ class Course extends PureComponent {
 }
 // 将redux数据映射到props
 const mapState = (state) => ({
-  list: state.getIn(['course', 'list']).toJS(),
+  list: state.getIn(['excellent', 'list']).toJS(),
   token: state.getIn(['login', 'token']),
-  loadText: state.getIn(['course', 'loadText']),
-  hasMore: state.getIn(['course', 'hasMore']),
-  currPage: state.getIn(['course', 'currPage']),
-  pageSize: state.getIn(['course', 'pageSize'])
+  loadText: state.getIn(['excellent', 'loadText']),
+  hasMore: state.getIn(['excellent', 'hasMore']),
+  currPage: state.getIn(['excellent', 'currPage']),
+  pageSize: state.getIn(['excellent', 'pageSize'])
 })
+
 const mapDispatch = (dispatch) => ({
   back () {
     const action = homeActionCreators.toggleComponent();
     dispatch(action)
   },
   getList (query) {
-    const action = towerActionCreators.getList(query);
+    const action = excellentActionCreators.getList(query);
     dispatch(action)
   }
 })
 
-export default connect(mapState, mapDispatch)(Course);
+export default connect(mapState, mapDispatch)(Tower);

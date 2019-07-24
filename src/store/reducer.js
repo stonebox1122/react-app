@@ -3,6 +3,9 @@ import { combineReducers } from 'redux-immutable';
 
 import { reducer as homeReducer } from '~/home/store'
 import { reducer as towerReducer } from '~/home/children/tower/store'
+import { reducer as chosenReducer } from '~/home/children/chosen/store'
+import { reducer as healthyReducer } from '~/home/children/healthy/store'
+import { reducer as excellentReducer } from '~/home/children/excellent/store'
 import { reducer as courseReducer } from '~/home/children/course/store'
 import { reducer as videoListReducer } from '~/home/children/videoList/store'
 import { reducer as goodsReducer } from '~/goods/store'
@@ -18,5 +21,8 @@ export default combineReducers({
   common: commonReducer,
   tower: towerReducer,
   course: courseReducer,
-  video: videoListReducer
+  video: videoListReducer,
+  healthy: healthyReducer,
+  excellent: excellentReducer,
+  chosen: chosenReducer
 })

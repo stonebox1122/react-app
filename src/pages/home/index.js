@@ -27,6 +27,18 @@ const VideoList = Loadable({
   loader: () => import('./children/videoList'),
   loading: Loading
 })
+const Chosen = Loadable({
+  loader: () => import('./children/chosen'),
+  loading: Loading
+})
+const Excellent = Loadable({
+  loader: () => import('./children/excellent'),
+  loading: Loading
+})
+const Healthy = Loadable({
+  loader: () => import('./children/healthy'),
+  loading: Loading
+})
 
 class Home extends Component {
   constructor(props) {
@@ -142,6 +154,12 @@ class Home extends Component {
         return <Course/>
       case 'Tower':
         return <Tower/>
+      case 'Chosen':
+          return <Chosen/>
+      case 'Healthy':
+        return <Healthy/>
+      case 'Excellent':
+        return <Excellent/>
       case 'VideoList':
         return (
           <VideoList currentIndex={this.state.video_current_index}/>
@@ -291,7 +309,7 @@ class Home extends Component {
         </section>
         {/* 能量健康 */}
         <section className={style['card-wrap']}>
-          <Title title="能量健康"/>
+          <Title title="能量健康" to={() => this.handleShowCom('Healthy')}/>
           <ul className={style['goods5_wrap']}>
             {
               list_nljk.map(e => {
@@ -315,7 +333,7 @@ class Home extends Component {
         </section>
         {/* 优品区 */}
         <section className={style['card-wrap']}>
-          <Title title="优品区"/>
+          <Title title="优品区"  to={() => this.handleShowCom('Excellent')}/>
           <ul className={style['goods_wrap']}>
             {
               list_ypq.map(e => {
@@ -330,7 +348,7 @@ class Home extends Component {
         </section>
         {/* 精品区 */}
         <section className={style['card-wrap']}>
-          <Title title="精品区"/>
+          <Title title="精品区"  to={() => this.handleShowCom('Chosen')}/>
           <ul className={style['goods_wrap']}>
           {
               list_jpq.map(e => {
