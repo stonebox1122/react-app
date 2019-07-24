@@ -1,53 +1,107 @@
 import React, { Component } from 'react';
 import { connect  } from 'react-redux';
-import { toFixed2 } from '$src/common/js/utils'
-
-import * as actionCreators from '../../store/actionCreators'
+import * as homeActionCreators from '../../store/actionCreators'
+import * as videoActionCreators from './store/actionCreators'
 import PropTypes from 'prop-types'
+import { LoadMore } from 'react-weui';
 import NavgationBar from '@/NavgationBar'
 import Tab from '@/Tab'
 import Scroll from '@/Scroll'
 import Goods2 from '@/Goods/goods_2'
-
 import style from './index.module.scss'
 class VideoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentIndex: props.currentIndex,
-      title: ''
+      title: '',
+      currentData: {}
     }
   }
   componentDidMount() {
     const index = this.props.currentIndex;
-    let title;
+    this.changeTab(index)
+  }
+  
+  // 改变tab的时候
+  changeTab = (index) => {
+    let title = null;
+    let type = null;
+    let flag = null;
     switch (index) {
       case 0:
-        title = '全部视频'
+        title = '全部视频';
+        type = 10;
+        flag = this.props.all;
         break;
       case 1:
-        title = '免费视频'
+        title = '免费视频';
+        type = 3;
+        flag = this.props.free;
         break;
       case 2:
-        title = '精彩尝鲜'
+        title = '精彩尝鲜';
+        type = 4;
+        flag = this.props.wonderful;
         break;
       case 3:
-        title = '精品推荐'
+        title = '精品推荐';
+        type = 5;
+        flag = this.props.chosen;
         break;
       default:
         title = '全部视频'
+        type=10;
+        flag = this.props.all;
         break;
     }
     this.setState({
       title,
       currentIndex: index
     })
+    // 这里对当前请求需要判断  页面为空并且未加载过
+    if (flag.hasMore && flag.list.length === 0) {
+      let query = {
+        token: this.props.token,
+        type,
+        currPage: flag.currPage,
+        pageSize: flag.pageSize
+      }
+      this.props.getList(query)
+    }
   }
-  changeTab = (index) => {
-    this.setState({
-      currentIndex: index
-    })
+  // 上拉加载数据
+  getList = () => {
+    let { all, free, wonderful, chosen } = this.props
+    let flag = null;
+    switch (this.state.currentIndex) {
+      case 0:
+        flag = all;
+        break;
+      case 1:
+        flag = free;
+        break;
+      case 2:
+        flag = wonderful;
+        break;
+      case 3:
+        flag = chosen;
+        break;
+      default:
+        flag = all;
+        break;
+    }
+    if (flag.hasMore) {
+      let query = {
+        token: this.props.token,
+        type: this.state.currentIndex,
+        currPage: flag.currPage,
+        pageSize: flag.pageSize
+      }
+      this.props.getList(query)
+    }
   }
+  
   // 购买人数
   buyNum = (num) => {
     return (
@@ -60,10 +114,14 @@ class VideoList extends Component {
   // 设置价格
   setPrice = (num) => {
     return (
-      <div className={style['bottom-price']}>￥{toFixed2(num)}</div>
+      <div className={style['bottom-tag']}>{num}</div>
     )
   }
-
+  subTime = (time) => {
+    return (
+      <div className={style['bottom-num']}>{time.substring(0,10)}</div>
+    )
+  }
   render() {
     const TabList = [
       {title: '全部', key: 0},
@@ -71,6 +129,25 @@ class VideoList extends Component {
       {title: '精彩尝鲜', key: 2},
       {title: '精品推荐', key: 3}
     ]
+    let { all, free, wonderful, chosen } = this.props
+    let list = null;
+    switch (this.state.currentIndex) {
+      case 0:
+        list = all;
+        break;
+      case 1:
+        list = free;
+        break;
+      case 2:
+        list = wonderful;
+        break;
+      case 3:
+        list = chosen;
+        break;
+      default:
+        list = all;
+        break;
+    }
     return (
       <div className={style.container}>
         <NavgationBar
@@ -80,21 +157,23 @@ class VideoList extends Component {
         <Tab list= {TabList} currentIndex = {this.state.currentIndex} changeCurr={this.changeTab}/>
         {/* 商品列表 */}
         <div className={style['list-wrap']}>
-          <Scroll>
+          <Scroll pullUpHandler={this.getList}>
             <ul>
               {
-                this.props.list.map(e => {
+                list.list.map(e => {
                   return (
-                    <li className={style.item}>
+                    <li className={style.item} key = {e.gid}>
                       <Goods2
                         info = {e}
                         imgH="103px"
-                        bottom_left = { this.buyNum(1200) }
-                        bottom_right = { this.setPrice(4999) }/>
+                        tag = { this.setPrice(e.price) }
+                        bottom_left = { this.subTime(e.datetime) }
+                        bottom_right = { this.buyNum(e.sales) }/>
                     </li>
                   )
                 }) 
               }
+              <LoadMore showLine>{list.loadText}</LoadMore>
             </ul>
           </Scroll>
         </div>
@@ -111,12 +190,20 @@ VideoList.defaultProps = {
 }
 // 将redux数据映射到props
 const mapState = (state) => ({
-  list: state.getIn(['video', 'list']).toJS()
+  token: state.getIn(['login', 'token']),
+  all: state.getIn(['video', 'all']).toJS(),
+  free: state.getIn(['video', 'free']).toJS(),
+  wonderful: state.getIn(['video', 'wonderful']).toJS(),
+  chosen: state.getIn(['video', 'chosen']).toJS(),
 })
 
 const mapDispatch = (dispatch) => ({
   back () {
-    const action = actionCreators.toggleComponent();
+    const action = homeActionCreators.toggleComponent();
+    dispatch(action)
+  },
+  getList (query) {
+    const action = videoActionCreators.getList(query);
     dispatch(action)
   }
 })

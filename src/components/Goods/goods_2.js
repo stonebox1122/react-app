@@ -38,10 +38,10 @@ Goods2.propTypes = {
 
 Goods2.defaultProps = {
   info: {
-    img: 'https://interactive-examples.mdn.mozilla.net/media/examples/plumeria.jpg',
-    title: '商品标题商品标题商品标题商品标题商品标题商品标题',
-    subtitle: 123.11,
-    sales: 11,
+    img: '',
+    title: '',
+    subtitle: 0,
+    sales: 0,
     gid: '',
     price: ''
   },

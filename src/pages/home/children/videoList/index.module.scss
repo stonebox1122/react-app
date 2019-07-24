@@ -6,22 +6,40 @@
   .list-wrap {
     flex: 1;
     padding: 30px;
-    .bottom-num {
-      display: flex;
-      align-items: center;
-      color: #666;
-      font-size: 22px;
-      line-height: 40px;
-      .hot {
-        margin-right: 24px;
-        width: 18px;
-        height: 24px;
+    overflow: hidden;
+    .item {
+      margin-bottom: 24px;
+      .bottom-tag {
+        color: #FF2121;
+        font-size:26px;
+        line-height:40px;
       }
-    }
-    .bottom-price {
-      color: #333333;
-      font-size:34px;
-      font-weight: blod;
+      .free {
+        width: 76px;
+        height: 32px;
+        background-color: #FFC105;
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+        line-height: 32px;
+      }
+      .bottom-num {
+        display: flex;
+        align-items: center;
+        color: #666;
+        font-size: 22px;
+        line-height: 40px;
+        .hot {
+          margin-right: 24px;
+          width: 18px;
+          height: 24px;
+        }
+      }
+      .bottom-price {
+        color: #333333;
+        font-size:34px;
+        font-weight: blod;
+      }
     }
   }
 }
