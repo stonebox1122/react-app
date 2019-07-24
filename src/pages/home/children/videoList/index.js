@@ -63,20 +63,7 @@ class VideoList extends Component {
       <div className={style['bottom-price']}>￥{toFixed2(num)}</div>
     )
   }
-  // 商品列表
-  mapList = (list) => {
-    return list.map(e => {
-      return (
-        <li className={style.item}>
-          <Goods2
-            info = {e}
-            imgH="103px"
-            bottom_left = { this.buyNum(1200) }
-            bottom_right = { this.setPrice(4999) }/>
-        </li>
-      )
-    })
-  }
+
   render() {
     const TabList = [
       {title: '全部', key: 0},
@@ -95,7 +82,19 @@ class VideoList extends Component {
         <div className={style['list-wrap']}>
           <Scroll>
             <ul>
-              { this.mapList(this.props.list) }
+              {
+                this.props.list.map(e => {
+                  return (
+                    <li className={style.item}>
+                      <Goods2
+                        info = {e}
+                        imgH="103px"
+                        bottom_left = { this.buyNum(1200) }
+                        bottom_right = { this.setPrice(4999) }/>
+                    </li>
+                  )
+                }) 
+              }
             </ul>
           </Scroll>
         </div>
@@ -112,7 +111,7 @@ VideoList.defaultProps = {
 }
 // 将redux数据映射到props
 const mapState = (state) => ({
-  list: state.getIn(['goods', 'list']).toJS()
+  list: state.getIn(['video', 'list']).toJS()
 })
 
 const mapDispatch = (dispatch) => ({
