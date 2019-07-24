@@ -1,16 +1,34 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
-import * as actionCreators from '../../store/actionCreators'
+import * as homeActionCreators from '../../store/actionCreators'
+import * as towerActionCreators from './store/actionCreators'
 import { toFixed2 } from '$src/common/js/utils'
 import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import Goods2 from '@/Goods/goods_2'
+import { LoadMore } from 'react-weui';
 
 import style from './index.module.scss'
 class Course extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {  }
+  }
+  componentDidMount() {
+    this.getList()
+  }
+
+  getList = () => {
+    let { token, currPage, pageSize, getTowerList, hasMore } = this.props
+    if (hasMore) {
+      let query = {
+        token,
+        currPage,
+        pageSize,
+        type: 2
+      }
+      getTowerList(query)
+    }
   }
   // 购买人数
   buyNum = (num) => {
@@ -50,6 +68,7 @@ class Course extends PureComponent {
                   )
                 }) 
               }
+              <LoadMore showLine>{this.props.loadText}</LoadMore>
             </ul>
           </Scroll>
         </div>
@@ -59,11 +78,20 @@ class Course extends PureComponent {
 }
 // 将redux数据映射到props
 const mapState = (state) => ({
-  list: state.getIn(['goods', 'list']).toJS()
+  list: state.getIn(['course', 'list']).toJS(),
+  token: state.getIn(['login', 'token']),
+  loadText: state.getIn(['course', 'loadText']),
+  hasMore: state.getIn(['course', 'hasMore']),
+  currPage: state.getIn(['course', 'currPage']),
+  pageSize: state.getIn(['course', 'pageSize'])
 })
 const mapDispatch = (dispatch) => ({
   back () {
-    const action = actionCreators.toggleComponent();
+    const action = homeActionCreators.toggleComponent();
+    dispatch(action)
+  },
+  getTowerList (query) {
+    const action = towerActionCreators.getTowerList(query);
     dispatch(action)
   }
 })
