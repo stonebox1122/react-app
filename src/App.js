@@ -52,7 +52,8 @@ const mapDispatch = (dispatch) => ({
     dispatch(loginActionCreators.setInfo(info))
   },
   toggleModal (msg) {
-    const action = commonActionCreators.toggleModal(msg || this.modalText)
+    console.log(this);
+    const action = commonActionCreators.toggleModal()
     dispatch(action)
   }
 })

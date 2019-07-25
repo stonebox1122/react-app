@@ -1,7 +1,9 @@
 // 商品详情
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import { Icon, Toast } from 'antd-mobile';
+import { Badge } from 'react-weui'
 import NavgationBar from '@/NavgationBar';
 import Tab from '@/Tab';
 import Scroll from '@/Scroll';
@@ -11,6 +13,7 @@ import 'swiper/dist/css/swiper.min.css';
 import style from './index.module.scss';
 import * as goodsActionCreators from '../../store/actionCreators'
 import * as cartActionCreators from '~/cart/store/actionCreators'
+import * as commonActionCreator from '~/common/store/actionCreators'
 class Detail extends PureComponent {
   constructor(props) {
     super(props);
@@ -90,12 +93,25 @@ class Detail extends PureComponent {
       }
     }
   }
+  navRight = () => {
+    return (
+      <div className={style.cart}>
+        <Link to={`/tab/cart`}>
+          {
+            this.props.cart.length > 0 ? 
+            <Badge preset="header">{this.props.cart.length}</Badge> : ""
+          }
+          <img className={style['cart-icon']} src={require('@/TabBar/img/tab_shop.png')} alt='cart'/>
+        </Link>
+      </div>
+    )
+  }
   render() {
     let { detail } = this.props
     return (
       <div className={style.detail}>
         <NavgationBar
-          right = ""
+          right = {this.navRight()}
         >
           <Tab 
             currentIndex={1}
@@ -147,7 +163,7 @@ class Detail extends PureComponent {
                 <p className={style.title}>{detail.haskey ? detail.haskey.keyname : ''}</p>
                 <ul>
                   {
-                    detail.haskey ?
+                    detail.haskey && detail.haskey.values ?
                     detail.haskey.values.map(item => {
                       return (
                         <li key={item.valueid}
@@ -213,7 +229,10 @@ class Detail extends PureComponent {
         </div>
         {/* 底部结算按钮 */}
         <div className={style.bottom}>
-          <div className={style.server}>s</div>
+          <div className={style.server} onClick={this.props.showPhone.bind(this, detail)}>
+            <img src={require('../../img/server.png')} alt='server'/>
+            <p>客服</p>
+          </div>
           <div className={style.addCart} onClick={this.addCart}>加入购物车</div>
         </div>
       </div>
@@ -223,7 +242,8 @@ class Detail extends PureComponent {
 
 const mapState = (state) => ({
   token: state.getIn(['login', 'token']),
-  detail: state.getIn(['goods', 'detail'])
+  detail: state.getIn(['goods', 'detail']),
+  cart: state.getIn(['cart', 'list']).toJS()
 })
 
 const mapDispatch = (dispatch) => ({
@@ -235,6 +255,11 @@ const mapDispatch = (dispatch) => ({
     const action = cartActionCreators.addCart(query)
     dispatch(action)
     Toast.success('已成功加入购物车', 1)
+  },
+  showPhone (detail) {
+    console.log(detail);
+    const action = commonActionCreator.toggleModal(detail.support_staff, '客服电话')
+    dispatch(action)
   }
 })
  

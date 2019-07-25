@@ -15,11 +15,17 @@ export default (state=defaultState, action) => {
       return state.set('loading', !flag)
     case types.TOGGLE_MODAL:
       let type = state.get('showModal');
-      return state.merge({
-        showModal: !type,
-        modalText: action.msg || '错误',
-        modalTitle: action.title
-      })
+      if (action.msg) {
+        return state.merge({
+          showModal: !type,
+          modalText: action.msg,
+          modalTitle: action.title
+        })
+      } else {
+        return state.merge({
+          showModal: !type
+        })
+      }
     default:
       // 注意这里要默认返回
       return state;
