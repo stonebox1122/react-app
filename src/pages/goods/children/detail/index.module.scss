@@ -22,27 +22,82 @@
         }
       }
       .price {
+        display: flex;
+        align-items: center;
         border-bottom: 1px solid $bd;
+        .marketprice {
+          font-size:66px;
+          color: #FF2121;
+        }
+        .tag {
+          display: inline-block;
+          margin-left: 12px;
+          border-radius: 4px;
+          width: 120px;
+          height: 40px;
+          font-size: 24px;
+          line-height: 40px;
+          text-align: center;
+          color: #fff;
+          background-color: #FFC105;
+          border:  none;
+        }
       }
-      .name {
+      .title {
         font-size: 30px;
         line-height: 44px;
+        font-weight: bold;
       }
       .tag, .sku, .introduce {
         border-top: 16px solid #f3f4f5;
       }
       .tag {
         .item {
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
+          margin-right: 72px;
+          color:#585C64;
         }
       }
       .sku {
+        .kind {
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin: 12px;
+          padding: 16px 24px;
+          font-size: 20px;
+          color: #ccc;
+          &.active {
+            color: #FFC105;
+            border-color: #FFC105;
+          }
+        }
+        .num {
+          margin: 24px 0;
+        }
         .num-wrap {
           width: 206px;
           height: 54px;
         }
       }
       .introduce {
+        .intro-item {
+          font-size: 28px;
+          line-height: 52px;
+          color: #9A9AA0;
+          .intro-item-title {
+            display: inline-block;
+            width: 120px;
+          }
+          .val {
+            margin-left: 60px;
+            color: #686B73;
+          }
+        }
+        .bottom-img {
+          width: 100%;
+        }
       }
     }
   }

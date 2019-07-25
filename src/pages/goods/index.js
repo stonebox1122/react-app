@@ -4,6 +4,7 @@ import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import Goods1 from '@/Goods/goods_1'
 import { LoadMore } from 'react-weui';
+import { Link } from 'react-router-dom'
 import style from './index.module.scss'
 import * as actionCreators from './store/actionCreators'
 class GoodsList extends PureComponent {
@@ -43,12 +44,14 @@ class GoodsList extends PureComponent {
                   e.marketprice = price
                   return (
                     <li key = {index} className={style.item}>
-                      <Goods1 info = {e}/>
-                      <div className={style.bottom}>
-                        <span className={style.hot}>火爆热卖</span>
-                        <span className={style.discount}>优惠</span>
-                        <span>{e.sales}人购买</span>
-                      </div>
+                      <Link to={`/detail/${e.gid}`}>
+                        <Goods1 info = {e}/>
+                        <div className={style.bottom}>
+                          <span className={style.hot}>火爆热卖</span>
+                          <span className={style.discount}>优惠</span>
+                          <span>{e.sales}人购买</span>
+                        </div>
+                      </Link>
                     </li>
                   )
                 })

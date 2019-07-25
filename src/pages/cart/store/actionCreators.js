@@ -30,3 +30,11 @@ export const changeNum = (option) => {
     id: option.id
   }
 }
+
+// 加入购物车
+export const addCart = (query) => {
+  return {
+    type: types.ADD_CART,
+    query
+  }
+}

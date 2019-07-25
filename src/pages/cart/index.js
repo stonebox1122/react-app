@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import * as actionCreator from './store/actionCreator'
+import * as actionCreator from './store/actionCreators'
 import NavgationBar from '@/NavgationBar';
 import Scroll from '@/Scroll';
 import Goods2 from '@/Goods/goods_2'
@@ -35,10 +35,10 @@ class Cart extends PureComponent {
         </li>
       )
     } else {
-      const newList = list.map(e => {
+      const newList = list.map((e,i) => {
         return (
-          <li className={style.item} key={e.id}>
-            <Icon onClick = {() => toggleSelect(e.id)} value={e.selected ? "success" : "circle"}/>
+          <li className={style.item} key={`${e.gid}${i}`}>
+            <Icon onClick = {() => toggleSelect(e.gid)} value={e.selected ? "success" : "circle"}/>
             <div className={style.goods}>
               <Goods2
                 height="90px" 
@@ -49,8 +49,8 @@ class Cart extends PureComponent {
                   <div className={style['bottom-right']}>
                     <NumberController
                       num={e.num}
-                      handleDecrease={() => changeNum({id: e.id, way: 'decrease'})}
-                      handleIncrease={() => changeNum({id: e.id, way: 'increase'})}/>
+                      handleDecrease={() => changeNum({id: e.gid, way: 'decrease'})}
+                      handleIncrease={() => changeNum({id: e.gid, way: 'increase'})}/>
                   </div>
                 }
               />

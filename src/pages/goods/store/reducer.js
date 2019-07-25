@@ -6,7 +6,8 @@ const defaultState = fromJS({
   pageSize: 10,
   loadText: '上拉加载更多',
   load: false,
-  hasMore: true
+  hasMore: true,
+  detail: {}
 })
 
 export default (state = defaultState, action) => {
@@ -26,12 +27,10 @@ export default (state = defaultState, action) => {
           list: list.concat(action.list)
         })
       }
-    // case types.SET_LOAD: 
-    //   console.log(action);
-    //   return state.merge({
-    //     loadText: action.text,
-    //     load: action.load
-    //   })
+    case types.SAVE_DETAIL: 
+      return state.merge({
+        detail: action.info
+      })
     default:
       return state
   }

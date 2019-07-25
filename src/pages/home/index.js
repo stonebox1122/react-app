@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect  } from 'react-redux';
 import * as actionCreators from './store/actionCreators'
 import Loadable from 'react-loadable';
+import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import { LoadMore } from 'react-weui';
 import NavgationBar from '@/NavgationBar'
@@ -73,6 +74,8 @@ class Home extends Component {
     let {token,getHomeMsg} = this.props
     // 加载数据
     getHomeMsg({token : token || '888888'})
+  }
+  componentDidUpdate () {
     // 初始化轮播图插件
     new Swiper('.swiper-container',{
       loop: true,
@@ -118,11 +121,11 @@ class Home extends Component {
     )
   }
   // 路由跳转
-  to = () => {
-    this.props.history.push({
-      pathname: '/video'
-    })
-  }
+  // to = () => {
+  //   this.props.history.push({
+  //     pathname: '/video'
+  //   })
+  // }
 
   // 子组件显示
   handleShowCom = (name, info={}) => {
@@ -211,7 +214,9 @@ class Home extends Component {
               list_nlt.map(e => {
                 return (
                   <li className = {style.goods} key = {e.gid}>
-                    <Goods1 info={e}/>
+                    <Link to={`/detail/${e.gid}`}>
+                      <Goods1 info={e}/>
+                    </Link>
                   </li>
                 )
               })
@@ -315,16 +320,18 @@ class Home extends Component {
               list_nljk.map(e => {
                 return (
                   <li key ={e.gid} className = {style.item}>
-                    <Goods3
-                      imgH="135px"
-                      img={e.img}
-                      title = {
-                        <p className={style.title}>{e.title}</p>
-                      }
-                      sub_title = {
-                        <p className={style.sub_title}>{e.subtitle}</p>
-                      }
-                    />
+                    <Link to={`/detail/${e.gid}`}>
+                      <Goods3
+                        imgH="135px"
+                        img={e.img}
+                        title = {
+                          <p className={style.title}>{e.title}</p>
+                        }
+                        sub_title = {
+                          <p className={style.sub_title}>{e.subtitle}</p>
+                        }
+                      />
+                    </Link>
                   </li>
                 )
               })
@@ -339,7 +346,9 @@ class Home extends Component {
               list_ypq.map(e => {
                 return (
                   <li key = {e.gid} className = {style.goods}>
-                    <Goods1 info={e}/>
+                    <Link to={`/detail/${e.gid}`}>
+                      <Goods1 info={e}/>
+                    </Link>
                   </li>
                 )
               })
@@ -354,7 +363,9 @@ class Home extends Component {
               list_jpq.map(e => {
                 return (
                   <li key = {e.gid} className = {style.goods}>
-                    <Goods1 info={e}/>
+                    <Link to={`/detail/${e.gid}`}>
+                      <Goods1 info={e}/>
+                    </Link>
                   </li>
                 )
               })

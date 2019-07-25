@@ -27,3 +27,6 @@ export const getVideoList = params => get('/jsmall/app/index/iii', params)
 
 // 2.4 加载所有商品列表
 export const getAllGoodsList = params => get('/jsmall/app/index/all', params)
+
+// 2.5 获取商品详情
+export const getGoodsDetail = params => get('/jsmall/app/index/ginfo', params)

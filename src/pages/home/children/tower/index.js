@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
+import { Link } from 'react-router-dom'
 import * as homeActionCreators from '../../store/actionCreators'
 import * as towerActionCreators from './store/actionCreators'
 import { LoadMore } from 'react-weui';
-
 import NavgationBar from '@/NavgationBar'
 import Goods1 from '@/Goods/goods_1'
 import Scroll from '@/Scroll'
@@ -44,7 +44,9 @@ class Tower extends PureComponent {
                 this.props.list.map(e => {
                   return (
                     <li key = {e.title} className={style.item}>
-                      <Goods1 info = {e}/>
+                      <Link to = {`/detail/${e.gid}`}>
+                        <Goods1 info = {e}/>
+                      </Link>
                     </li>
                   )
                 })

@@ -2,14 +2,7 @@ import { fromJS } from 'immutable'
 import * as types from './actionType'
 const defalutState = fromJS({
   isShowCom: false,
-  list:[{
-    id:'1',
-    img: '',
-    num: 12,
-    title: '这是一个好东西',
-    price: 7789,
-    selected: false
-  }],
+  list:[],
   selectAll: false,
   addressList: []
 })
@@ -24,7 +17,7 @@ export default (state=defalutState, action) => {
       let id = action.id
       let flag = true
       list = list.map(e => {
-        if (e.id === id) {
+        if (e.gid === id) {
           e.selected = !e.selected
         }
         if (e.selected === false) {
@@ -46,16 +39,28 @@ export default (state=defalutState, action) => {
         })
       }
       return state.set('selectAll', !state.get('selectAll')).set('list', fromJS(list))
-    // 购物车更改商品数量
-    case types.CHANGE_NUM:
+    case types.CHANGE_NUM: // 购物车更改商品数量
       list.forEach(e => {
-        if (e.id === action.id) {
+        if (e.gid === action.id) {
           action.way === 'increase'? e.num+=1 : e.num-=1
           if (e.num<1) {
             e.num =1
           }
         }
       });
+      return state.set('list', fromJS(list))
+    case types.ADD_CART: // 添加到购物车
+      let isHave = false
+      list.forEach(e => {
+        // 如果同商品同型号直接加数量
+        if (e.gid === action.query.gid && e.valueid === action.query.valueid) {
+          isHave = true
+          e.num += action.query.num
+        }
+      })
+      if (!isHave) {
+        list.push(action.query)
+      }
       return state.set('list', fromJS(list))
     default:
       return state;

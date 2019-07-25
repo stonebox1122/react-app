@@ -68,8 +68,8 @@ export default class Routers extends Component {
                 </Switch>
               </Tabbar>
             }/>
-            <Route path="/video" component = {Video}/>
-            <Route path="/detail" component = {Detail}/>
+            <Route path="/video/:id" component = {Video}/>
+            <Route path="/detail/:id" component = {Detail}/>
             <Route path="/login" component = {Login}/>
             <Route path="/registered" component = {Registered}/>
           </App>

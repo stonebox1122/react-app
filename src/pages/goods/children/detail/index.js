@@ -1,5 +1,7 @@
 // 商品详情
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { Icon, Toast } from 'antd-mobile';
 import NavgationBar from '@/NavgationBar';
 import Tab from '@/Tab';
 import Scroll from '@/Scroll';
@@ -7,14 +9,34 @@ import NumberController from '@/NumberController'
 import Swiper from 'swiper/dist/js/swiper.js';
 import 'swiper/dist/css/swiper.min.css';
 import style from './index.module.scss';
+import * as goodsActionCreators from '../../store/actionCreators'
+import * as cartActionCreators from '~/cart/store/actionCreators'
 class Detail extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      num: 1
+      num: 1,
+      tags: [{
+        key: 0,
+        name: '正品保证'
+      },{
+        key: 1,
+        name: '官方发货'
+      },{
+        key: 2,
+        name: '极速退款'
+      }],
+      kind: {}
     }
   }
   componentDidMount() {
+    let query = {
+      token: this.props.token,
+      gid: this.props.match.params.id
+    }
+    this.props.getDetail(query)
+  }
+  componentDidUpdate () {
     // 初始化轮播图插件
     new Swiper('.swiper-container',{
       loop: true,
@@ -31,6 +53,29 @@ class Detail extends PureComponent {
   scrollTo = () => {
 
   }
+  selectKind = (e) => {
+    this.setState({
+      kind: e
+    })
+  }
+  // 加入购物车
+  addCart = () => {
+    let {kind, num} = this.state
+    if (kind.valueid) {
+      let query = {
+        gid: this.props.match.params.id,
+        img: this.props.detail.share_img,
+        num,
+        title: this.props.detail.title,
+        price: kind.pricestr,
+        selected: false,
+        valueid: kind.valueid
+      }
+      this.props.addCart(query)
+    } else {
+      Toast.fail('请选择规格')
+    }
+  }
   numController = (flag) => {
     let num = this.state.num
     if (flag) {
@@ -45,7 +90,8 @@ class Detail extends PureComponent {
       }
     }
   }
-  render() { 
+  render() {
+    let { detail } = this.props
     return (
       <div className={style.detail}>
         <NavgationBar
@@ -62,30 +108,62 @@ class Detail extends PureComponent {
               {/*轮播图部分  */}
               <div className={`swiper-container ${style['banner-h']}`}>
                 <div className="swiper-wrapper">
-                  <img alt="img" className="swiper-slide" src="https://ww1.sinaimg.cn/bmiddle/6ab21582gy1fitxfchiujj2334274hdz.jpg"/>
-                  <img alt="img" className="swiper-slide" src="https://ww4.sinaimg.cn/bmiddle/6ab21582gy1fitxfyn3k0j21yq3347wn.jpg"/>
-                  <img alt="img" className="swiper-slide" src="https://ww3.sinaimg.cn/bmiddle/6ab21582gy1fitxfso9fgj220e334kjs.jpg"/>
+                  {
+                    detail.hradimgs ?
+                    detail.hradimgs.map(e => {
+                      return (
+                        <img alt="img" className="swiper-slide" src={e.img} key={e.imgid}/>
+                      )
+                    })
+                    : ''
+                  }
                 </div>
                 <div className='swiper-pagination'></div>
               </div>
               {/* 价格 */}
               <section className={`${style.price} ${style.card}`}>
-                <p>$998<span>火爆热卖</span></p>
+                <span className={style.marketprice}>{detail.marketprice}</span>
+                <span className={style.tag}>火爆热卖</span>
               </section>
               {/* 商品名 */}
-              <section className={`${style.name} ${style.card}`}>
-                蕙之魅乳康宝（复合果蔬饮品）蕙之魅乳康宝复合果蔬饮品
+              <section className={`${style.title} ${style.card}`}>
+                {detail.title}
               </section>
               {/* tag */}
               <ul className={`${style.tag} ${style.card}`}>
-                <li className={style.item}>正品保证</li>
-                <li className={style.item}>官方发货</li>
-                <li className={style.item}>急速退款</li>
+                {
+                  this.state.tags.map(e => {
+                    return (
+                      <li className={style.item} key={e.key}>
+                        <Icon color="#FFC105" type="check-circle-o" size="xxs"/>
+                        &nbsp;&nbsp;{e.name}
+                      </li>
+                    )
+                  })
+                }
               </ul>
               {/* 规格 */}
               <section className={`${style.sku} ${style.card}`}>
-                <p className={style.title}>规格</p>
-                <p className={style.title}>数量</p>
+                <p className={style.title}>{detail.haskey ? detail.haskey.keyname : ''}</p>
+                <ul>
+                  {
+                    detail.haskey ?
+                    detail.haskey.values.map(item => {
+                      return (
+                        <li key={item.valueid}
+                            className={
+                              `${style.kind}
+                               ${this.state.kind.valueid === item.valueid ? style.active: ''}
+                              ` 
+                            }
+                            onClick={this.selectKind.bind(this, item)}>
+                          {item.valuename}
+                        </li>
+                      )
+                    }) : ''
+                  }
+                </ul>
+                <p className={ `${style.title} ${style.num}`}>数量</p>
                 <div className={style['num-wrap']}>
                   <NumberController
                     num={this.state.num}
@@ -97,14 +175,38 @@ class Detail extends PureComponent {
               {/* 商品介绍 */}
               <section className={`${style.introduce} ${style.card}`}>
                 <p className={style.title}>商品介绍</p>
+                <ul>
+                  {
+                    detail.keys.length>0 ?
+                    detail.keys.map(e => {
+                      return (
+                        <li className={style['intro-item']} key={e.key}>
+                          <span className={style['intro-item-title']}>{e.key}</span>
+                          <span className={style.val}>{e.value}</span>
+                        </li>
+                      )
+                    }): ""
+                  }
+                </ul>
               </section>
               {/* 商品评价 */}
-              <section className={`${style.introduce} ${style.card}`}>
-                <p className={style.title}>商品评价</p>
-              </section>
+              {
+                detail.evas ?
+                <section className={`${style.introduce} ${style.card}`}>
+                  <p className={style.title}>商品评价</p>
+                </section> : "" 
+              }
               {/* 图文详情 */}
               <section className={`${style.introduce} ${style.card}`}>
                 <p className={style.title}>图文详情</p>
+                {
+                  detail.tailimgs ? 
+                  detail.tailimgs.map(e => {
+                    return (
+                      <img className={style['bottom-img']} src={e.img} alt="img" key={e.imgid}/>
+                    )
+                  }): ""
+                }
               </section>
             </div>
           </Scroll>
@@ -112,11 +214,28 @@ class Detail extends PureComponent {
         {/* 底部结算按钮 */}
         <div className={style.bottom}>
           <div className={style.server}>s</div>
-          <div className={style.addCart}>加入购物车</div>
+          <div className={style.addCart} onClick={this.addCart}>加入购物车</div>
         </div>
       </div>
     );
   }
 }
+
+const mapState = (state) => ({
+  token: state.getIn(['login', 'token']),
+  detail: state.getIn(['goods', 'detail'])
+})
+
+const mapDispatch = (dispatch) => ({
+  getDetail (query) {
+    const action = goodsActionCreators.getDetail(query)
+    dispatch(action)
+  },
+  addCart (query) {
+    const action = cartActionCreators.addCart(query)
+    dispatch(action)
+    Toast.success('已成功加入购物车', 1)
+  }
+})
  
-export default Detail;
+export default connect(mapState, mapDispatch)(Detail);

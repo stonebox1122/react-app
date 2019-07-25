@@ -1,6 +1,6 @@
 import * as types from './actionTypes'
 import * as commonActionCreators from '~/common/store/actionCreators'
-import { getAllGoodsList  } from '$src/api'
+import { getAllGoodsList, getGoodsDetail } from '$src/api'
 
 // 将数据添加到store
 export const addList = (list) => {
@@ -10,21 +10,30 @@ export const addList = (list) => {
   }
 }
 
-// export const toggleLoad = (info) => {
-//   return {
-//     type: types.SET_LOAD,
-//     info
-//   }
-// } 
+// 保存商品详情
+export const initDetail = (info) => {
+  return {
+    type: types.SAVE_DETAIL,
+    info
+  }
+}
 
-// 数据请求的函数
+// 获取商品详情
+export const getDetail = (query) => {
+  return (dispatch) => {
+    getGoodsDetail(query).then(res => {
+      if (res.code === '1') {
+        dispatch(initDetail(res.data))
+      } else {
+        dispatch(commonActionCreators.toggleModal(res.msg))
+      }
+    })
+  }
+}
+
+// 数据请求的函数-获取商品列表
 export const getList = (query) => {
   return (dispatch) => {
-    // 开始loading
-    // dispatch(toggleLoad({
-    //   text: '加载中',
-    //   load: true
-    // }))
     getAllGoodsList(query).then(res => {
       if (res.code === '1') {
         // 保存数据 更新列表状态
@@ -32,11 +41,6 @@ export const getList = (query) => {
       } else {
         dispatch(commonActionCreators.toggleModal(res.msg))
       }
-      // 结束loading
-      // dispatch(toggleLoad({
-      //   text: '加载完成',
-      //   load: false
-      // }))
     })
   }
 }

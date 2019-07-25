@@ -4,7 +4,7 @@ import NavgationBar from '@/NavgationBar'
 import Goods2 from '@/Goods/goods_2'
 import NumberController from '@/NumberController'
 import { Cell, CellHeader, CellBody, CellFooter, TextArea, Icon } from 'react-weui'
-import * as actionCreator from '../../store/actionCreator'
+import * as actionCreator from '../../store/actionCreators'
 
 import style from './index.module.scss'
 class ConfirmOrder extends PureComponent {
