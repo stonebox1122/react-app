@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Icon, Toast } from 'antd-mobile';
 import { Badge } from 'react-weui'
 import NavgationBar from '@/NavgationBar';
-import Tab from '@/Tab';
+// import Tab from '@/Tab';
 import Scroll from '@/Scroll';
 import NumberController from '@/NumberController'
 import Swiper from 'swiper/dist/js/swiper.js';
@@ -70,7 +70,8 @@ class Detail extends PureComponent {
         img: this.props.detail.share_img,
         num,
         title: this.props.detail.title,
-        price: kind.pricestr,
+        pricestr: kind.pricestr,
+        price: kind.price,
         selected: false,
         valueid: kind.valueid
       }
@@ -113,10 +114,11 @@ class Detail extends PureComponent {
         <NavgationBar
           right = {this.navRight()}
         >
-          <Tab 
+          商品详情
+          {/* <Tab 
             currentIndex={1}
             changeCurr={this.scrollTo}
-            list={[{title:'商品', key: 1},{title:'详情', key: 2},{title:'评论', key: 3}]}/>
+            list={[{title:'商品', key: 1},{title:'详情', key: 2},{title:'评论', key: 3}]}/> */}
         </NavgationBar>
         <div className={style['scroll-wrap']}>
           <Scroll>
@@ -254,7 +256,6 @@ const mapDispatch = (dispatch) => ({
   addCart (query) {
     const action = cartActionCreators.addCart(query)
     dispatch(action)
-    Toast.success('已成功加入购物车', 1)
   },
   showPhone (detail) {
     console.log(detail);

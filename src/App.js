@@ -4,6 +4,7 @@ import { connect  } from 'react-redux';
 import { getStore } from '$src/common/js/utils'
 import * as loginActionCreators from '~/common/login/store/actionCreators';
 import * as commonActionCreators from '~/common/store/actionCreators'
+import * as cartActionCreator from '~/cart/store/actionCreators'
 import { Toast } from 'react-weui'
 import { Modal } from 'antd-mobile'
 
@@ -13,10 +14,12 @@ class App extends PureComponent {
     let uid = getStore('uid');
     let token = getStore('token');
     let islogin = getStore('islogin');
+    let cart = getStore('cart');
     let info = {
       uid, token, islogin
     }
-    this.props.init(info)
+    this.props.initInfo(info)
+    this.props.initCart(cart)
   }
   render () {
     let {children, loading, showModal, modalTitle, toggleModal, modalText } = this.props
@@ -48,10 +51,13 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  init (info) {
+  initInfo (info) {
     dispatch(loginActionCreators.setInfo(info))
   },
-  toggleModal (msg) {
+  initCart (info) {
+    dispatch(cartActionCreator.initCart(info))
+  },
+  toggleModal () {
     console.log(this);
     const action = commonActionCreators.toggleModal()
     dispatch(action)

@@ -7,11 +7,20 @@ export const toggleComponent = () => {
   }
 }
 
+// 初始化购物车
+export const initCart = (info) => {
+  return {
+    type: types.INIT_CART,
+    info
+  }
+}
+
 // 选中/取消选中
 export const toggleSelect = (option) => {
   return {
     type: types.TOGGLE_SELECT,
-    id: option.id
+    id: option.gid,
+    valueid: option.valueid
   }
 }
 
@@ -35,6 +44,14 @@ export const changeNum = (option) => {
 export const addCart = (query) => {
   return {
     type: types.ADD_CART,
+    query
+  }
+}
+
+// 删除
+export const del = (query) => {
+  return {
+    type:types.DEL,
     query
   }
 }

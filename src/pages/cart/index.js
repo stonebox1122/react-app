@@ -6,8 +6,10 @@ import Scroll from '@/Scroll';
 import Goods2 from '@/Goods/goods_2'
 import NumberController from '@/NumberController'
 import ConfirmOrder from '~/cart/children/ConfirmOrder'
+import {toFixed2} from '$src/common/js/utils'
 import {Icon} from 'react-weui';
 import style from './index.module.scss';
+import { Toast } from 'antd-mobile';
 class Cart extends PureComponent {
   constructor(props) {
     super(props);
@@ -23,7 +25,52 @@ class Cart extends PureComponent {
       navRight: !flag
     })
   }
-
+  // 提交
+  sub = () => {
+    let { list } =  this.props
+    let flag = list.some((e)=> {
+      return e.selected === true
+    })
+    if (this.state.navRight) {
+      if (flag) {
+        this.props.toggleShowCom()
+      } else {
+        Toast.fail('请先选择要结算的商品', 1)
+      }
+    } else {
+      if (flag) {
+        this.props.del()
+      } else {
+        Toast.fail('请先选择要删除的商品', 1)
+      }
+    }
+  }
+  // 设置结算价格
+  setNum = () => {
+    let { list } = this.props
+    let num = 0;
+    list.forEach(e => {
+      if (e.selected) {
+        num += e.price * e.num
+      }
+    });
+    return (
+      <span>{toFixed2(num)}</span>
+    )
+  }
+  // 结算
+  selected = () => {
+    let { list } = this.props
+    let num = 0;
+    list.forEach(e => {
+     if (e.selected) {
+       num+=1
+     }
+    })
+    return (
+      <span>结算({num})</span>
+    )
+  }
   // 渲染购物车的商品列表
   renderList = () => {
     let { list, toggleSelect, changeNum } = this.props
@@ -38,12 +85,13 @@ class Cart extends PureComponent {
       const newList = list.map((e,i) => {
         return (
           <li className={style.item} key={`${e.gid}${i}`}>
-            <Icon onClick = {() => toggleSelect(e.gid)} value={e.selected ? "success" : "circle"}/>
+            <Icon onClick = {() => toggleSelect(e)} value={e.selected ? "success" : "circle"}/>
             <div className={style.goods}>
               <Goods2
                 height="90px" 
+                info ={e}
                 bottom_left = {
-                  <div>{e.price}</div>
+                  <div>{e.pricestr}</div>
                 }
                 bottom_right = {
                   <div className={style['bottom-right']}>
@@ -64,7 +112,7 @@ class Cart extends PureComponent {
 
   render() { 
     const { navRight } = this.state
-    const  { selectAll, toggleSelectAll, isShowCom, toggleShowCom } = this.props
+    const  { selectAll, toggleSelectAll, isShowCom } = this.props
     return (
       <section className={style['goods-list']}>
         <NavgationBar
@@ -89,11 +137,13 @@ class Cart extends PureComponent {
           <div className={style.menu}>
             {
               navRight ?
-              <div className={style.info}>122</div>
+              <div className={style.info}>
+                合计：{this.setNum()}
+              </div>
               : ''
             }
-            <div className={`${style.btn} ${navRight ? '': style.del}`} onClick={toggleShowCom}>
-              { navRight ? '结算': '删除' }
+            <div className={`${style.btn} ${navRight ? '': style.del}`} onClick={this.sub}>
+              { navRight ? this.selected(): '删除' }
             </div>
           </div>
         </div>
@@ -113,8 +163,8 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  toggleSelect (id) {
-    const action = actionCreator.toggleSelect({id})
+  toggleSelect (e) {
+    const action = actionCreator.toggleSelect(e)
     dispatch(action)
   },
   // 全选/取消全选
@@ -130,6 +180,10 @@ const mapDispatch = (dispatch) => ({
   // 是否显示子页面
   toggleShowCom () {
     const action = actionCreator.toggleComponent()
+    dispatch(action)
+  },
+  del () {
+    const action = actionCreator.del()
     dispatch(action)
   }
 })

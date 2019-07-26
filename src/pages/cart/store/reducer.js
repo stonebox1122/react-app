@@ -1,4 +1,7 @@
 import { fromJS } from 'immutable'
+import { setStore } from '$src/common/js/utils'
+import { Toast } from 'antd-mobile';
+
 import * as types from './actionType'
 const defalutState = fromJS({
   isShowCom: false,
@@ -13,11 +16,14 @@ export default (state=defalutState, action) => {
     case types.TOGGLE_SHOW_COM: // 切换子页面的显示隐藏
       let type = state.get('isShowCom')
       return state.set('isShowCom', !type)
+    case types.INIT_CART:
+      let initList =JSON.parse(action.info)
+      return state.set('list', fromJS(initList))
     case types.TOGGLE_SELECT: // 切换选中状态
       let id = action.id
       let flag = true
       list = list.map(e => {
-        if (e.gid === id) {
+        if (e.gid === id && e.valueid === action.valueid) {
           e.selected = !e.selected
         }
         if (e.selected === false) {
@@ -48,6 +54,7 @@ export default (state=defalutState, action) => {
           }
         }
       });
+      setStore('cart', list)
       return state.set('list', fromJS(list))
     case types.ADD_CART: // 添加到购物车
       let isHave = false
@@ -61,7 +68,18 @@ export default (state=defalutState, action) => {
       if (!isHave) {
         list.push(action.query)
       }
+      Toast.success('已成功加入购物车', 1)
+      setStore('cart', list)
       return state.set('list', fromJS(list))
+    case types.DEL: // 删除商品
+      let newList = []
+      list.forEach((e,i)=>{
+        if (e.selected === false) {
+          newList.push(e)
+        }
+      })
+      setStore('cart', newList)
+      return state.set('list', fromJS(newList))
     default:
       return state;
   }
