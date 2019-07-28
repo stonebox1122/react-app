@@ -7,6 +7,7 @@ import { Badge } from 'react-weui'
 import NavgationBar from '@/NavgationBar';
 // import Tab from '@/Tab';
 import Scroll from '@/Scroll';
+import ConfirmOrder from '~/cart/children/ConfirmOrder'
 import NumberController from '@/NumberController'
 import Swiper from 'swiper/dist/js/swiper.js';
 import 'swiper/dist/css/swiper.min.css';
@@ -29,7 +30,8 @@ class Detail extends PureComponent {
         key: 2,
         name: '极速退款'
       }],
-      kind: {}
+      kind: {},
+      info: [] // 传递给子页面的商品信息
     }
   }
   componentDidMount() {
@@ -53,8 +55,23 @@ class Detail extends PureComponent {
     })
   }
   
-  scrollTo = () => {
-
+  buyNow = () => {
+    if (!this.state.kind.valueid) {
+      Toast.fail('请选择规格', 1)
+      return
+    }
+    let {gid, img,title, price:pricestr } = this.props.detail
+    let obj = {
+      num: this.state.num,
+      gid, img,title,pricestr, 
+      price: this.state.kind.price,
+      valueid: this.state.kind.valueid
+    }
+    let arr = [obj]
+    this.setState({
+      info: arr
+    })
+    this.props.toggleShowCom()
   }
   selectKind = (e) => {
     this.setState({
@@ -108,7 +125,7 @@ class Detail extends PureComponent {
     )
   }
   render() {
-    let { detail } = this.props
+    let { detail, isShowCom } = this.props
     return (
       <div className={style.detail}>
         <NavgationBar
@@ -235,8 +252,22 @@ class Detail extends PureComponent {
             <img src={require('../../img/server.png')} alt='server'/>
             <p>客服</p>
           </div>
-          <div className={style.addCart} onClick={this.addCart}>加入购物车</div>
+          {
+            detail.is_active  === 1 ?
+            <div className={style['buy-now']}>
+              <div className={style.label} onClick={this.addCart}>加入购物车</div>
+              <div className={style.label} onClick={this.buyNow}>立即购买</div>
+            </div>
+            :
+            <div className={style.addCart} onClick={this.buyNow}>立即购买</div>
+          }
         </div>
+        {/* 直接购买确认按钮 */}
+        {
+          isShowCom ? <ConfirmOrder
+            info={this.state.info}
+          /> : ''
+        }
       </div>
     );
   }
@@ -245,7 +276,8 @@ class Detail extends PureComponent {
 const mapState = (state) => ({
   token: state.getIn(['login', 'token']),
   detail: state.getIn(['goods', 'detail']),
-  cart: state.getIn(['cart', 'list']).toJS()
+  cart: state.getIn(['cart', 'list']).toJS(),
+  isShowCom: state.getIn(['cart', 'isShowCom'])
 })
 
 const mapDispatch = (dispatch) => ({
@@ -261,7 +293,12 @@ const mapDispatch = (dispatch) => ({
     console.log(detail);
     const action = commonActionCreator.toggleModal(detail.support_staff, '客服电话')
     dispatch(action)
-  }
+  },
+  // 是否显示子页面
+  toggleShowCom () {
+    const action = cartActionCreators.toggleComponent()
+    dispatch(action)
+  },
 })
  
 export default connect(mapState, mapDispatch)(Detail);

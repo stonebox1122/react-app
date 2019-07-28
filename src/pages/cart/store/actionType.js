@@ -5,3 +5,4 @@ export const CHANGE_NUM = 'CHANGE_NUM' // 改变数量
 export const ADD_CART = 'ADD_CART' // 加入购物车
 export const INIT_CART = 'INIT_CART' // 刷新初始化购物车
 export const DEL = 'DEL' // 从购物车删除
+export const INIT_ORDER = 'INIT_ORDER' // 加载确认订单

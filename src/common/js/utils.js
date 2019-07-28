@@ -9,6 +9,11 @@ export const toFixed2 = (num) => {
   return number
 }
 
+// 将数组转成字符串并编码
+export const formatArr = (arr) => {
+  return encodeURI(JSON.stringify(arr))
+}
+
 /**
  * 手机号的正则判断
  */

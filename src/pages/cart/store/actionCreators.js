@@ -1,5 +1,6 @@
 import * as types from './actionType'
-
+import * as commonActionCreators from '~/common/store/actionCreators'
+import { setOrder } from '$src/api'
 // 子页面的显示隐藏
 export const toggleComponent = () => {
   return {
@@ -8,10 +9,11 @@ export const toggleComponent = () => {
 }
 
 // 初始化购物车
-export const initCart = (info) => {
+export const initCart = (list, selectAll) => {
   return {
     type: types.INIT_CART,
-    info
+    list,
+    selectAll
   }
 }
 
@@ -36,7 +38,8 @@ export const changeNum = (option) => {
   return {
     type: types.CHANGE_NUM,
     way: option.way,
-    id: option.id
+    id: option.id,
+    valueid: option.valueid
   }
 }
 
@@ -53,5 +56,26 @@ export const del = (query) => {
   return {
     type:types.DEL,
     query
+  }
+}
+
+// 将初始化的order存进redux
+export const initOrder = (order) => {
+  return {
+    type: types.INIT_ORDER,
+    order
+  }
+}
+
+// getorder
+export const getOrder = (query) => {
+  return (dispatch) => {
+    setOrder(query).then(res => {
+      if (res.code === '1'){
+        dispatch(initOrder(res.data))
+      } else {
+        dispatch(commonActionCreators.toggleModal(res.msg))
+      }
+    })
   }
 }

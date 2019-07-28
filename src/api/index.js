@@ -30,3 +30,6 @@ export const getAllGoodsList = params => get('/jsmall/app/index/all', params)
 
 // 2.5 获取商品详情
 export const getGoodsDetail = params => get('/jsmall/app/index/ginfo', params)
+
+// 3.1 产品下单
+export const setOrder = params => get('/jsmall/app/orders/placeOrder', params)

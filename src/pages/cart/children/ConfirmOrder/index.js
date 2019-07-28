@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
 import NavgationBar from '@/NavgationBar'
 import Goods2 from '@/Goods/goods_2'
-import NumberController from '@/NumberController'
 import { Cell, CellHeader, CellBody, CellFooter, TextArea, Icon } from 'react-weui'
-import * as actionCreator from '../../store/actionCreators'
+import * as cartActionCreators from '../../store/actionCreators'
+import { formatArr } from '$src/common/js/utils'
 
 import style from './index.module.scss'
 class ConfirmOrder extends PureComponent {
@@ -14,40 +14,60 @@ class ConfirmOrder extends PureComponent {
       payWay: 0
     }
   }
+
+  componentDidMount() {
+    let { userid, token, info } = this.props
+    let currList = info.map(e => {
+      let { gid, num, valueid } = e
+      return {
+        gid, num, valueid
+      }
+    })
+    // 生成订单信息
+    let query = {
+      userid,
+      token,
+      idandnumstr: formatArr(currList),
+      tel: 2 
+    }
+    this.props.getOrder(query)
+  }
+
   renderAddress = () => {
     let {addressList} = this.props
     if (addressList.length>0) {
       return (
         <div className={style['address-info']}>
-          address
+          <div className={style['address-msg']}>
+            收货人申东旭
+          </div>
+          <img className={style.icon} src={require('$static/img/arrow-right.png')} alt="local"/>
         </div>
       )
     } else {
       return (
         <div className={style.noAddr}>
+          <img className={style.icon} src={require('$static/img/location.png')} alt="local"/>
           还没有收获地址，去添加
         </div>
       )
     }
   }
   renderGoods = () => {
-    const {list, changeNum} = this.props
+    let {info} = this.props
     return (
       <div>
         <ul>
           {
-            list.map(e => {
+            info.map((e, i) => {
               return (
-                <li key={e.id}>
+                <li key={`${e.gid}${i}`} className={style.item}>
                   <Goods2 height="80px"
-                    // info={}
-                    bottom_left={<span>{e.price}</span>}
+                    info={e}
+                    bottom_left={<span>{e.pricestr}</span>}
                     bottom_right={
                       <div className={style['bottom-right']}>
-                      <NumberController
-                        num={e.num}
-                        handleDecrease={() => changeNum({id: e.id, way: 'decrease'})}
-                        handleIncrease={() => changeNum({id: e.id, way: 'increase'})}/>
+                      x{e.num}
                     </div>
                     }
                   />
@@ -101,11 +121,9 @@ class ConfirmOrder extends PureComponent {
           <section className={style.address}>
             {this.renderAddress()}
           </section>
-
           <section className={style['cart-info']}>
             {this.renderGoods()}
           </section>
-
           <section className={style['pay-way']}>
             <Cell className={style.cell} onClick={()=>{this.selectPayWay(0)}}>
               <CellHeader>
@@ -143,19 +161,21 @@ class ConfirmOrder extends PureComponent {
 }
 
 const mapState = (state) => ({
-  list: state.getIn(['cart', 'list']).toJS(),
-  addressList: state.getIn(['cart', 'addressList'])
+  // list: state.getIn(['cart', 'list']).toJS(),
+  addressList: state.getIn(['cart', 'addressList']),
+  order: state.getIn(['cart', 'order']),
+  userid: state.getIn(['login', 'uid']),
+  token: state.getIn(['login', 'token'])
 })
 
 const mapDispatch = (dispatch) => ({
   // 是否显示子页面
   toggleShowCom () {
-    const action = actionCreator.toggleComponent()
+    const action = cartActionCreators.toggleComponent()
     dispatch(action)
   },
-  // 修改
-  changeNum (option) {
-    const action=actionCreator.changeNum(option)
+  getOrder (query) {
+    const action = cartActionCreators.getOrder(query)
     dispatch(action)
   }
 })

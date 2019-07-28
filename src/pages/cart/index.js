@@ -14,7 +14,8 @@ class Cart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      navRight: true
+      navRight: true,
+      info: []
     }
   }
 
@@ -33,6 +34,12 @@ class Cart extends PureComponent {
     })
     if (this.state.navRight) {
       if (flag) {
+        let currList = list.filter((e) => {
+          return e.selected
+        })
+        this.setState({
+          info: currList
+        })
         this.props.toggleShowCom()
       } else {
         Toast.fail('请先选择要结算的商品', 1)
@@ -97,8 +104,8 @@ class Cart extends PureComponent {
                   <div className={style['bottom-right']}>
                     <NumberController
                       num={e.num}
-                      handleDecrease={() => changeNum({id: e.gid, way: 'decrease'})}
-                      handleIncrease={() => changeNum({id: e.gid, way: 'increase'})}/>
+                      handleDecrease={() => changeNum({id: e.gid, way: 'decrease', valueid: e.valueid})}
+                      handleIncrease={() => changeNum({id: e.gid, way: 'increase', valueid: e.valueid})}/>
                   </div>
                 }
               />
@@ -149,7 +156,7 @@ class Cart extends PureComponent {
         </div>
         {/* 确认订单页面 */}
         {
-          isShowCom ? <ConfirmOrder/> : ''
+          isShowCom ? <ConfirmOrder info={this.state.info}/> : ''
         }
       </section>
     );

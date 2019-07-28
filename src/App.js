@@ -14,12 +14,13 @@ class App extends PureComponent {
     let uid = getStore('uid');
     let token = getStore('token');
     let islogin = getStore('islogin');
-    let cart = getStore('cart');
+    let cartList = getStore('cart');
+    let cartSelectAll = getStore('selectAll')
     let info = {
       uid, token, islogin
     }
     this.props.initInfo(info)
-    this.props.initCart(cart)
+    this.props.initCart(cartList, cartSelectAll)
   }
   render () {
     let {children, loading, showModal, modalTitle, toggleModal, modalText } = this.props
@@ -54,11 +55,10 @@ const mapDispatch = (dispatch) => ({
   initInfo (info) {
     dispatch(loginActionCreators.setInfo(info))
   },
-  initCart (info) {
-    dispatch(cartActionCreator.initCart(info))
+  initCart (List, selectAll) {
+    dispatch(cartActionCreator.initCart(List, selectAll))
   },
   toggleModal () {
-    console.log(this);
     const action = commonActionCreators.toggleModal()
     dispatch(action)
   }
