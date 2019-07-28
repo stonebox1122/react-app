@@ -7,6 +7,7 @@ import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import Goods2 from '@/Goods/goods_2'
 import { LoadMore } from 'react-weui';
+import { Link } from 'react-router-dom'
 
 import style from './index.module.scss'
 class Course extends PureComponent {
@@ -60,10 +61,12 @@ class Course extends PureComponent {
                 this.props.list.map(e => {
                   return (
                     <li key = {e.title} className={style.item}>
-                      <Goods2
-                        info = {e}
-                        bottom_left = { this.buyNum(1200) }
-                        bottom_right = { this.setPrice(4999) }/>
+                      <Link to={`/detail/${e.gid}`}>
+                        <Goods2
+                          info = {e}
+                          bottom_left = { this.buyNum(1200) }
+                          bottom_right = { this.setPrice(4999) }/>
+                      </Link>
                     </li>
                   )
                 }) 

@@ -231,11 +231,13 @@ class Home extends Component {
               list_nlkc.map(e => {
                 return (
                   <li className = {style.mb} key={e.gid}>
-                    <Goods2 
-                      info = {e}
-                      bottom_left = { this.buyNum(`${e.sales}`) }
-                      bottom_right = { this.setPrice(`${e.price}`) }
-                    />
+                    <Link to={`/detail/${e.gid}`}>
+                      <Goods2 
+                        info = {e}
+                        bottom_left = { this.buyNum(`${e.sales}`) }
+                        bottom_right = { this.setPrice(`${e.price}`) }
+                      />
+                    </Link>
                   </li>
                 )
               })

@@ -63,7 +63,10 @@ class Detail extends PureComponent {
     let {gid, img,title, price:pricestr } = this.props.detail
     let obj = {
       num: this.state.num,
-      gid, img,title,pricestr, 
+      gid,
+      img,
+      title,
+      pricestr,
       price: this.state.kind.price,
       valueid: this.state.kind.valueid
     }
@@ -87,6 +90,7 @@ class Detail extends PureComponent {
         img: this.props.detail.share_img,
         num,
         title: this.props.detail.title,
+        is_entity: this.props.detail.is_entity,
         pricestr: kind.pricestr,
         price: kind.price,
         selected: false,

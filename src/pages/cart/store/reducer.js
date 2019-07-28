@@ -66,6 +66,11 @@ export default (state=defalutState, action) => {
       return state.set('list', fromJS(list))
     case types.ADD_CART: // 添加到购物车
       let isHave = false
+      // 判断购物车和加入购物车的是不是同一个类型
+      if (list[0] && list[0].is_entity !== action.query.is_entity) {
+        Toast.fail('虚拟商品/实物不能同时加入购物车', 1)
+        return state
+      }
       list.forEach(e => {
         // 如果同商品同型号直接加数量
         if (e.gid === action.query.gid && e.valueid === action.query.valueid) {
