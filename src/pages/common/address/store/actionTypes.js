@@ -1,0 +1,1 @@
+export const SAVE_ADDR_LIST = 'SAVE_ADDR_LIST'

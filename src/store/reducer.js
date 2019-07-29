@@ -12,6 +12,7 @@ import { reducer as goodsReducer } from '~/goods/store'
 import { reducer as cartReducer} from '~/cart/store'
 import { reducer as loginReducer} from '~/common/login/store'
 import { reducer as commonReducer} from '~/common/store'
+import { reducer as addressReducer } from '~/common/address/store'
 
 export default combineReducers({
   home: homeReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
   video: videoListReducer,
   healthy: healthyReducer,
   excellent: excellentReducer,
-  chosen: chosenReducer
+  chosen: chosenReducer,
+  address: addressReducer
 })
