@@ -20,13 +20,16 @@ export const loginByCode = (params) => post('/jsmall/app/main/msglogin', params)
 export const getAddrList = (params) => get('/jsmall/app/main/myAddress', params)
 
 // 1.6.3 新增收货地址（web）
-export const addAddress = (params) => get('/jsmall/app/main/addAddressParam', params)
+export const addAddress = (params) => post('/jsmall/app/main/addAddressParam', params)
 
 // 1.6.4 修改收货地址
 export const editAddress = params => get('/jsmall/app/main/updateAddress', params)
 
 // 1.6.4 删除收货地址
 export const delAddress = params => get('/jsmall/app/main/removeAddress', params)
+
+// 1.8.1 获取省市区（web）
+export const getCitys = () => get('/jsmall/app/main/getAllArea')
 
 // 2.1 加载首页
 export const initHomePage = (params) => get('/jsmall/app/index/i', params)

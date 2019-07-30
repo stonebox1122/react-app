@@ -17,6 +17,9 @@ class Address extends PureComponent {
   }
 
   componentDidMount() {
+    this._init()
+  }
+  _init = () => {
     let { userid, token, getList } = this.props
     let query = {
       userid,
@@ -25,9 +28,8 @@ class Address extends PureComponent {
     getList(query)
   }
   showCom = (value) => {
-    console.log('value :', value);
     let type = 'add'
-    if (value.id) {
+    if (value && value.id) {
       type = 'edit'
       this.setState({
         option:value
@@ -63,7 +65,7 @@ class Address extends PureComponent {
         }
         {
           this.state.showCom ? 
-          <AddAddress back={this.showCom} type={this.state.type} option={this.state.option}/> : ""
+          <AddAddress back={this.showCom} type={this.state.type} reloadList={this._init} option={this.state.option}/> : ""
         }
       </div>
     );
