@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import {Icon} from 'react-weui'
+import {Button} from 'antd-mobile';
 import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import AddAddress from './children/addAddress'
@@ -41,6 +43,11 @@ class Address extends PureComponent {
       type
     })
   }
+  // 切换选中的地址
+  selectAddr = (e) => {
+    this.props.selectAddress(e)
+    this.props.back()
+  }
   render() { 
     let { list } = this.props
     return (
@@ -57,7 +64,25 @@ class Address extends PureComponent {
           <div className={style['list-wrap']}>
             <Scroll>
               <ul className={style.list}>
-                <li></li>
+                {
+                  list.map(e=>{
+                    return (
+                      <li className={style['list-item']} key={e.addressid}>
+                        <div className={style.top}>
+                          <Icon className={style.icon} onClick={this.selectAddr.bind(this,e)} size="small" value={e.is_default === '1'?"success": 'circle'}/>
+                          <div className={style.info}>
+                            <p className={style.title}>{e.username}&nbsp;{e.phone}</p>
+                            <p>{e.address}</p>
+                          </div>
+                        </div>
+                        <div className={style.bottom}>
+                          <Button size="small" className={style.btn} style={{marginRight:"24px"}} type="ghost" inline>删除</Button>
+                          <Button size="small" className={style.btn} type="ghost" inline>编辑</Button>
+                        </div>
+                      </li>
+                    )
+                  })
+                }
               </ul>
             </Scroll>
           </div> : 
@@ -77,7 +102,7 @@ Address.propTypes = {
 }
 
 const mapState = (state) => ({
-  list: state.getIn(['address', 'list']),
+  list: state.getIn(['address', 'list']).toJS(),
   userid: state.getIn(['login', 'uid']),
   token: state.getIn(['login', 'token'])
 })
@@ -85,6 +110,10 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   getList (query) {
     const action = addressActionCreator.getList(query)
+    dispatch(action)
+  },
+  selectAddress(query) {
+    const action = addressActionCreator.changeCurrentAddr(query);
     dispatch(action)
   }
 })

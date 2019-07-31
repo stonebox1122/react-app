@@ -95,6 +95,7 @@ export default (state=defalutState, action) => {
       return state.set('list', fromJS(newList))
     case types.INIT_ORDER: // 加载商品
       return state.set('order', fromJS(action.order))
+
     default:
       return state;
   }

@@ -28,11 +28,28 @@
       .address-info {
         display: flex;
         align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 24px;
+        box-sizing: border-box;
         .address-msg {
+          display: flex;
+          flex-direction: column;
+          // justify-content: center;
           flex: 1;
+          font-size: 28px;
+          height: 100%;
+          .title {
+            margin-top: 12px;
+            line-height: 40px;
+          }
+          .addr {
+            margin-top: 24px;
+            line-height: 30px;
+          }
         }
-        .arr {
-
+        .icon {
+          width: 18px;
         }
       }
     }

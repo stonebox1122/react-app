@@ -3,7 +3,8 @@ import * as types from './actionTypes'
 
 const defaultState = fromJS({
   list: [], // 地址列表
-  cityList: [] // 省市区信息
+  cityList: [], // 省市区信息
+  currentAddress: {}
 })
 
 export default (state = defaultState, action) => {
@@ -12,8 +13,8 @@ export default (state = defaultState, action) => {
       return state.set('list', fromJS(action.list));
     case types.CITY_LIST:
       return state.set('cityList', fromJS(action.list));
-    // case types.SAVE_NEW_ADDR:
-    //   return state
+    case types.CHANGE_CURRENT_ADDR:
+        return state.set('currentAddress', fromJS(action.info))
     default:
       return state;
   }

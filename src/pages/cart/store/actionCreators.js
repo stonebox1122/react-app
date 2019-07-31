@@ -1,5 +1,6 @@
 import * as types from './actionType'
 import * as commonActionCreators from '~/common/store/actionCreators'
+import * as addressActionCreators from '~/common/address/store/actionCreators'
 import { setOrder } from '$src/api'
 // 子页面的显示隐藏
 export const toggleComponent = () => {
@@ -67,12 +68,14 @@ export const initOrder = (order) => {
   }
 }
 
+
 // getorder
 export const getOrder = (query) => {
   return (dispatch) => {
     setOrder(query).then(res => {
       if (res.code === '1'){
         dispatch(initOrder(res.data))
+        dispatch(addressActionCreators.changeCurrentAddr(res.data.isdefault_address))
       } else {
         dispatch(commonActionCreators.toggleModal(res.msg))
       }

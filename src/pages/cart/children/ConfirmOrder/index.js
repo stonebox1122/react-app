@@ -41,21 +41,22 @@ class ConfirmOrder extends PureComponent {
     })
   }
   renderAddress = () => {
-    let {addressList} = this.props
-    if (addressList.length>0) {
+    let {currentAddress} = this.props
+    if (currentAddress) {
       return (
         <div className={style['address-info']}>
           <div className={style['address-msg']}>
-            收货人申东旭
+            <p className={style.title}>收货人：{currentAddress.username}&nbsp;&nbsp;{currentAddress.phone}</p>
+            <p className={style.addr}>{currentAddress.address}</p>
           </div>
-          <img className={style.icon} src={require('$static/img/arrow-right.png')} alt="local"/>
+          <img onClick={this.showAddr} className={style.icon} src={require('$static/img/arrow-right.png')} alt="local"/>
         </div>
       )
     } else {
       return (
         <div className={style.noAddr} onClick={this.showAddr}>
           <img className={style.icon} src={require('$static/img/location.png')} alt="local"/>
-          还没有收获地址，去添加
+          还没有收货地址，去添加
         </div>
       )
     }
@@ -172,11 +173,11 @@ class ConfirmOrder extends PureComponent {
 }
 
 const mapState = (state) => ({
-  // list: state.getIn(['cart', 'list']).toJS(),
   addressList: state.getIn(['cart', 'addressList']),
   order: state.getIn(['cart', 'order']).toJS(),
   userid: state.getIn(['login', 'uid']),
-  token: state.getIn(['login', 'token'])
+  token: state.getIn(['login', 'token']),
+  currentAddress: state.getIn(['address', 'currentAddress']).toJS()
 })
 
 const mapDispatch = (dispatch) => ({

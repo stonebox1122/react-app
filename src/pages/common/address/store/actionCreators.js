@@ -58,6 +58,14 @@ export const saveList = (list) => {
   }
 }
 
+// 改变当前选中地址
+export const changeCurrentAddr = (info) => {
+  return {
+    type: types.CHANGE_CURRENT_ADDR,
+    info
+  }
+}
+
 // export const saveNewAddr = (addr) => {
 //   return {
 //     type: types.SAVE_NEW_ADDR,
