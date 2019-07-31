@@ -38,9 +38,15 @@ class Address extends PureComponent {
     }
     delAddr(query, this._init)
   }
+  edit = (e) => {
+    this.setState({
+      type: 'edit'
+    })
+    this.showCom(e)
+  }
   showCom = (value) => {
     let type = 'add'
-    if (value && value.id) {
+    if (value && value.addressid) {
       type = 'edit'
       this.setState({
         option:value
@@ -80,13 +86,13 @@ class Address extends PureComponent {
                         <div className={style.top}>
                           <Icon className={style.icon} onClick={this.selectAddr.bind(this,e)} size="small" value={e.is_default === '1'?"success": 'circle'}/>
                           <div className={style.info}>
-                            <p className={style.title}>{e.username}&nbsp;{e.phone}</p>
+                            <p className={style.title} >{e.username}&nbsp;{e.phone}</p>
                             <p>{e.address}</p>
                           </div>
                         </div>
                         <div className={style.bottom}>
                           <Button size="small" onClick= {this.delAddr.bind(this, e)} className={style.btn} style={{marginRight:"24px"}} type="ghost" inline>删除</Button>
-                          <Button size="small" className={style.btn} type="ghost" inline>编辑</Button>
+                          {/* <Button size="small" onClick={this.edit.bind(this, e)} className={style.btn} type="ghost" inline>编辑</Button> */}
                         </div>
                       </li>
                     )

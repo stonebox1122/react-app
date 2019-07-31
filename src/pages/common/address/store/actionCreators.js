@@ -58,6 +58,19 @@ export const saveList = (list) => {
   }
 }
 
+// 编辑地址
+export const editAddr = (query,cb) => {
+  return dispatch => {
+    editAddress(query).then(res => {
+      if (res.code === '1') {
+        cb()
+      } else {
+        dispatch(commonActionCreators.toggleModal(res.msg))
+      }
+    })
+  }
+}
+
 // 改变当前选中地址
 export const changeCurrentAddr = (info) => {
   return {

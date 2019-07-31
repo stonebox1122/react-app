@@ -62,7 +62,11 @@ class AddAddress extends PureComponent {
           token: this.props.token,
           userid: this.props.userid
         }
-        this.props.addAddr(query, this.cb)
+        if (this.props.type === 'add') {
+          this.props.addAddr(query, this.cb)
+        } else {
+          this.props.editAddr(query, this.cb)
+        }
       } else {
         Toast.fail('填写有误，请核查')
       }
@@ -99,6 +103,7 @@ class AddAddress extends PureComponent {
                     ],
                   })}
                   clear
+                  value={type === 'add' ? "" : this.props.option.username}
                   error={!!getFieldError('truename')}
                   onErrorClick={() => {
                     Toast.fail(getFieldError('truename').join('、'));
@@ -111,6 +116,7 @@ class AddAddress extends PureComponent {
                       { validator: this.validatePhone },
                     ],
                   })}
+                  value={type === 'add' ? "" : this.props.option.phone}
                   error={!!getFieldError('mobile')}
                   onErrorClick={() => {
                     Toast.fail(getFieldError('mobile').join('、'));
@@ -123,7 +129,7 @@ class AddAddress extends PureComponent {
                   data={cityList}
                   title="城市列表"
                   {...getFieldProps('cityList', {
-                    initialValue: ['1', '36', '37'],
+                    initialValue: [this.props.option.provinceid || "1", this.props.option.cityid||'36', this.props.option.areaid||'37'],
                   })}
                   // onOk={e => console.log('ok', e)}
                   // onDismiss={e => console.log('dismiss', e)}
@@ -138,6 +144,7 @@ class AddAddress extends PureComponent {
                     ]
                   })}
                   clear
+                  value={type === 'add' ? "" : this.props.option.address}
                   error={!!getFieldError('addressinfo')}
                   onErrorClick={() => {
                     Toast.fail(getFieldError('addressinfo').join('、'));
@@ -186,6 +193,10 @@ const mapDispatch = dispatch => ({
   },
   addAddr (query, cb) {
     const action = addressActionCreators.addNewAddress(query, cb)
+    dispatch(action)
+  },
+  editAddr (query, cb) {
+    const action = addressActionCreators.editAddr(query, cb)
     dispatch(action)
   }
 })
