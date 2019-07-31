@@ -19,9 +19,6 @@ class AddAddress extends PureComponent {
     this.props.getCitys()
   }
 
-  del = () => {
-
-  }
   //  姓名的验证
   validateName = (rule, value, callback) => {
     if (value && value.length >= 2) {

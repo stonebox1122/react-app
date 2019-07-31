@@ -66,9 +66,15 @@ export const changeCurrentAddr = (info) => {
   }
 }
 
-// export const saveNewAddr = (addr) => {
-//   return {
-//     type: types.SAVE_NEW_ADDR,
-//     addr
-//   }
-// }
+// 删除地址
+export const delAddr = (query,cb) => {
+  return dispatch => {
+    delAddress(query).then(res => {
+      if (res.code === '1') {
+        cb()
+      } else {
+        dispatch(commonActionCreators.toggleModal(res.msg))
+      }
+    })
+  }
+}

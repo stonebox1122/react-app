@@ -29,6 +29,15 @@ class Address extends PureComponent {
     }
     getList(query)
   }
+  delAddr = (e) => {
+    let {userid, token, delAddr} = this.props
+    let query = {
+      userid,
+      token,
+      addressid: e.addressid
+    }
+    delAddr(query, this._init)
+  }
   showCom = (value) => {
     let type = 'add'
     if (value && value.id) {
@@ -76,7 +85,7 @@ class Address extends PureComponent {
                           </div>
                         </div>
                         <div className={style.bottom}>
-                          <Button size="small" className={style.btn} style={{marginRight:"24px"}} type="ghost" inline>删除</Button>
+                          <Button size="small" onClick= {this.delAddr.bind(this, e)} className={style.btn} style={{marginRight:"24px"}} type="ghost" inline>删除</Button>
                           <Button size="small" className={style.btn} type="ghost" inline>编辑</Button>
                         </div>
                       </li>
@@ -114,6 +123,10 @@ const mapDispatch = (dispatch) => ({
   },
   selectAddress(query) {
     const action = addressActionCreator.changeCurrentAddr(query);
+    dispatch(action)
+  },
+  delAddr (query, cb) {
+    const action = addressActionCreator.delAddr(query, cb)
     dispatch(action)
   }
 })

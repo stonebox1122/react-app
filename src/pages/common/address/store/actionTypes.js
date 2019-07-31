@@ -1,3 +1,4 @@
 export const SAVE_ADDR_LIST = 'SAVE_ADDR_LIST'
 export const CITY_LIST = 'CITY_LIST'
 export const CHANGE_CURRENT_ADDR = 'CHANGE_CURRENT_ADDR'
+export const DEL_ADDR = 'DEL_ADDR'
