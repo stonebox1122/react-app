@@ -48,3 +48,9 @@ export const getGoodsDetail = params => get('/jsmall/app/index/ginfo', params)
 
 // 3.1 产品下单
 export const setOrder = params => get('/jsmall/app/orders/placeOrder', params)
+
+// 3.2 确认订单（预付单）
+export const confirmOrder = params => get('/jsmall/app/orders/confirmTheOrder', params)
+
+// 4.1 积分支付-购买产品
+export const pointPay = params => post('/jsmall/app/pay/goPointPayBuyProduct', params)

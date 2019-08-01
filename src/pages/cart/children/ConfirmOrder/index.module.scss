@@ -129,6 +129,16 @@
     box-sizing: border-box;
     .left-msg {
       flex: 1;
+      font-size: 28px;
+      line-height: 30px;
+      color: #666666;
+      .total {
+        color: red;
+      }
+      .discount {
+        font-size: 20px;
+        color: #999999;
+      }
     }
     .right-msg {
       flex:  0 0 250px;

@@ -60,7 +60,7 @@ class Detail extends PureComponent {
       Toast.fail('请选择规格', 1)
       return
     }
-    let {gid, img,title, price:pricestr } = this.props.detail
+    let {gid, img,title, price:pricestr, is_active } = this.props.detail
     let obj = {
       num: this.state.num,
       gid,
@@ -68,7 +68,8 @@ class Detail extends PureComponent {
       title,
       pricestr,
       price: this.state.kind.price,
-      valueid: this.state.kind.valueid
+      valueid: this.state.kind.valueid,
+      is_active
     }
     let arr = [obj]
     this.setState({
@@ -84,13 +85,15 @@ class Detail extends PureComponent {
   // 加入购物车
   addCart = () => {
     let {kind, num} = this.state
+    let {match,detail} = this.props
     if (kind.valueid) {
       let query = {
-        gid: this.props.match.params.id,
-        img: this.props.detail.share_img,
+        gid: match.params.id,
+        img: detail.share_img,
         num,
-        title: this.props.detail.title,
-        is_entity: this.props.detail.is_entity,
+        title: detail.title,
+        is_entity: detail.is_entity,
+        is_active: detail.is_active,
         pricestr: kind.pricestr,
         price: kind.price,
         selected: false,
