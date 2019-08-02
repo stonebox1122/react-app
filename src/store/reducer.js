@@ -13,6 +13,7 @@ import { reducer as cartReducer} from '~/cart/store'
 import { reducer as loginReducer} from '~/common/login/store'
 import { reducer as commonReducer} from '~/common/store'
 import { reducer as addressReducer } from '~/common/address/store'
+import { reducer as mineReducer} from '~/mine/store'
 
 export default combineReducers({
   home: homeReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
   healthy: healthyReducer,
   excellent: excellentReducer,
   chosen: chosenReducer,
-  address: addressReducer
+  address: addressReducer,
+  mine: mineReducer
 })

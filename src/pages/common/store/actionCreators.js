@@ -9,7 +9,7 @@ export const toggleLoading = () => {
 }
 
 // 显示隐藏弹框
-export const toggleModal = (msg, title) => {
+export const toggleModal = (msg, title="失败") => {
   return {
     type: types.TOGGLE_MODAL,
     msg, 

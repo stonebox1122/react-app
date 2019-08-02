@@ -1,0 +1,58 @@
+.head {
+  display: flex;
+  width: 100vw;
+  padding: 24px;
+  box-sizing: border-box;
+  .avatar {
+    width: 145px;
+    height: 145px;
+    margin: 17px;
+  }
+  .info {
+    display:flex;
+    flex: 1;
+    align-items: center;
+    font-size:36px;
+    font-weight: bold;
+    .detail {
+      font-size: 28px;
+      line-height: 40px;
+      .title {
+        display: flex;
+        align-items: center;
+        .vip {
+          width: 34px;
+          height: 28px;
+          margin-left: 20px;
+        }
+        .tag {
+          display: inline-block;
+          font-size: 24px;
+          color: #fff;
+          padding: 4px 12px;
+          background-color: $mcolor;
+          border-radius: 6px;
+        }
+      }
+
+    }
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-between;
+    .setting {
+      width: 46px;
+      height: 44px;
+    }
+    .sign {
+      width: 110px;
+      height: 80px;
+    }
+  }
+}
+.wallet {
+  display: flex;
+  justify-content: space-between;
+}

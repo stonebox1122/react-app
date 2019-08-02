@@ -28,6 +28,9 @@ export const editAddress = params => get('/jsmall/app/main/updateAddress', param
 // 1.6.4 删除收货地址
 export const delAddress = params => get('/jsmall/app/main/removeAddress', params)
 
+// 1.7 用户中心个人面板
+export const loadMine = params => get('/jsmall/app/main/loadCenter', params)
+
 // 1.8.1 获取省市区（web）
 export const getCitys = () => get('/jsmall/app/main/getAllArea')
 

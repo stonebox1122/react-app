@@ -1,0 +1,1 @@
+export const LOAD_MINE = 'LOAD_MINE' //
