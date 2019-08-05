@@ -17,7 +17,17 @@ class App extends PureComponent {
     let cartList = getStore('cart');
     let cartSelectAll = getStore('selectAll')
     let info = {
-      uid, token, islogin
+      uid: uid === 'null' ? '' : uid,
+      token: token === 'null' ? '888888' : token,
+      islogin: islogin === 'null' ? false : islogin
+    }
+    if (cartList === null) {
+      cartList = []
+    } else {
+      cartList = JSON.parse(cartList)
+    }
+    if (cartSelectAll === null) {
+      cartSelectAll = false
     }
     this.props.initInfo(info)
     this.props.initCart(cartList, cartSelectAll)

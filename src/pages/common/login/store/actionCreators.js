@@ -12,3 +12,11 @@ export const setInfo = (info) => {
     islogin
   }
 }
+
+export const exit = dispatch => {
+  // 这里是否要提交清空个人信息和购物车？
+  
+  return {
+    type: types.EXIT
+  }
+}

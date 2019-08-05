@@ -34,7 +34,6 @@
           border-radius: 6px;
         }
       }
-
     }
   }
   .right {
@@ -55,4 +54,35 @@
 .wallet {
   display: flex;
   justify-content: space-between;
+  padding: 24px;
+  .item {
+    flex: 1;
+    text-align: center;
+    font-size: 22px;
+    line-height: 40px;
+  }
+}
+
+.course-vip {
+  box-sizing: border-box;
+  padding: 24px;
+  padding-bottom: 0;
+  .banner {
+    width: 100%;
+  }
+}
+.order-type {
+  position: relative;
+  padding: 24px;
+  background-color: #fff;
+}
+.my-wallet {
+  margin-top: 24px;
+  padding: 24px;
+  background-color: #fff;
+  font-size: 28px;
+  font-weight: bold;
+}
+.full-screen {
+  @extend %full-screen;
 }

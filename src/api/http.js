@@ -29,6 +29,7 @@ axios.interceptors.response.use(response => {
     return Promise.reject(response)
   }
 }, error => {
+  console.log(error);
   // 我们可以在这里对异常状态作统一处理
   if (error.response.status) {
     // 处理请求失败的情况

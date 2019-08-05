@@ -18,7 +18,7 @@ export default (state=defalutState, action) => {
       let type = state.get('isShowCom')
       return state.set('isShowCom', !type)
     case types.INIT_CART:
-      let initList =JSON.parse(action.list)
+      let initList =action.list
       return state.set('list', fromJS(initList)).set('selectAll', fromJS(JSON.parse(action.selectAll)))
     case types.TOGGLE_SELECT: // 切换选中状态
       let id = action.id
