@@ -31,6 +31,9 @@ export const delAddress = params => get('/jsmall/app/main/removeAddress', params
 // 1.7 用户中心个人面板
 export const loadMine = params => get('/jsmall/app/main/loadCenter', params)
 
+// 1.7.2 更改个人资料
+export const changeMineInfo = params => get('/jsmall/app/main/editUserInfo', params)
+
 // 1.8.1 获取省市区（web）
 export const getCitys = () => get('/jsmall/app/main/getAllArea')
 

@@ -10,3 +10,6 @@
   color: #fff;
   font-size: 32px;
 }
+.full-screen {
+  @extend %full-screen
+}

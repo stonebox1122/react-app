@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import PropTypes from 'prop-types'
 
-class ChangePwd extends PureComponent {
+class ChangePhone extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {  }
@@ -15,13 +15,13 @@ class ChangePwd extends PureComponent {
           mode="light"
           icon={<Icon type="left" />}
           onLeftClick={() => back() }
-        >修改密码</NavBar>
+        >修改手机号</NavBar>
       </div>
     );
   }
 }
 
-ChangePwd.propTypes = {
+ChangePhone.propTypes = {
   back: PropTypes.func
 }
-export default ChangePwd;
+export default ChangePhone;

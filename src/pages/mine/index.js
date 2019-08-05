@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { TabBar, Grid  } from 'antd-mobile';
 import Set from './children/set'
+import PersonInfo from './children/personInfo'
 import * as mineActionCreators from './store/actionCreators'
 import style from './index.module.scss';
 
@@ -83,6 +84,8 @@ class Mine extends PureComponent {
     switch (name) {
       case 'Set':
         return <Set back={this.handleShowCom}/>
+      case 'PersonInfo':
+        return <PersonInfo back={this.handleShowCom}/>
       default:
         break;
     }
@@ -97,7 +100,7 @@ class Mine extends PureComponent {
         <section className={style.head}>
           {
             userinfo ? 
-            <img src={userinfo.avatar} className={style.avatar} alt="avatar"/>
+            <img onClick={()=>this.handleShowCom("PersonInfo")} src={userinfo.avatar} className={style.avatar} alt="avatar"/>
             :          
             <img src={require("./img/personal_btn_avatar.png")} className={style.avatar} alt="acatar"/>
           }
