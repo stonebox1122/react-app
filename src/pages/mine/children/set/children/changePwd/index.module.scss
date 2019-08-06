@@ -1,0 +1,16 @@
+.container {
+  padding: 24px;
+}
+.next {
+  margin-left: 50%;
+  margin-top: 40px;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 84px;
+  border-radius: 8px;
+  text-align: center;
+  line-height: 84px;
+  font-size: 34px;
+  background-color: $mcolor;
+  color: #fff;
+}

@@ -3,9 +3,7 @@ import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types'
 import NavgationBar from '@/NavgationBar'
-import Address from '~/common/address'
 import { List, Modal, DatePicker, Picker  } from 'antd-mobile';
-import style from './index.module.scss'
 import * as commonActionCreators from '~/common/store/actionCreators'
 import * as mineActionCreators from '../../store/actionCreators'
 const prompt = Modal.prompt;
@@ -14,8 +12,6 @@ class PersonInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isShowCom: false,
-      comName: "",
       date: "",
       sex: [
         {
@@ -27,25 +23,6 @@ class PersonInfo extends PureComponent {
           value: 2,
         },
       ]
-    }
-  }
-
-  // 子组件显示
-  handleShowCom = (name="Address") => {
-    let flag = this.state.isShowCom
-    this.setState({
-      comName: name,
-      isShowCom: !flag
-    })
-  }
-  // 动态改变子组件
-  showCom = () => {
-    const name = this.state.comName
-    switch (name) {
-      case 'Address':
-        return <Address back = {this.handleShowCom}/>
-      default:
-        break;
     }
   }
 
@@ -111,15 +88,6 @@ class PersonInfo extends PureComponent {
             { text: '确定', onPress: value => this.changeMsg('idcard', value) },
           ], 'default', userinfo.idcard)}>身份证号</Item>
         </List>
-
-        {/* 子页面 */}
-        {
-          this.state.isShowCom ?
-          <section className={style['full-screen']}>
-            { this.showCom() }
-          </section>
-          : ""
-        }
       </div>
     );
   }

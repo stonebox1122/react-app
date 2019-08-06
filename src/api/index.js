@@ -10,6 +10,9 @@ export const subRegistered = (params) => post('/jsmall/app/main/doRegisterVisito
 // 1.3 发送验证码
 export const sendCode = (params) => post('/jsmall/app/main/sendMessage', params)
 
+// 1.3.1 校验验证码
+export const verficationCode = params => post('/jsmall/app/main/checkMessage', params)
+
 // 1.4 账户密码登陆
 export const loginByPwd = (params) => post('/jsmall/app/main/login', params)
 
@@ -33,6 +36,12 @@ export const loadMine = params => get('/jsmall/app/main/loadCenter', params)
 
 // 1.7.2 更改个人资料
 export const changeMineInfo = params => get('/jsmall/app/main/editUserInfo', params)
+
+// 1.7.3 更改手机号
+export const changePhoneNum = params => get('/jsmall/app/main/editMobile', params)
+
+// 1.7.4 更改密码
+export const changePwd = params => get('/jsmall/app/main/editPwd', params)
 
 // 1.8.1 获取省市区（web）
 export const getCitys = () => get('/jsmall/app/main/getAllArea')
