@@ -46,6 +46,7 @@ class ChangePwd extends PureComponent {
 
     if (testPhoneNum(phone) && code.length === 6) {
       let query = {
+        userid: this.props.userid,
         mobile: phone,
         type: 2,
         code

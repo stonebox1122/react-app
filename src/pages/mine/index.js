@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { TabBar, Grid  } from 'antd-mobile';
 import Set from './children/set'
 import PersonInfo from './children/personInfo'
+import ServerNode from './children/serverNode'
 import * as mineActionCreators from './store/actionCreators'
 import style from './index.module.scss';
 
@@ -34,25 +35,32 @@ class Mine extends PureComponent {
       }],
       managerCenter: [{
         icon: require('./img/personal_icon_gm.png'),
-        text: '一代会员'
+        text: '一代会员',
+        key: 'ServerNode'
       },{
         icon: require('./img/personal_icon_sgm.png'),
-        text: '二代会员'
+        text: '二代会员',
+        key: 2
       },{
         icon: require('./img/personal_icon_promotion.png'),
-        text: '推广二维码'
+        text: '推广二维码',
+        key: 3
       },{
         icon: require('./img/personal_icon_proxy.png'),
-        text: '申请代理'
+        text: '申请代理',
+        key: 4
       },{
         icon: require('./img/personal_icon_sc.png'),
-        text: '申请服务中心'
+        text: '申请服务中心',
+        key: 5
       },{
         icon: require('./img/personal_icon_member.png'),
-        text: '申请会员'
+        text: '申请会员',
+        key: 6
       },{
         icon: require('./img/personal_icon_video.png'),
-        text: '已购买视频'
+        text: '已购买视频',
+        key: 7
       }]
     }
   }
@@ -86,6 +94,19 @@ class Mine extends PureComponent {
         return <Set back={this.handleShowCom}/>
       case 'PersonInfo':
         return <PersonInfo back={this.handleShowCom}/>
+      case 'ServerNode':
+        return <ServerNode back={this.handleShowCom}/>
+      default:
+        break;
+    }
+  }
+
+  // 菜单的点击
+  handleManager = (el) => {
+    switch (el.key) {
+      case "ServerNode":
+        this.handleShowCom(el.key)
+        break;
       default:
         break;
     }
@@ -198,7 +219,7 @@ class Mine extends PureComponent {
         </section>
         <section className={style['my-wallet']}>
           <p>管理中心</p>
-          <Grid data={managerCenter} hasLine={false} />
+          <Grid data={managerCenter} onClick={_el => this.handleManager(_el)} hasLine={false} />
         </section>
         {/* 子组件 动态 */} 
         {

@@ -46,6 +46,9 @@ export const changePwd = params => get('/jsmall/app/main/editPwd', params)
 // 1.8.1 获取省市区（web）
 export const getCitys = () => get('/jsmall/app/main/getAllArea')
 
+// 1.11 查看服务网点（分页）
+export const getServerNodes = params => get('/jsmall/app/main/getNets', params)
+
 // 2.1 加载首页
 export const initHomePage = (params) => get('/jsmall/app/index/i', params)
 
