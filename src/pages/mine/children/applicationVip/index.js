@@ -7,11 +7,10 @@ import { createForm } from 'rc-form';
 import NavgationBar from '@/NavgationBar'
 import * as addressActionCreators from '~/common/address/store/actionCreators'
 import * as commonActionCreators from '~/common/store/actionCreators'
-import { initApplicetionVip, 
-  // getCitys
-  // subApplicetionVip 
-} from '$src/api'
+import { initApplicetionVip, subApplicetionVip } from '$src/api'
+import './index.scss'
 const Item = List.Item;
+
 class ApplicationVip extends PureComponent {
   constructor(props) {
     super(props);
@@ -47,11 +46,28 @@ class ApplicationVip extends PureComponent {
   }
   
   onSubmit = () => {
+    let {userid, token, back, showModal} = this.props
     this.props.form.validateFields({ force: true }, (error) => {
-      console.log('submit')
-      console.log(error)
       if (!error) {
-        console.log(this.props.form.getFieldsValue());
+        let data = this.props.form.getFieldsValue();
+        let bankid = data.bankid[0];
+        let provinceid = data.cityList[0];
+        let cityid = data.cityList[0];
+        let areaid = data.cityList[0];
+        Object.assign(data, {
+          bankid, provinceid, cityid, areaid, userid, token
+        })
+        // 提交表单
+        subApplicetionVip(data).then(res => {
+          if (res.code === '1') {
+            Toast.success('申请成功')
+            setTimeout(() => {
+              back()
+            }, 1000);
+          } else {
+            showModal(res.msg)
+          }
+        })
       } else {
         Toast.fail('输入有误，请检查输入无误后再提交');
       }
@@ -189,19 +205,19 @@ class ApplicationVip extends PureComponent {
               onErrorClick = {() => {Toast.fail(getFieldError('bankaccount'))}}
               placeholder="请填写银行卡号">银行卡号</InputItem>
             <InputItem 
-              {...getFieldProps('truename', {
+              {...getFieldProps('bankaccountname', {
                 rules: [
                   {required: true, message: '请填写姓名'},
                   {validator: this.validateAddress, message: '请填写银行卡号对应的姓名'}
                 ]
               })}
               clear
-              error = {getFieldError('truename')}
-              onErrorClick = {() => {Toast.fail(getFieldError('truename'))}}
+              error = {getFieldError('bankaccountname')}
+              onErrorClick = {() => {Toast.fail(getFieldError('bankaccountname'))}}
               placeholder="请填写银行卡用户名">银行卡用户名</InputItem>
 
             <Item>
-              <Button type="primary" style ={{backgroundColor: "#FFC105"}} onClick={this.onSubmit}>提交申请</Button>
+              <Button type="primary" className="sub" onClick={this.onSubmit}>提交申请</Button>
             </Item>
           </List>
         </form>

@@ -1,0 +1,6 @@
+.sub {
+  background-color: #FFC105;
+  &::before {
+    border-color: #FFC105!important;
+  }
+}

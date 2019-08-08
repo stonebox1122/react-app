@@ -6,6 +6,8 @@ import Set from './children/set'
 import PersonInfo from './children/personInfo'
 import ServerNode from './children/serverNode'
 import ApplicationVip from './children/applicationVip'
+import Promotion from './children/promotion'
+import MyOrder from './children/myOrder';
 import * as mineActionCreators from './store/actionCreators'
 import style from './index.module.scss';
 
@@ -15,6 +17,7 @@ class Mine extends PureComponent {
     this.state = {
       isShowCom: false,
       comName: '',
+      key: 'all',
       walletIcons: [{
         icon: require('./img/personal_icon_transfer.png'),
         text: '转账'
@@ -45,7 +48,7 @@ class Mine extends PureComponent {
       },{
         icon: require('./img/personal_icon_promotion.png'),
         text: '推广二维码',
-        key: 3
+        key: 'Promotion'
       },{
         icon: require('./img/personal_icon_proxy.png'),
         text: '申请代理',
@@ -80,11 +83,12 @@ class Mine extends PureComponent {
   }
 
   // 子组件显示
-  handleShowCom = (name="Set") => {
+  handleShowCom = (name="Set",key=0) => {
     let flag = this.state.isShowCom
     this.setState({
       comName: name,
-      isShowCom: !flag
+      isShowCom: !flag,
+      key
     })
   }
   // 动态改变子组件
@@ -99,6 +103,10 @@ class Mine extends PureComponent {
         return <ServerNode back={this.handleShowCom}/>
       case 'ApplicationVip':
         return <ApplicationVip back={this.handleShowCom}/>
+      case "Promotion":
+        return <Promotion back={this.handleShowCom}/>
+      case "MyOrder":
+        return <MyOrder type={this.state.key} back={this.handleShowCom}/>
       default:
         break;
     }
@@ -106,22 +114,14 @@ class Mine extends PureComponent {
 
   // 菜单的点击
   handleManager = (el) => {
-    switch (el.key) {
-      case "ServerNode":
-        this.handleShowCom(el.key)
-        break;
-      case "ApplicationVip":
-        this.handleShowCom(el.key)
-        break;
-      default:
-        break;
-    }
+    this.handleShowCom(el.key)
   }
   
   render () {
     let {mine} = this.props
     let {userinfo, userpurse, ordercount} = mine
     let {walletIcons,managerCenter} = this.state
+
     return (
       <div style={{backgroundColor: "#F5F6F7"}}>
         <section className={style.head}>
@@ -180,40 +180,35 @@ class Mine extends PureComponent {
             <TabBar.Item
               title="全部订单"
               key="all"
-              icon={
-                <img style={{width: "22px"}} src={require("./img/personal_icon_all.png")} alt="icon"/>
-              }
+              onPress={()=>this.handleShowCom("MyOrder", 0)}
+              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_all.png")} alt="icon"/>}
             />
             <TabBar.Item
               title="待付款"
               key="waitPay"
-              icon={
-                <img style={{width: "22px"}} src={require("./img/personal_icon_wait.png")} alt="icon"/>
-              }
+              onPress={()=>this.handleShowCom("MyOrder", 1)}
+              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_wait.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dfk}
             />
             <TabBar.Item
               title="待发货"
               key="waitTrans"
-              icon={
-                <img style={{width: "22px"}} src={require("./img/personal_icon_transport.png")} alt="icon"/>
-              }
+              onPress={()=>this.handleShowCom("MyOrder", 2)}
+              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_transport.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dfh}
             />
             <TabBar.Item
               title="待收货"
               key="waitrec"
-              icon={
-                <img style={{width: "22px"}} src={require("./img/personal_icon_receipt.png")} alt="icon"/>
-              }
+              onPress={()=>this.handleShowCom("MyOrder", 3)}
+              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_receipt.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dsh}
             />
             <TabBar.Item
               title="待评价"
               key="waitCommit"
-              icon={
-                <img style={{width: "22px"}} src={require("./img/personal_icon_evaluation.png")} alt="icon"/>
-              }
+              onPress={()=>this.handleShowCom("MyOrder", 4)}
+              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_evaluation.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dpj}
             />
           </TabBar>
