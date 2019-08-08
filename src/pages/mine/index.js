@@ -5,6 +5,7 @@ import { TabBar, Grid  } from 'antd-mobile';
 import Set from './children/set'
 import PersonInfo from './children/personInfo'
 import ServerNode from './children/serverNode'
+import ApplicationVip from './children/applicationVip'
 import * as mineActionCreators from './store/actionCreators'
 import style from './index.module.scss';
 
@@ -56,7 +57,7 @@ class Mine extends PureComponent {
       },{
         icon: require('./img/personal_icon_member.png'),
         text: '申请会员',
-        key: 6
+        key: 'ApplicationVip'
       },{
         icon: require('./img/personal_icon_video.png'),
         text: '已购买视频',
@@ -96,6 +97,8 @@ class Mine extends PureComponent {
         return <PersonInfo back={this.handleShowCom}/>
       case 'ServerNode':
         return <ServerNode back={this.handleShowCom}/>
+      case 'ApplicationVip':
+        return <ApplicationVip back={this.handleShowCom}/>
       default:
         break;
     }
@@ -105,6 +108,9 @@ class Mine extends PureComponent {
   handleManager = (el) => {
     switch (el.key) {
       case "ServerNode":
+        this.handleShowCom(el.key)
+        break;
+      case "ApplicationVip":
         this.handleShowCom(el.key)
         break;
       default:

@@ -46,6 +46,12 @@ export const changePwd = params => get('/jsmall/app/main/editPwd', params)
 // 1.8.1 获取省市区（web）
 export const getCitys = () => get('/jsmall/app/main/getAllArea')
 
+// 1.9 加载是否响应会员申请
+export const initApplicetionVip = params => get('/jsmall/app/main/loadOpenMData', params)
+
+// 1.10 提交会员申请
+export const subApplicetionVip = params => get('/jsmall/app/main/submitOpenMData', params)
+
 // 1.11 查看服务网点（分页）
 export const getServerNodes = params => get('/jsmall/app/main/getNets', params)
 
