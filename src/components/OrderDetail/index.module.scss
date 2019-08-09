@@ -1,0 +1,54 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  padding: 20px;
+  background-color: #fff;
+  .header {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    line-height: 40px;
+    padding-bottom: 24px;
+    .left {
+      flex: 1;
+      .orderno {
+        color:#999;
+        font-size:"12px"
+      }
+    }
+    .state {
+      color: $mcolor;
+    }
+  }
+  .container {
+    .total {
+      padding-top: 24px;
+      text-align: right;
+      line-height: 40px;
+      font-size: 23px;
+      color: #999999;
+    }
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 24px;
+    color: #999999;
+    font-size: 28px;
+    line-height: 40px;
+    .left {
+      flex: 1;
+      overflow: hidden;
+      @extend %ell;
+    }
+    .tag {
+      font-size: 24px;
+      color: $mcolor;
+      border: 1px solid $mcolor;
+      padding: 10px 30px;
+      border-radius: 52px;
+    }
+  }
+}

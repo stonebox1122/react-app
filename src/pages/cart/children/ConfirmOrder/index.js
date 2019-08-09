@@ -1,3 +1,4 @@
+// 确认订单
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
 import NavgationBar from '@/NavgationBar'

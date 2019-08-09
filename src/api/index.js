@@ -76,5 +76,11 @@ export const setOrder = params => get('/jsmall/app/orders/placeOrder', params)
 // 3.2 确认订单（预付单）
 export const confirmOrder = params => get('/jsmall/app/orders/confirmTheOrder', params)
 
+// 3.3 获取订单详情
+export const getOrderDetail = params => get('/jsmall/app/orders/findOrderInfo', params)
+
+// 3.4 获取我的订单列表
+export const getOrderList = params => get('/jsmall/app/orders/myOrders', params)
+
 // 4.1 积分支付-购买产品
 export const pointPay = params => post('/jsmall/app/pay/goPointPayBuyProduct', params)
