@@ -1,0 +1,92 @@
+.cover {
+  @extend %full-screen;
+  background-color: #F5F6F7;
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    width: 100vw;
+    height: 198px;
+    background: linear-gradient(to right, #FFC105, #FED967);
+    .state {
+      display: flex;
+      font-size: 32px;
+      color: #fff;
+      img {
+        margin-right: 32px;
+        width: 31px;
+        height: 31px;
+      }
+    }
+  }
+  .address {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+    background-color: #fff;
+    .location-icon {
+      flex: 0 0 70px;
+      width: 70px;
+      height: 72px;
+    }
+    .location {
+      flex: 1;
+      padding-left: 24px;
+      font-size: 28px;
+      line-height: 40px;
+      color: #333;
+    }
+  }
+  .order-detail {
+    margin-top: 24px;
+    background-color: #fff;
+    padding: 24px;
+    .infos {
+      border-top: 1px dotted #333;
+      padding-top: 24px;
+      .item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        font-size: 24px;
+        color: #999;
+        &.total {
+          padding: 24px 0;
+          font-size: 30px;
+          color: #333;
+        }
+      }
+    }
+  }
+  .leaveMsg {
+    margin-top: 24px;
+  }
+  .order-msg {
+    margin-top: 24px;
+    padding: 24px;
+    background-color: #fff;
+    .title {
+      padding-left: 12px;
+      color: #333;
+      font-size: 30px;
+      line-height: 40px;
+      border-left: 4px solid $mcolor;
+    }
+    .item {
+      display: flex;
+      color: #999;
+      padding: 12px;
+      font-size: 24px;
+    }
+  }
+  .bottom {
+    width: 100vw;
+    height: 98px;
+    border-top: 1px solid #ddd;
+    margin-top: 24px;
+    padding: 12px;
+    box-sizing: border-box;
+    background-color: #fff;
+  }
+}

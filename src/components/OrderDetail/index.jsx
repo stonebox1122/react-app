@@ -73,9 +73,7 @@ class OrderDetail extends PureComponent {
                         info={obj}
                         bottom_left={<span>{e.gprice}</span>}
                         bottom_right={
-                          <div className={style['bottom-right']}>
-                          x{e.gnum}
-                        </div>
+                          <div className={style['bottom-right']}> x{e.gnum}</div>
                         }
                       />
                     </li>

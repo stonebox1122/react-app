@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Scroll from '@/Scroll'
 import NavgationBar from '@/NavgationBar'
 import OrderDetail from '@/OrderDetail'
+import OrderDetailPage from '~/common/orderDetail'
 import { Tabs } from 'antd-mobile';
 import { LoadMore } from 'react-weui';
 import { getOrderList } from '$src/api'
@@ -15,6 +16,8 @@ class MyOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showCom: false,
+      orderid: '',
       data: {
         0: {
           hasMore: true,
@@ -109,9 +112,23 @@ class MyOrder extends Component {
     }
   }
 
+  // 传给子组件 点击显示订单详情
+  showDetailPage = ( orderid="") => {
+    // let flag = this.state.showCom
+    this.setState({
+      showCom: true,
+      orderid
+    })
+  }
+  hide = () => {
+    this.setState({
+      showCom: false
+    })
+  }
+
   render() { 
     let {back} = this.props
-    let {data} = this.state
+    let {data, showCom, orderid} = this.state
     const tabs = [
       { title: '全部' },
       { title: '待付款'},
@@ -136,7 +153,7 @@ class MyOrder extends Component {
                   data[0].list.length>0 ?
                   data[0].list.map(e => {
                     return (
-                      <li className={style.card} key={e.orderno}>
+                      <li className={style.card} key={e.orderno} onClick={() => this.showDetailPage(e.orderid)}>
                         <OrderDetail info={e}/>
                       </li>
                     )
@@ -226,6 +243,11 @@ class MyOrder extends Component {
             </Scroll>
           </div>
         </Tabs>
+        {
+          showCom ?
+          <OrderDetailPage orderid= {orderid} back={this.hide}/> : ""
+        }
+        
       </div>
     );
   }
