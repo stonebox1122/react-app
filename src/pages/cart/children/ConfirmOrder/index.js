@@ -4,8 +4,9 @@ import {connect} from 'react-redux'
 import NavgationBar from '@/NavgationBar'
 import Goods2 from '@/Goods/goods_2'
 import Address from '~/common/address'
+import OrderDetail from '~/common/orderDetail'
 import { Cell, CellHeader, CellBody, CellFooter, Icon } from 'react-weui'
-import { TextareaItem } from 'antd-mobile';
+import { TextareaItem, Toast } from 'antd-mobile';
 import * as cartActionCreators from '../../store/actionCreators'
 import * as commonActionCreators from '~/common/store/actionCreators'
 import { formatArr } from '$src/common/js/utils'
@@ -17,6 +18,8 @@ class ConfirmOrder extends PureComponent {
     this.state = { 
       payWay: 0,
       isShowAddress: false,
+      isShowDetail:false,
+      orderid: "",
       leaveMsg: '',
       type: 1 // 1激活还是2复销
     }
@@ -56,7 +59,7 @@ class ConfirmOrder extends PureComponent {
       this.confirmOrderPre(this.wxPay) // 传入微信支付
     }
   }
-  // 确认下单
+  // 确认下单 3.2 确认订单（预付单）
   confirmOrderPre = (cb) => {
     let {info, userid, token, currentAddress} = this.props
     let newArr = info.map(e => {
@@ -80,7 +83,7 @@ class ConfirmOrder extends PureComponent {
   }
   // 积分支付
   pointPay = (query) => {
-    let {orderno, amount:price} = query
+    let {orderno, amount:price, orderid} = query
     let info = {
       userid: this.props.userid,
       token: this.props.token,
@@ -88,11 +91,15 @@ class ConfirmOrder extends PureComponent {
     }
     pointPay(info).then(res=> {
       if(res.code === '1') {
+        Toast.success('支付成功')
         // 积分支付成功
-
       } else {
         this.props.showModal(res.msg)
       }
+      this.setState({
+        isShowDetail: true,
+        orderid
+      })
     })
   }
   // wx支付
@@ -240,6 +247,10 @@ class ConfirmOrder extends PureComponent {
         {
           this.state.isShowAddress?
           <Address back={this.showAddr}/>:"" 
+        }
+        {
+          this.state.isShowDetail ?
+          <OrderDetail orderid={this.state.orderid} back={this.showAddr}/>: ""
         }
       </div>
     );
