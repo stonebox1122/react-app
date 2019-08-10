@@ -6,6 +6,7 @@ import Scroll from '@/Scroll'
 import NavgationBar from '@/NavgationBar'
 import OrderDetail from '@/OrderDetail'
 import { Tabs } from 'antd-mobile';
+import { LoadMore } from 'react-weui';
 import { getOrderList } from '$src/api'
 import * as commonActionCreators from '~/common/store/actionCreators'
 
@@ -94,6 +95,20 @@ class MyOrder extends Component {
     }
   }
 
+  // 点击切换tab的时候加载
+  changeTab = (i) => {
+    /**
+     * 节流处理
+     * 处理后台返回的奇葩参数 跳过了1
+     * 判断该tab下是否为空  并且hasMore为true
+     * 以免点击就加载
+     */
+    i = i === 0 ? i : i += 1
+    if (this.state.data[i].hasMore && this.state.data[i].list.length === 0) {
+      this.getList(i)
+    }
+  }
+
   render() { 
     let {back} = this.props
     let {data} = this.state
@@ -112,11 +127,10 @@ class MyOrder extends Component {
           tabBarActiveTextColor="#FFC105"
           tabBarUnderlineStyle={{borderColor:"#FFC105"}}
           initialPage={this.props.type }
-          // onChange={(tab, index) => { console.log('onChange', index, tab); }}
-          // onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+          onTabClick={(tab, index) => this.changeTab(index)}
         >
           <div className={style.item}>
-            <Scroll>
+            <Scroll pullUpHandler={()=>this.getList(0)}>
               <ul className={style['scroll-wrap']}>
                 {
                   data[0].list.length>0 ?
@@ -126,13 +140,17 @@ class MyOrder extends Component {
                         <OrderDetail info={e}/>
                       </li>
                     )
-                  }) : '暂无数据'
+                  }) : 
+                  <img className={style.nothing} src = {require('$static/img/empty_icon.png')} alt="nothing"/>
+                }
+                {
+                  data[0].list.length>0 ?<LoadMore showLine>{data[0].loadMsg}</LoadMore> : ""
                 }
               </ul>
             </Scroll>
           </div>
           <div className={style.item}>
-            <Scroll>
+            <Scroll pullUpHandler={()=>this.getList(2)}>
               <ul className={style['scroll-wrap']}>
                 {
                   data[2].list.length>0 ?
@@ -142,13 +160,16 @@ class MyOrder extends Component {
                         <OrderDetail info={e}/>
                       </li>
                     )
-                  }) : '暂无数据'
+                  }) : <img className={style.nothing} src = {require('$static/img/empty_icon.png')} alt="nothing"/>
+                }
+                {
+                  data[2].list.length>0 ?<LoadMore showLine>{data[2].loadMsg}</LoadMore> : ""
                 }
               </ul>
             </Scroll>
           </div>
           <div className={style.item}>
-            <Scroll>
+            <Scroll pullUpHandler={()=>this.getList(3)}>
               <ul className={style['scroll-wrap']}>
                 {
                   data[3].list.length>0 ?
@@ -158,13 +179,16 @@ class MyOrder extends Component {
                         <OrderDetail info={e}/>
                       </li>
                     )
-                  }) : '暂无数据'
+                  }) : <img className={style.nothing} src = {require('$static/img/empty_icon.png')} alt="nothing"/>
+                }
+                {
+                  data[3].list.length>0 ?<LoadMore showLine>{data[3].loadMsg}</LoadMore> : ""
                 }
               </ul>
             </Scroll>
           </div>
           <div className={style.item}>
-            <Scroll>
+            <Scroll pullUpHandler={()=>this.getList(4)}>
               <ul className={style['scroll-wrap']}>
                 {
                   data[4].list.length>0 ?
@@ -174,13 +198,16 @@ class MyOrder extends Component {
                         <OrderDetail info={e}/>
                       </li>
                     )
-                  }) : '暂无数据'
+                  }) : <img className={style.nothing} src = {require('$static/img/empty_icon.png')} alt="nothing"/>
+                }
+                { 
+                  data[4].list.length>0 ?<LoadMore showLine>{data[4].loadMsg}</LoadMore> : ""
                 }
               </ul>
             </Scroll>
           </div>
           <div className={style.item}>
-            <Scroll>
+            <Scroll pullUpHandler={()=>this.getList(5)}>
               <ul className={style['scroll-wrap']}>
                 {
                   data[5].list.length>0 ?
@@ -190,7 +217,10 @@ class MyOrder extends Component {
                         <OrderDetail info={e}/>
                       </li>
                     )
-                  }) : '暂无数据'
+                  }) : <img className={style.nothing} src = {require('$static/img/empty_icon.png')} alt="nothing"/>
+                }
+                {
+                  data[5].list.length>0 ?<LoadMore showLine>{data[5].loadMsg}</LoadMore> : ""
                 }
               </ul>
             </Scroll>
