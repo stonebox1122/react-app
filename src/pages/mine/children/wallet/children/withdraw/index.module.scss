@@ -1,0 +1,23 @@
+.in {
+  background-color: #fff;
+  .title {
+    padding: 24px;
+    font-size: 28px;
+  }
+  .leave {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+    font-size: 28px;
+    color: #999999;
+  }  
+}
+
+.bank-num {
+  margin-top: 24px;
+  padding: 24px;
+  background-color: #fff;
+  .title {
+    font-size: 32px;
+  }
+}
