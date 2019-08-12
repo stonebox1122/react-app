@@ -1,0 +1,22 @@
+.encharge {
+  .card {
+    padding: 40px;
+    margin-top: 24px;
+    background: #fff;
+    .title {
+      margin-bottom: 40px;
+      font-size: 34px;
+    }
+    .tag {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background-color: $mcolor;
+      font-size: 28px;
+      width: 214px;
+      height: 80px;
+      border-radius: 8px;
+    }
+  }
+}

@@ -71,4 +71,8 @@
       border-radius: 24px;
     }
   }
+  .full-screen {
+    @extend %full-screen;
+    background-color: $bg;
+  }
 }

@@ -84,3 +84,6 @@ export const getOrderList = params => get('/jsmall/app/orders/myOrders', params)
 
 // 4.1 积分支付-购买产品
 export const pointPay = params => post('/jsmall/app/pay/goPointPayBuyProduct', params)
+
+// 4.3.2 充值记录（带分页）
+export const enchargeList = params => get('/jsmall/app/pay/getRechargeLog', params)

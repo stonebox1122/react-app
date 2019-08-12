@@ -114,6 +114,7 @@ class MyOrder extends Component {
 
   // 传给子组件 点击显示订单详情
   showDetailPage = ( orderid="") => {
+    console.log('orderid :', orderid);
     // let flag = this.state.showCom
     this.setState({
       showCom: true,
@@ -151,9 +152,9 @@ class MyOrder extends Component {
               <ul className={style['scroll-wrap']}>
                 {
                   data[0].list.length>0 ?
-                  data[0].list.map(e => {
+                  data[0].list.map((e,i) => {
                     return (
-                      <li className={style.card} key={e.orderno} onClick={() => this.showDetailPage(e.orderid)}>
+                      <li className={style.card} key={`${e.orderno}${i}`} onClick={() => this.showDetailPage(e.orderid)}>
                         <OrderDetail info={e}/>
                       </li>
                     )
