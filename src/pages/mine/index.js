@@ -8,6 +8,7 @@ import ServerNode from './children/serverNode'
 import ApplicationVip from './children/applicationVip'
 import Promotion from './children/promotion'
 import MyOrder from './children/myOrder';
+import Wallet from './children/wallet'
 import * as mineActionCreators from './store/actionCreators'
 import style from './index.module.scss';
 
@@ -20,7 +21,8 @@ class Mine extends PureComponent {
       key: 'all',
       walletIcons: [{
         icon: require('./img/personal_icon_transfer.png'),
-        text: '转账'
+        text: '转账',
+        key: "Wallet"
       },{
         icon: require('./img/personal_icon_recharge.png'),
         text: '充值'
@@ -107,15 +109,17 @@ class Mine extends PureComponent {
         return <Promotion back={this.handleShowCom}/>
       case "MyOrder":
         return <MyOrder type={this.state.key} back={this.handleShowCom}/>
+      case "Wallet":
+        return <Wallet back={this.handleShowCom}/>
       default:
         break;
     }
   }
 
-  // 菜单的点击
-  handleManager = (el) => {
+  handleShowGridCom = (el) => {
     this.handleShowCom(el.key)
   }
+
   
   render () {
     let {mine} = this.props
@@ -216,11 +220,11 @@ class Mine extends PureComponent {
         {/* 我的钱包 */}
         <section className={style['my-wallet']}>
           <p>我的钱包</p>
-          <Grid data={walletIcons} hasLine={false} />
+          <Grid data={walletIcons} hasLine={false} onClick={_el => this.handleShowGridCom(_el)}/>
         </section>
         <section className={style['my-wallet']}>
           <p>管理中心</p>
-          <Grid data={managerCenter} onClick={_el => this.handleManager(_el)} hasLine={false} />
+          <Grid data={managerCenter} onClick={_el => this.handleShowGridCom(_el)} hasLine={false} />
         </section>
         {/* 子组件 动态 */} 
         {
