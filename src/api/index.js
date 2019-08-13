@@ -91,5 +91,15 @@ export const enchargeList = params => get('/jsmall/app/pay/getRechargeLog', para
 // 4.4.1 提现前准备数据
 export const initWithdraw = params => post('/jsmall/app/pay/cashesUsingData', params)
 
-// 4.4.3 转账记录（带分页）
+// 4.5.1 转给自己
+export const transferSelf = param => post('/jsmall/app/pay/accountTransfer_from1_to1', param)
+
+// 4.5.2 根据对方编号获取姓名及头像
+export const getFriendInfo = param => post('/jsmall/app/pay/accountTransfer_from1_to2_go', param)
+
+// 4.5.3 转给对方
+export const tranferTofriend = param => post('/jsmall/app/pay/accountTransfer_from1_to2_do', param)
+
+// 4.5.4 转账记录（带分页）
 export const getTransList = param => post('/jsmall/app/pay/transfer_log', param)
+

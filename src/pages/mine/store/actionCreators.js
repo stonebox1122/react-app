@@ -1,6 +1,24 @@
 import * as commonActionCreators from '~/common/store/actionCreators'
 import * as types from './actionTypes'
-import {loadMine, changeMineInfo} from '$src/api'
+import {loadMine, changeMineInfo, transferSelf} from '$src/api'
+
+// 3. 转账给自己 
+export const transferToSelf = query => {
+  return dispatch => {
+    transferSelf(query).then(res => {
+      if (res.code === '1') {
+        // 转账成功.修改mine中的purse
+        if (query.tel === 'fxlr2gwjf') {
+          dispatch(changeShare(query.price_d, 'decrease'))
+          dispatch(changeShoppoint(query.price_d, 'increase'))
+        }
+        dispatch(commonActionCreators.toggleModal('转账成功'))
+      } else {
+        dispatch(commonActionCreators.toggleModal(res.msg))
+      }
+    })
+  }
+}
 
 //2 改变信息
 export const changeMine = (query) => {
@@ -25,6 +43,24 @@ export const loadMineInfo = (query) => {
         dispatch(commonActionCreators.toggleModal(res.msg))
       }
     })
+  }
+}
+
+// 3-1 分享利润更改
+export const changeShare = (num, flag) => {
+  return {
+    type: types.SHARE_CHANGE,
+    num,
+    flag
+  }
+}
+
+// 3-2 购物积分更改
+export const changeShoppoint = (num, flag) => {
+  return {
+    type: types.SHOPPOINT_CHANGE,
+    num,
+    flag
   }
 }
 
