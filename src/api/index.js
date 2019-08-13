@@ -90,3 +90,6 @@ export const enchargeList = params => get('/jsmall/app/pay/getRechargeLog', para
 
 // 4.4.1 提现前准备数据
 export const initWithdraw = params => post('/jsmall/app/pay/cashesUsingData', params)
+
+// 4.4.3 转账记录（带分页）
+export const getTransList = param => post('/jsmall/app/pay/transfer_log', param)

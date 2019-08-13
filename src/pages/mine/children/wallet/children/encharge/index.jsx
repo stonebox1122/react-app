@@ -32,6 +32,7 @@ class Encharge extends PureComponent {
         <NavgationBar handleLeft = {back} right="充值记录" handleRight={this.showCom}>充值</NavgationBar>
         <Tabs tabs={tabs} initialPage={type} onChange={(tab, index) => { this.setState({type:index})}}></Tabs>
         <InputItem
+          type="money"
           placeholder="0.00"
           extra="¥"
           clear

@@ -28,6 +28,7 @@ class Withdraw extends PureComponent {
         <section className={style.in}>
           <p className={style.title}>提现金额</p>
           <InputItem
+            type="money"
             placeholder="请输入提现金额"
             extra="¥"
             clear

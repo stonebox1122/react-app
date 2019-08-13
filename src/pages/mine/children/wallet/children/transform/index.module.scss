@@ -1,0 +1,45 @@
+.Transform {
+  .card-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding: 24px;
+    background-color: #fff;
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      width: 48%;
+      height: 180px;
+      box-shadow: 0 0 10px #ddd;
+      background-color: #fff;
+      font-size: 32px;
+      line-height: 40px;
+      color: #333;
+      .sub-title {
+        color: #999;
+        font-size: 24px;
+      }
+      &.active {
+        position: relative;
+        background-color: $mcolor;
+        color: #fff;
+        &::before {
+          // position: absolute;
+          // bottom: 0;
+          // left: 50%;
+          width: 20px;
+          height: 20px;
+          background-color: red;
+          margin-left: -50%;
+          border-top: 16px solid $mcolor;
+        }
+        .sub-title {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
