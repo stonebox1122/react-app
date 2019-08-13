@@ -2,10 +2,14 @@ import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
 import { Tabs, InputItem, Button, Modal } from 'antd-mobile';
 import TransfromList from './list'
+import FriendMsg from './friendMsg'
 import PropTypes from 'prop-types'
 import NavgationBar from '@/NavgationBar'
 import style from './index.module.scss'
 import * as mineActionCreators from '~/mine/store/actionCreators'
+import * as commonActionCreators from '~/common/store/actionCreators'
+
+import {getFriendInfo} from '$src/api'
 class Transform extends PureComponent {
   constructor(props) {
     super(props);
@@ -15,7 +19,9 @@ class Transform extends PureComponent {
       defaultNum: null,
       isShowCom: false,
       isDis: true,
-      friendAcc: ''
+      friendAcc: '',
+      friendMsg: {},
+      showFriend: false
     }
   }
 
@@ -42,9 +48,28 @@ class Transform extends PureComponent {
       isDis: flag
     })
   }
+
+  // 下一步, 根据id获取朋友的信息
+  next = () => {
+    let {userid, token} = this.props 
+    let query = {
+      userid, token, rel_username: this.state.friendAcc
+    }
+    getFriendInfo(query).then(res => {
+      if (res.code === '1') {
+        this.setState({
+          friendMsg: res.data,
+          showFriend: true
+        })
+      } else {
+        this.props.showModal(res.msg)
+      }
+    })
+  }
+
   render() { 
     let {back,purse , transToSelf, token, userid} = this.props;
-    let {type,flag,isShowCom,defaultNum, isDis,friendAcc} = this.state;
+    let {type,flag,isShowCom,defaultNum, isDis,friendAcc, showFriend, friendMsg} = this.state;
     const tabs = [
       { title: '转给自己', key: 0 },
       { title: '转给朋友', key: 1 },
@@ -81,6 +106,7 @@ class Transform extends PureComponent {
             :
             <InputItem
               placeholder="请输入对方ID账号"
+              value={friendAcc}
               clear
               onChange={v=>this.setState({friendAcc: v})}
             >对方账户</InputItem>
@@ -99,11 +125,18 @@ class Transform extends PureComponent {
               ])
             }>确认转账</Button>
           :
-          <Button disabled={friendAcc.length > 0 ? false : true} className="paybtn">下一步</Button>
+          <Button 
+            onClick={this.next}
+            disabled={friendAcc.length > 0 ? false : true} 
+            className="paybtn">下一步</Button>
         }
         {
           isShowCom ? 
           <TransfromList  back={this.showCom} />: ""
+        }
+        {
+          showFriend ?
+          <FriendMsg type={type} msg={friendMsg} back={() => this.setState({showFriend: false})} />:""
         }
       </div>
     );
@@ -117,6 +150,10 @@ const mapState = state => ({
 })
  
 const mapDispatch = dispatch => ({
+  showModal (msg, title) {
+    const action = commonActionCreators.toggleModal(msg, title)
+    dispatch(action)
+  },
   transToSelf (query) {
     const action = mineActionCreators.transferToSelf(query)
     dispatch(action)
