@@ -9,6 +9,9 @@ import ApplicationVip from './children/applicationVip'
 import Promotion from './children/promotion'
 import MyOrder from './children/myOrder';
 import Wallet from './children/wallet'
+import Encharge from './children/wallet/children/encharge'
+import Withdraw from './children/wallet/children/withdraw'
+import Transfer from './children/wallet/children/transform'
 import * as mineActionCreators from './store/actionCreators'
 import style from './index.module.scss';
 
@@ -22,16 +25,19 @@ class Mine extends PureComponent {
       walletIcons: [{
         icon: require('./img/personal_icon_transfer.png'),
         text: '转账',
-        key: "Wallet"
+        key: "Transfer"
       },{
         icon: require('./img/personal_icon_recharge.png'),
-        text: '充值'
+        text: '充值',
+        key: "Encharge"
       },{
         icon: require('./img/personal_icon_cash.png'),
-        text: '提现'
+        text: '提现',
+        key: "Withdraw"
       },{
         icon: require('./img/personal_icon_exchange.png'),
-        text: '利润转积分'
+        text: '利润转积分',
+        key: 'Wallet'
       },{
         icon: require('./img/personal_icon_integral.png'),
         text: '充值购物积分'
@@ -85,7 +91,7 @@ class Mine extends PureComponent {
   }
 
   // 子组件显示
-  handleShowCom = (name="Set",key=0) => {
+  handleShowCom = (name="Wallet",key=0) => {
     let flag = this.state.isShowCom
     this.setState({
       comName: name,
@@ -111,6 +117,12 @@ class Mine extends PureComponent {
         return <MyOrder type={this.state.key} back={this.handleShowCom}/>
       case "Wallet":
         return <Wallet back={this.handleShowCom}/>
+      case "Transfer":
+          return <Transfer back={this.handleShowCom}/>
+      case "Encharge":
+        return <Encharge back={this.handleShowCom}/>
+      case "Withdraw":
+        return <Withdraw back={this.handleShowCom}/>
       default:
         break;
     }
@@ -119,7 +131,6 @@ class Mine extends PureComponent {
   handleShowGridCom = (el) => {
     this.handleShowCom(el.key)
   }
-
   
   render () {
     let {mine} = this.props

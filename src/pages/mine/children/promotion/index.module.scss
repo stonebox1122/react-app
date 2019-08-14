@@ -1,0 +1,81 @@
+.bg {
+  background-color: $bg;
+  height: 100%;
+}
+.banner-h {
+  width: 80vw;
+  overflow: visible;
+  .wrap {
+    margin-top: 24px;
+    .item {
+      width: 100%!important;
+      min-height: 840px;
+      padding: 3vw;
+      box-sizing: border-box;
+      .container {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 28px;
+        padding-bottom: 24px;
+        .img {
+          width: 100%;
+          border-radius: 28px;
+          max-height: 378px;
+        }
+        .avatar {
+          margin-left: 74px;
+          margin-top: -82px;
+          width: 130px;
+          height: 130px;
+          border: 12px solid #fff;
+          border-radius: 50%;
+        }
+        .truename {
+          padding: 0 28px;
+          font-size: 16px
+        }
+        .info {
+          padding: 36px;
+          display: flex;
+          color: #666;
+          .msg {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+            font-size: 24px;
+            padding-right: 12px;
+          }
+          .qr {
+            flex: 0 1 130px;
+            width: 130px;
+            height: 130px;
+            padding: 10px;
+            border: 1px solid #E5E5E5;
+          }
+        }
+        .bottom {
+          padding: 0 24px;
+          text-align: center;
+          font-size: 26px;
+          line-height: 40px;
+          color: #333;
+        }
+      }
+
+    }
+  }
+}
+.save {
+  width: 90vw;
+  margin-left: 5vw;
+  margin-top: 40px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: $mcolor;
+  text-align: center;
+  color: #fff;
+  font-size: 32px;
+  line-height: 80px;
+}
