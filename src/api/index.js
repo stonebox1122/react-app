@@ -91,6 +91,9 @@ export const enchargeList = params => get('/jsmall/app/pay/getRechargeLog', para
 // 4.4.1 提现前准备数据
 export const initWithdraw = params => post('/jsmall/app/pay/cashesUsingData', params)
 
+// 4.4.2 提现-银联（申请提现，线下环境）
+export const withdraw = params => post('/jsmall/app/pay/cashesUnionPay', params)
+
 // 4.5.1 转给自己
 export const transferSelf = param => post('/jsmall/app/pay/accountTransfer_from1_to1', param)
 
