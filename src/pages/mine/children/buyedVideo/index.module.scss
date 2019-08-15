@@ -1,0 +1,37 @@
+.course-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .list-wrap {
+    flex: 1;
+    overflow: hidden;
+    padding: 30px;
+    .container {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      .item {
+        margin-bottom: 40px;
+        .bottom-num {
+          display: flex;
+          align-items: center;
+          color: #666;
+          font-size: 22px;
+          line-height: 40px;
+          .hot {
+            margin-right: 24px;
+            width: 18px;
+            height: 24px;
+          }
+        }
+      }
+    }
+    .bottom-price {
+      color: #333333;
+      font-size:34px;
+      font-weight: blod;
+    }
+  }
+}

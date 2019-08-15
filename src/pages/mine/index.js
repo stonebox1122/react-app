@@ -12,6 +12,7 @@ import Wallet from './children/wallet'
 import Encharge from './children/wallet/children/encharge'
 import Withdraw from './children/wallet/children/withdraw'
 import Transfer from './children/wallet/children/transform'
+import BuyedVideo from './children/buyedVideo'
 import * as mineActionCreators from './store/actionCreators'
 import style from './index.module.scss';
 
@@ -72,7 +73,7 @@ class Mine extends PureComponent {
       },{
         icon: require('./img/personal_icon_video.png'),
         text: '已购买视频',
-        key: 7
+        key: "BuyedVideo"
       }]
     }
   }
@@ -123,6 +124,8 @@ class Mine extends PureComponent {
         return <Encharge back={this.handleShowCom}/>
       case "Withdraw":
         return <Withdraw back={this.handleShowCom}/>
+      case "BuyedVideo":
+        return <BuyedVideo back={this.handleShowCom}/>
       default:
         break;
     }

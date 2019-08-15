@@ -112,3 +112,5 @@ export const tranferTofriend = param => post('/jsmall/app/pay/accountTransfer_fr
 // 4.5.4 转账记录（带分页）
 export const getTransList = param => post('/jsmall/app/pay/transfer_log', param)
 
+// 5.1 已购买视频列表（带分页）
+export const buyedViodeList = params => get('/jsmall/app/video/myVideos', params)

@@ -162,7 +162,7 @@ class VideoList extends Component {
               {
                 list.list.map(e => {
                   return (
-                    <li className={style.item} key = {e.gid}>
+                    <li className={style.item} key = {e.gid} onClick={()=>console.log(e)}>
                       <Goods2
                         info = {e}
                         imgH="103px"
