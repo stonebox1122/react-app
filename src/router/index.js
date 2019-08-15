@@ -47,6 +47,11 @@ const Video = Loadable({
   loading: Loading
 })
 
+const Share = Loadable({
+  loader: () => import('~/common/share'),
+  loading:Loading
+})
+
 export default class Routers extends Component {
   render() {
     return (
@@ -72,6 +77,7 @@ export default class Routers extends Component {
             <Route path="/detail/:id" component = {Detail}/>
             <Route path="/login" component = {Login}/>
             <Route path="/registered" component = {Registered}/>
+            <Route path="/share/:id" component={Share}/> 
           </App>
         </Router>        
       </Provider>

@@ -1,0 +1,49 @@
+@import '../../../common/css/mixin.scss';
+
+.right-item {
+  color: $mcolor;
+}
+.input-wrap {
+  margin-top: 16px;
+  padding: 64px 75px;
+  box-sizing: border-box;
+}
+.login {
+  margin: 0 75px;
+  background-color: #ccc;
+  text-align: center;
+  line-height: 84px;
+  font-size: 34px;
+  border-radius: 84px;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  font-size: 27px;
+  padding: 0 75px;
+  .highlight {
+    color: $mcolor;
+  }
+}
+.third-login-wrap {
+  position: absolute;
+  bottom: 281px;
+  width: 100vw;
+  .third-login {
+    display: flex;
+    justify-content: center;
+    .icon {
+      margin: 0 29px;
+      width: 80px;
+      height: 80px;
+    }
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+}
