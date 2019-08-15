@@ -53,7 +53,7 @@ export const initApplicetionVip = params => get('/jsmall/app/main/loadOpenMData'
 export const subApplicetionVip = params => get('/jsmall/app/main/submitOpenMData', params)
 
 // 1.11 查看服务网点（分页）
-export const getServerNodes = params => get('/jsmall/app/main/getNets', params)
+export const getServerNodes = params => get('/jsmall/app/main/showNets', params)
 
 // 1.12 分享二维码
 export const getQr = params => post('/jsmall/app/main/userShare', params)
