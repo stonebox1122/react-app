@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-
+import { LoadMore } from 'react-weui'
 class Loading extends PureComponent {
   constructor(props) {
     super(props);
@@ -7,8 +7,8 @@ class Loading extends PureComponent {
   }
   render() { 
     return (
-      <div>
-        loading
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
+        <LoadMore loading></LoadMore>
       </div>
     );
   }

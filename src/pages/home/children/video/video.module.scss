@@ -30,6 +30,12 @@
       color: #d6d6d6;
     }
   }
+  .vip {
+    position: absolute;
+    bottom: 10vh;
+    width: 90vw;
+    left: 5vw;
+  }
   .zan {
     display: flex;
     flex-direction: column;
@@ -41,5 +47,10 @@
       height: 39px;
       margin-bottom: 12px;
     }
+  }
+  .card {
+    width: 90vw;
+    left: 5vw;
+    top: 50%;
   }
 }

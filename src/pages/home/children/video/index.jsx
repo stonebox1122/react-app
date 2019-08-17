@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import Scroll from '@/Scroll'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
-import {getVideo} from '$src/api'
-import { Tabs, Icon, Toast } from 'antd-mobile';
-import {toggleZan} from '$src/api'
+import {getVideo, toggleZan} from '$src/api'
+import { Tabs, Icon, Toast, Modal, List, Radio } from 'antd-mobile';
 import style from './video.module.scss'
 import * as commonActionCreators from '~/common/store/actionCreators'
 class Video extends Component {
@@ -15,7 +14,8 @@ class Video extends Component {
       info: {},
       list: [],
       play: false,
-      mp4Src: ""
+      mp4Src: "",
+      showBuyModal: false
     }
     this._video = React.createRef();
   }
@@ -79,6 +79,13 @@ class Video extends Component {
     }
     console.log( this._video.current === null);
   }
+
+  wxPay = () => {
+    console.log('微信支付');
+    this.setState({
+      showBuyModal: false
+    })
+  }
   
   render() { 
     const tabs = [{ title: '简介', sub: '1' },{ title: '目录', sub: '2' }]
@@ -123,6 +130,11 @@ class Video extends Component {
             </Scroll>
           </div>
         </Tabs>
+        {
+          info.s_type === 1 ? "" :
+          <img className={style.vip} onClick={()=>this.setState({showBuyModal: true})} src={require('../../img/video_btn_vip.png')} alt='buyVip'/>
+        }
+        
         <div className={`${style.zan} border-top`}>
           {
             info.s_islike === 0 ? 
@@ -132,6 +144,25 @@ class Video extends Component {
           }
           <p>{info.s_like}</p>
         </div>
+        <Modal
+          visible={this.state.showBuyModal}
+          transparent
+          closable
+          maskClosable={true}
+          onClose={()=>this.setState({showBuyModal: false})}
+          title={`购买:${info.s_title}`}
+          footer={[{ text: '立即支付', onPress: this.wxPay}]}
+        >
+          <div >
+            <p style={{color:"red"}}>{info.s_show_price}</p>
+            <List>
+              <Radio.RadioItem checked>
+                <img src={require('../../img/video_icon_weixin.png')} alt=""/>
+                &nbsp;
+                微信支付</Radio.RadioItem>
+            </List>
+          </div>
+        </Modal>
       </div>
      );
   }

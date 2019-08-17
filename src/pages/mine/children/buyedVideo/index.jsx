@@ -77,7 +77,7 @@ class BuyedVideo extends PureComponent {
                   let obj = {img, title, subtitle}
                   return (
                     <li key = {e.suite_id} className={style.item}>
-                      <Link to={`/detail/${e.suite_id}`}>
+                      <Link to={`/video/${e.suite_id}`}>
                         <Goods2
                           info = {obj}
                           bottom_left = { e.expire_date }
