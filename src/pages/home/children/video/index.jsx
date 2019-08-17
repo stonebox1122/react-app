@@ -4,7 +4,7 @@ import Scroll from '@/Scroll'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
 import {getVideo} from '$src/api'
-import { Tabs, Icon } from 'antd-mobile';
+import { Tabs, Icon, Toast } from 'antd-mobile';
 import {toggleZan} from '$src/api'
 import style from './video.module.scss'
 import * as commonActionCreators from '~/common/store/actionCreators'
@@ -13,8 +13,11 @@ class Video extends Component {
     super(props);
     this.state = {
       info: {},
-      list: []
+      list: [],
+      play: false,
+      mp4Src: ""
     }
+    this._video = React.createRef();
   }
   componentDidMount() {
     this.getVideoMsg(this.props.match.params.id)
@@ -63,26 +66,39 @@ class Video extends Component {
     })
   }
   play = (e) => {
-    console.log(e);
+    if (this.state.info.s_checklook=== 0) {
+      Toast.fail('付费视频请先购买')
+      return
+    }
+    this.setState({
+      play: true,
+      mp4Src: e.v_path
+    })
+    if (this._video.current !== null) {
+      this._video.current.load()
+    }
+    console.log( this._video.current === null);
   }
   
   render() { 
-    const tabs = [{ title: '简介', sub: '1' },
-                  { title: '目录', sub: '2' }]
-    let {info, list} = this.state
+    const tabs = [{ title: '简介', sub: '1' },{ title: '目录', sub: '2' }]
+    let {info, list,play, mp4Src} = this.state
     return ( 
       <div className={style.video}>
         <Icon onClick={this.back} style={{position:"absolute"}} type="left" size="lg" color="#fff"/>
-        <img className={style.cover} src={info.s_cover} alt="cover"/>
+        {
+          play ?
+          <video className={style.cover} controls autoPlay ref={this._video}>
+            <source src={mp4Src} type="video/mp4"/>
+          </video>:
+          <img className={style.cover} src={info.s_cover} alt="cover"/>
+        }
+        
         <Tabs tabs={tabs}
-        style={{flex: 1}}
+          style={{flex: 1}}
           initialPage={1}
-          onChange={(tab, index) => { console.log('onChange', index, tab); }}
-          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-            Content of first tab
-          </div>
+          <div dangerouslySetInnerHTML={{__html:`${info.s_introduce}`}}></div>
           <div>
             <Scroll>
               <ul>
