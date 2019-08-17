@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { connect  } from 'react-redux';
 import * as homeActionCreators from '../../store/actionCreators'
 import * as videoActionCreators from './store/actionCreators'
@@ -163,13 +164,16 @@ class VideoList extends Component {
                 list.list.map(e => {
                   return (
                     <li className={style.item} key = {e.gid} onClick={()=>console.log(e)}>
+                      <Link to={`/video/${e.gid}`}>
                       <Goods2
                         info = {e}
                         imgH="103px"
                         tag = { this.setPrice(e.price) }
                         bottom_left = { this.subTime(e.datetime) }
                         bottom_right = { this.buyNum(e.sales) }/>
+                      </Link>
                     </li>
+                    
                   )
                 }) 
               }

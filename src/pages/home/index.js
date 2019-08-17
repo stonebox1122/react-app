@@ -252,12 +252,14 @@ class Home extends Component {
               list_mfsp.map(e => {
                 return (
                   <li key = {e.gid} className = {style.goods}>
-                    <Goods3
-                      imgH = "128px"
-                      img={e.img}
-                      title = { this.setTitleClamp2(`${e.title}`) }
-                      sub_title = { this.buyNum(1200) }
-                    />
+                    <Link to={`/video/${e.gid}`}>
+                      <Goods3
+                        imgH = "128px"
+                        img={e.img}
+                        title = { this.setTitleClamp2(`${e.title}`) }
+                        sub_title = { this.buyNum(1200) }
+                      />
+                    </Link>
                   </li>
                 )
               })
@@ -275,12 +277,14 @@ class Home extends Component {
                     e.map(item => {
                       return (
                         <li className = {style.goods} key = {item.gid}>
-                          <Goods3
-                            imgH = "91px"
-                            img={item.img}
-                            title = { this.setTitleClamp1(`${item.title}`) }
-                            sub_title = { this.setSubTitle(`${item.subtitle}`) }
-                          />
+                          <Link to={`/video/${e.gid}`}>
+                            <Goods3
+                              imgH = "91px"
+                              img={item.img}
+                              title = { this.setTitleClamp1(`${item.title}`) }
+                              sub_title = { this.setSubTitle(`${item.subtitle}`) }
+                            />
+                          </Link>
                         </li>
                       )
                     })
@@ -298,16 +302,18 @@ class Home extends Component {
               list_jptj.map(e => {
                 return (
                   <li className={style.item} key = {e.gid}>
-                    <Goods3
-                      imgH="115px"
-                      img={e.img}
-                      title = {
-                        <p className={style.title}>{e.title}</p>
-                      }
-                      sub_title = {
-                        <p className={style.sub_title}>{e.subtitle}</p>
-                      }
-                    />
+                    <Link to={`/video/${e.gid}`}>
+                      <Goods3
+                        imgH="115px"
+                        img={e.img}
+                        title = {
+                          <p className={style.title}>{e.title}</p>
+                        }
+                        sub_title = {
+                          <p className={style.sub_title}>{e.subtitle}</p>
+                        }
+                      />
+                    </Link>
                   </li>
                 )
               })

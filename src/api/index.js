@@ -114,3 +114,9 @@ export const getTransList = param => post('/jsmall/app/pay/transfer_log', param)
 
 // 5.1 已购买视频列表（带分页）
 export const buyedViodeList = params => get('/jsmall/app/video/myVideos', params)
+
+// 5.2 视频套装详情（游客可访问）
+export const getVideo = params => get('/jsmall/app/video/info', params)
+
+// 5.3 点赞/取消赞（游客不可访问）
+export const toggleZan  = params => post('/jsmall/app/video/isLike', params)

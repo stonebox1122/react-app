@@ -1,0 +1,45 @@
+.video {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  .cover {
+    flex: 0 1 422px;
+    width: 100%;
+    max-height: 422px;
+    object-fit: cover;
+  }
+  .item {
+    padding: 24px;
+    font-size: 32px;
+    .title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .title {
+        flex: 1;
+        @extend %ell;
+        margin-bottom: 24px;
+      }
+      .img {
+        width: 22px;
+      }
+    }
+    .sub-title {
+      font-size: 24px;
+      color: #d6d6d6;
+    }
+  }
+  .zan {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    .icon {
+      width: 39px;
+      height: 39px;
+      margin-bottom: 12px;
+    }
+  }
+}

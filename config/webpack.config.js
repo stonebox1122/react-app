@@ -104,12 +104,20 @@ module.exports = function(webpackEnv) {
       },
     ].filter(Boolean);
     if (preProcessor) {
-      loaders.push({
+      let loader = {
         loader: require.resolve(preProcessor),
         options: {
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
-      });
+      }
+      // 修改主题的配置
+      if (preProcessor === "less-loader") {
+        loader.options.modifyVars = {
+          'primary-color': '#FFC105'
+        }
+        loader.options.javascriptEnabled = true
+      }
+      loaders.push(loader);
     }
     return loaders;
   };

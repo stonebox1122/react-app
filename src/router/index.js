@@ -43,7 +43,7 @@ const Registered = Loadable({
   loading: Loading
 })
 const Video = Loadable({
-  loader: () => import('~/common/video'),
+  loader: () => import('~/home/children/video'),
   loading: Loading
 })
 

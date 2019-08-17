@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
-import * as homeActionCreators from '~/home/store/actionCreators'
+import PropTypes from 'prop-types'
 import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import Goods2 from '@/Goods/goods_2'
 import { LoadMore } from 'react-weui';
 import { Link } from 'react-router-dom'
 import { buyedViodeList } from '$src/api'
+import * as commonActionCreators  from '~/common/store/actionCreators'
 import style from './index.module.scss'
 
-class Course extends PureComponent {
+class BuyedVideo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { 
@@ -26,7 +27,7 @@ class Course extends PureComponent {
 
   getList = () => {
     let { currPage, pageSize, hasMore, list } = this.state
-    let {token,userid} = this.props
+    let {token,userid,showModal} = this.props
     if (hasMore) {
       this.setState({
         loadText: '加载中'
@@ -54,7 +55,7 @@ class Course extends PureComponent {
             })
           }
         } else {
-
+          showModal(res.msg)
         }
       })
     }
@@ -94,16 +95,20 @@ class Course extends PureComponent {
     );
   }
 }
+
+BuyedVideo.propTypes = {
+  back: PropTypes.func
+}
 // 将redux数据映射到props
 const mapState = (state) => ({
   userid: state.getIn(['login', 'uid']),
   token: state.getIn(['login', 'token'])
 })
 const mapDispatch = (dispatch) => ({
-  back () {
-    const action = homeActionCreators.toggleComponent();
+  showModal (query) {
+    const action = commonActionCreators.toggleModal(query)
     dispatch(action)
   }
 })
 
-export default connect(mapState, mapDispatch)(Course);
+export default connect(mapState, mapDispatch)(BuyedVideo);
