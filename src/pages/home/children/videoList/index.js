@@ -23,7 +23,9 @@ class VideoList extends Component {
     const index = this.props.currentIndex;
     this.changeTab(index)
   }
-  
+  componentWillUnmount () {
+    this.props.back()
+  }
   // 改变tab的时候
   changeTab = (index) => {
     let title = null;

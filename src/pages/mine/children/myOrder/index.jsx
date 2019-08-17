@@ -172,9 +172,9 @@ class MyOrder extends Component {
               <ul className={style['scroll-wrap']}>
                 {
                   data[2].list.length>0 ?
-                  data[2].list.map(e => {
+                  data[2].list.map((e,i) => {
                     return (
-                      <li className={style.card} key={e.orderno}>
+                      <li className={style.card} key={`${e.orderno}${i}`} onClick={() => this.showDetailPage(e.orderid)}>
                         <OrderDetail info={e}/>
                       </li>
                     )
@@ -191,9 +191,9 @@ class MyOrder extends Component {
               <ul className={style['scroll-wrap']}>
                 {
                   data[3].list.length>0 ?
-                  data[3].list.map(e => {
+                  data[3].list.map((e,i) => {
                     return (
-                      <li className={style.card} key={e.orderno}>
+                      <li className={style.card}  key={`${e.orderno}${i}`} onClick={() => this.showDetailPage(e.orderid)}>
                         <OrderDetail info={e}/>
                       </li>
                     )
@@ -210,9 +210,9 @@ class MyOrder extends Component {
               <ul className={style['scroll-wrap']}>
                 {
                   data[4].list.length>0 ?
-                  data[4].list.map(e => {
+                  data[4].list.map((e,i)=> {
                     return (
-                      <li className={style.card} key={e.orderno}>
+                      <li className={style.card} key={`${e.orderno}${i}`}onClick={() => this.showDetailPage(e.orderid)}>
                         <OrderDetail info={e}/>
                       </li>
                     )
@@ -229,9 +229,9 @@ class MyOrder extends Component {
               <ul className={style['scroll-wrap']}>
                 {
                   data[5].list.length>0 ?
-                  data[5].list.map(e => {
+                  data[5].list.map((e,i) => {
                     return (
-                      <li className={style.card} key={e.orderno}>
+                      <li className={style.card} key={`${e.orderno}${i}`} onClick={() => this.showDetailPage(e.orderid)}>
                         <OrderDetail info={e}/>
                       </li>
                     )

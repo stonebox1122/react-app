@@ -18,9 +18,18 @@ class Registered extends PureComponent {
       truename: '',
       share: '',
       phone: '',
-      code: ''
+      code: '',
+      id: ''
     }
   }
+  componentDidMount() {
+    let id = this.props.location.search;
+    id = id.split('=')[1];
+    this.setState({
+      id
+    })
+  }
+  
   // 注册
   registered = () => {
     // 表单校验
@@ -125,6 +134,8 @@ class Registered extends PureComponent {
             name="share"
             label = "分享人"
             placeHoder="请输入分享人ID"
+            value={this.state.id ? this.state.id : this.state.share}
+            disabled={this.state.id ? true : false}
             changeInput= {this.changeInputNum.bind(this)}
             slot={<span>{this.state.truename}</span>}
           />

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs  from 'qs'
 import {baseUrl} from './config'
-
+import {removeStore} from '../common/js/utils'
 import store from '../store'
 import * as actionCreator from '~/common/store/actionCreators'
 
@@ -56,6 +56,14 @@ export function post (url, params) {
 export function get (url, params) {
   return new Promise((resolve, reject) => {
     axios.get(url, {params: params}).then((response) => {
+      if (response.code === '-1') {
+        
+        removeStore('islogin')
+        removeStore('uid')
+        removeStore('token')
+        alert('登陆过期,请重新登陆')
+        window.location.href="/login"
+      }
       resolve(response)
     }).catch((error) => {
       reject(error)

@@ -52,3 +52,20 @@ export const removeStore = name => {
   if (!name) return
   window.localStorage.removeItem(name)
 }
+
+
+export const getUA = () => {
+  // 判断浏览器并存存储到state
+  let ua = navigator.userAgent.toLowerCase()
+
+  /*eslint-disable */
+  if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+    return 'wechat'
+  } else if (ua.match(/WeiBo/i) == 'weibo') {
+    return 'weibo'
+  } else if (ua.match(/QQ/i) == 'qq') {
+    return 'qq'
+  } else {
+    return 'other'
+  }
+}
