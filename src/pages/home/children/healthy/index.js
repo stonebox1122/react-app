@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
 import { Link } from 'react-router-dom'
-import * as homeActionCreators from '../../store/actionCreators'
+import PropTypes from 'prop-types'
 import * as healthyActionCreators from './store/actionCreators'
 import { LoadMore } from 'react-weui';
 import NavgationBar from '@/NavgationBar'
@@ -59,6 +59,10 @@ class Tower extends PureComponent {
     );
   }
 }
+
+Tower.propTypes = { 
+  back: PropTypes.func
+}
 // 将redux数据映射到props
 const mapState = (state) => ({
   list: state.getIn(['healthy', 'list']).toJS(),
@@ -70,10 +74,6 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  back () {
-    const action = homeActionCreators.toggleComponent();
-    dispatch(action)
-  },
   getList (query) {
     const action = healthyActionCreators.getList(query);
     dispatch(action)

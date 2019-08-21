@@ -46,6 +46,7 @@ class Home extends Component {
     super(props)
     this.state = {
       comName: '',
+      showCom: false,
       video_current_index: 0,
       menu: [{
         key: 'check',
@@ -120,21 +121,15 @@ class Home extends Component {
       <p className={style.subtitle}>{ subtitle }</p>
     )
   }
-  // 路由跳转
-  // to = () => {
-  //   this.props.history.push({
-  //     pathname: '/video'
-  //   })
-  // }
 
   // 子组件显示
   handleShowCom = (name, info={}) => {
+    let flag = !this.state.showCom
     this.setState({
       comName: name,
-      video_current_index: info.index
+      video_current_index: info.index,
+      showCom: flag
     })
-    // 通过redux控制显示子组件
-    this.props.toggleCom()
   }
   // 数组切割
   spliceArr = (arr) => {
@@ -154,18 +149,18 @@ class Home extends Component {
     const name = this.state.comName
     switch (name) {
       case 'Course':
-        return <Course/>
+        return <Course back={this.handleShowCom}/>
       case 'Tower':
-        return <Tower/>
+        return <Tower back={this.handleShowCom}/>
       case 'Chosen':
-          return <Chosen/>
+          return <Chosen back={this.handleShowCom}/>
       case 'Healthy':
-        return <Healthy/>
+        return <Healthy back={this.handleShowCom}/>
       case 'Excellent':
-        return <Excellent/>
+        return <Excellent back={this.handleShowCom}/>
       case 'VideoList':
         return (
-          <VideoList currentIndex={this.state.video_current_index}/>
+          <VideoList back={this.handleShowCom} currentIndex={this.state.video_current_index}/>
         )
       default:
         break;
@@ -382,7 +377,7 @@ class Home extends Component {
         </section>
         {/* 动态组件 */}
         {
-          this.props.isShowCom ? 
+          this.state.showCom ? 
           <section className={style['full-screen']}>
             { this.showCom() }
           </section>
@@ -396,7 +391,6 @@ class Home extends Component {
 
 const mapState = (state) => ({
   // 这里获取的是合并后的home下的状态
-  isShowCom: state.getIn(['home','isShowCom']),
   token: state.getIn(['login', 'token']),
   banners: state.getIn(['home', 'banners']).toJS(),
   list_nlt: state.getIn(['home', 'list_nlt']).toJS(),
@@ -410,11 +404,6 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  // 切换子组件的显隐
-  toggleCom () {
-    const action = actionCreators.toggleComponent();
-    dispatch(action)
-  },
   // 请求首页数据
   getHomeMsg (query) {
     const action = actionCreators.getHomeMsg(query)

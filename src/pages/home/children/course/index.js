@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
-import * as homeActionCreators from '../../store/actionCreators'
+import PropTypes from 'prop-types'
 import * as towerActionCreators from './store/actionCreators'
 import { toFixed2 } from '$src/common/js/utils'
 import NavgationBar from '@/NavgationBar'
@@ -79,6 +79,10 @@ class Course extends PureComponent {
     );
   }
 }
+
+Course.propTypes = { 
+  back: PropTypes.func
+}
 // 将redux数据映射到props
 const mapState = (state) => ({
   list: state.getIn(['course', 'list']).toJS(),
@@ -89,10 +93,6 @@ const mapState = (state) => ({
   pageSize: state.getIn(['course', 'pageSize'])
 })
 const mapDispatch = (dispatch) => ({
-  back () {
-    const action = homeActionCreators.toggleComponent();
-    dispatch(action)
-  },
   getList (query) {
     const action = towerActionCreators.getList(query);
     dispatch(action)

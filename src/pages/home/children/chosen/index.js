@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
-import * as homeActionCreators from '../../store/actionCreators'
+import PropTypes from 'prop-types'
 import * as excellentActionCreators from './store/actionCreators'
 import { LoadMore } from 'react-weui';
 import { Link } from 'react-router-dom'
@@ -59,6 +59,11 @@ class Tower extends PureComponent {
     );
   }
 }
+
+Tower.propTypes = { 
+  back: PropTypes.func
+}
+
 // 将redux数据映射到props
 const mapState = (state) => ({
   list: state.getIn(['chosen', 'list']).toJS(),
@@ -70,10 +75,6 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  back () {
-    const action = homeActionCreators.toggleComponent();
-    dispatch(action)
-  },
   getList (query) {
     const action = excellentActionCreators.getList(query);
     dispatch(action)

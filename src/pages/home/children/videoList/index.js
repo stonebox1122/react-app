@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect  } from 'react-redux';
-import * as homeActionCreators from '../../store/actionCreators'
-import * as videoActionCreators from './store/actionCreators'
 import PropTypes from 'prop-types'
+import * as videoActionCreators from './store/actionCreators'
 import { LoadMore } from 'react-weui';
 import NavgationBar from '@/NavgationBar'
 import Tab from '@/Tab'
@@ -23,9 +22,7 @@ class VideoList extends Component {
     const index = this.props.currentIndex;
     this.changeTab(index)
   }
-  componentWillUnmount () {
-    this.props.back()
-  }
+
   // 改变tab的时候
   changeTab = (index) => {
     let title = null;
@@ -155,7 +152,7 @@ class VideoList extends Component {
       <div className={style.container}>
         <NavgationBar
           right=""
-          handleLeft = {this.props.back}
+          handleLeft = {()=>this.props.back()}
         >{this.state.title}</NavgationBar>
         <Tab list= {TabList} currentIndex = {this.state.currentIndex} changeCurr={this.changeTab}/>
         {/* 商品列表 */}
@@ -189,7 +186,8 @@ class VideoList extends Component {
 }
 
 VideoList.propTypes = {
-  currentIndex: PropTypes.number
+  currentIndex: PropTypes.number,
+  back: PropTypes.func
 }
 VideoList.defaultProps = {
   currentIndex: 0
@@ -204,10 +202,6 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  back () {
-    const action = homeActionCreators.toggleComponent();
-    dispatch(action)
-  },
   getList (query) {
     const action = videoActionCreators.getList(query);
     dispatch(action)
