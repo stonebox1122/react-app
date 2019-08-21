@@ -16,15 +16,12 @@ class Tower extends PureComponent {
   componentDidMount() {
     this.getList()
   }
-  componentWillUnmount() {
-    console.log('路由跳转关闭子页面，防止路由跳回空白页面，， 待优化');
-    this.props.back()
-  }
+
   getList = () => {
     let { token, currPage, pageSize, getList, hasMore } = this.props
     if (hasMore) {
       let query = {
-        token,
+        token:token || 888888,
         currPage,
         pageSize,
         type: 1

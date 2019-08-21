@@ -13,9 +13,8 @@ export const setInfo = (info) => {
   }
 }
 
-export const exit = dispatch => {
+export const exit = info => {
   // 这里是否要提交清空个人信息和购物车？
-  
   return {
     type: types.EXIT
   }

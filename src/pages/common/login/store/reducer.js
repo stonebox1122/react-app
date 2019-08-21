@@ -16,11 +16,10 @@ export default (state=defaultState, action) => {
       setStore('uid', uid)
       setStore('token', token)
       setStore('islogin', islogin)
-      islogin = islogin === 'true' ? true : false
       return state.merge({
         uid: fromJS(uid),
         token: fromJS(token),
-        islogin: fromJS(islogin)
+        islogin: fromJS(true)
       })
     case types.EXIT:
       removeStore('uid')

@@ -60,24 +60,27 @@ export default class Routers extends Component {
           <App>
             {/* 访问根路径直接定向到首页 */}
             <Route path="/" exact component ={() =>
-              <Redirect to="/tab/home"/>
+              <Redirect to="/tab/home/"/>
             }/>
-            <Route path="/tab" component = {() => 
+            <Route path="/tab" exact component ={() =>
+              <Redirect to="/tab/home/"/>
+            }/>
+            <Route path="/tab/" component = {() => 
               <Tabbar>
-                <Redirect to="/tab/home"/>
                 <Switch>
-                  <Route path="/tab/home" component={Home}/>
-                  <Route path="/tab/goods" component={Goods}/>
-                  <Route path="/tab/cart" component={Cart}/>
-                  <Route path="/tab/mine" component={Mine}/>
+                  <Route path="/tab/home/" component={Home}/>
+                  <Route path="/tab/goods/" component={Goods}/>
+                  <Route path="/tab/cart/" component={Cart}/>
+                  <Route path="/tab/mine/" component={Mine}/>
                 </Switch>
               </Tabbar>
             }/>
             <Route path="/video/:id" component = {Video}/>
             <Route path="/detail/:id" component = {Detail}/>
-            <Route path="/login" component = {Login}/>
-            <Route path="/registered" component = {Registered}/>
+            <Route path="/login/" component = {Login}/>
+            <Route path="/registered/" component = {Registered}/>
             <Route path="/share/:id" component={Share}/> 
+            <Redirect from='*' to='/tab/home/' />
           </App>
         </Router>        
       </Provider>

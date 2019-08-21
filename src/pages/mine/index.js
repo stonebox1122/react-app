@@ -83,16 +83,21 @@ class Mine extends PureComponent {
     }
   }
   init = () => {
-    let {userid, token, initMine} = this.props
+    let {userid, token, initMine, isLogin} = this.props
     let query = {
       userid,
       token
     }
-    initMine(query)
+    if (isLogin === true && userid && token) {
+      initMine(query)
+    }
   }
 
   // 子组件显示
   handleShowCom = (name="Wallet",key=0) => {
+    if (this.props.isLogin !== true) {
+      return false
+    }
     let flag = this.state.isShowCom
     this.setState({
       comName: name,

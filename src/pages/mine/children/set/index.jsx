@@ -10,6 +10,8 @@ import { List } from 'antd-mobile';
 import style from './index.module.scss'
 import * as loginActionCreators from '~/common/login/store/actionCreators'
 import * as commonActionCreators from '~/common/store/actionCreators'
+import * as mineActionCreators from '~/mine/store/actionCreators'
+
 const Item = List.Item;
 const Brief = Item.Brief;
 class Set extends PureComponent {
@@ -103,7 +105,9 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   async exit (cb) {
     const action = loginActionCreators.exit();
+    const action2 = mineActionCreators.initMine({});
     await dispatch(action)
+    await dispatch(action2)
     cb()
   },
   showModal (msg, title) {

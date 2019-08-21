@@ -19,7 +19,7 @@ class GoodsList extends PureComponent {
   
   getlist = () => {
     let query = {
-      token: this.props.token,
+      token: this.props.token || 888888,
       currPage: this.props.currPage,
       pageSize: this.props.pageSize
     }

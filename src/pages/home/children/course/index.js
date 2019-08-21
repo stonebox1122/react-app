@@ -23,7 +23,7 @@ class Course extends PureComponent {
     let { token, currPage, pageSize, getList, hasMore } = this.props
     if (hasMore) {
       let query = {
-        token,
+        token: token|| 888888,
         currPage,
         pageSize,
         type: 2

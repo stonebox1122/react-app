@@ -36,7 +36,7 @@ class Detail extends PureComponent {
   }
   componentDidMount() {
     let query = {
-      token: this.props.token,
+      token: this.props.token || 888888,
       gid: this.props.match.params.id
     }
     this.props.getDetail(query)
@@ -121,7 +121,7 @@ class Detail extends PureComponent {
   navRight = () => {
     return (
       <div className={style.cart}>
-        <Link to={`/tab/cart`}>
+        <Link to='/tab/cart/'>
           {
             this.props.cart.length > 0 ? 
             <Badge preset="header">{this.props.cart.length}</Badge> : ""
