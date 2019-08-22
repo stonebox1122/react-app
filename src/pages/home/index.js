@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { connect  } from 'react-redux';
 import * as actionCreators from './store/actionCreators'
+import * as loginActionCreators from '~/common/login/store/actionCreators'
 import Loadable from 'react-loadable';
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import { LoadMore } from 'react-weui';
+import {GetQueryString} from "$src/common/js/utils"
+import {getOpenid} from '$src/api'
 import NavgationBar from '@/NavgationBar'
 import Loading from '@/Loading'
 import Title from '@/Title'
@@ -72,6 +75,20 @@ class Home extends Component {
     }
   }
   componentDidMount () {
+    let code = GetQueryString('code'); 
+    if (code !== null) {
+      // 利用code获取openid并保存在本地
+      let query = {
+        code,
+        token: this.props.token
+      }
+      getOpenid(query).then(res => {
+        if (res.code === '1') {
+          this.props.setOpenid(res.data.openid)
+        }
+      })
+    }
+
     let {token,getHomeMsg} = this.props
     // 加载数据
     getHomeMsg({token : token || '888888'})
@@ -407,6 +424,10 @@ const mapDispatch = (dispatch) => ({
   // 请求首页数据
   getHomeMsg (query) {
     const action = actionCreators.getHomeMsg(query)
+    dispatch(action)
+  },
+  setOpenid (id) {
+    const action = loginActionCreators.setOpenid(id)
     dispatch(action)
   }
 })

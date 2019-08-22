@@ -1,7 +1,7 @@
 // 根路由
 import React, { PureComponent } from 'react';
 import { connect  } from 'react-redux';
-import { getStore } from '$src/common/js/utils'
+import { getStore, getUA } from '$src/common/js/utils'
 import * as loginActionCreators from '~/common/login/store/actionCreators';
 import * as commonActionCreators from '~/common/store/actionCreators'
 import * as cartActionCreator from '~/cart/store/actionCreators'
@@ -15,7 +15,9 @@ class App extends PureComponent {
     let token = getStore('token');
     let islogin = getStore('islogin');
     let cartList = getStore('cart');
+    let openid = getStore('openid')
     let cartSelectAll = getStore('selectAll')
+    let UA = getUA()
     let info = {
       uid: uid === 'null' ? '' : uid,
       token: token === 'null' ? '888888' : token,
@@ -30,6 +32,8 @@ class App extends PureComponent {
       cartSelectAll = false
     }
     this.props.initInfo(info)
+    this.props.setUa(UA)
+    this.props.setOpenid(openid)
     this.props.initCart(cartList, cartSelectAll)
   }
   render () {
@@ -70,6 +74,14 @@ const mapDispatch = (dispatch) => ({
   },
   toggleModal () {
     const action = commonActionCreators.toggleModal()
+    dispatch(action)
+  },
+  setUa (ua) {
+    const action = loginActionCreators.setUa(ua)
+    dispatch(action)
+  },
+  setOpenid (id) {
+    const action = loginActionCreators.setOpenid(id)
     dispatch(action)
   }
 })

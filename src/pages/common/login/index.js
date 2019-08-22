@@ -6,7 +6,7 @@ import { LoadMore } from 'react-weui'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
 import Verification from '@/Verification'
-import { testPhoneNum } from '$src/common/js/utils'
+import { testPhoneNum, wechatLogingzhDefault, wechatLogingzh } from '$src/common/js/utils'
 import * as actionCreators from './store/actionCreators';
 import * as commonActionCreators from '../store/actionCreators';
 import style from './index.module.scss'
@@ -123,6 +123,11 @@ class Login extends PureComponent {
       this.props.loginByPwd(query)
     }
   }
+
+  wxLogin = () => {
+    wechatLogingzh()
+  }
+
   render () {
     // navbar的右侧
     const rightItem = <span className={style['right-item']}>{!this.state.right ? '短信登录' : '账户登录'}</span>
@@ -183,9 +188,9 @@ class Login extends PureComponent {
         <section className={style['third-login-wrap']}>
           <LoadMore showLine>或从以下方式登录</LoadMore>
           <div className={style['third-login']}>
-            <img className={style.icon} alt="img" src={require('./img/login_btn_weixin.png')}/>
-            <img className={style.icon} alt="img" src={require('./img/login_btn_qq.png')}/>
-            <img className={style.icon} alt="img" src={require('./img/login_btn_weibo.png')}/>
+            <img className={style.icon} alt="img" onClick={this.wxLogin} src={require('./img/login_btn_weixin.png')}/>
+            {/* <img className={style.icon} alt="img" src={require('./img/login_btn_qq.png')}/>
+            <img className={style.icon} alt="img" src={require('./img/login_btn_weibo.png')}/> */}
           </div>
         </section>
         
@@ -197,6 +202,10 @@ class Login extends PureComponent {
   }
 }
 
+const mapState = state => ({
+  ua: state.getIn(['login', 'ua'])
+})
+
 const mapDispatch = (dispatch) => ({
   // 账号密码登陆
   loginByPwd(form) {
@@ -204,9 +213,14 @@ const mapDispatch = (dispatch) => ({
       if (res.code === '1') {
         let info = Object.assign(res.data, {islogin: true})
         dispatch(actionCreators.setInfo(info))
-        this.history.push({
-          pathname: '/tab/mine'
-        })
+        console.log(this.ua);
+        if (this.ua === 'wechat') {
+          wechatLogingzhDefault()
+        } else {
+          this.history.push({
+            pathname: '/tab/home'
+          })
+        }
       } else {
         dispatch(commonActionCreators.toggleModal(res.msg))
       }
@@ -218,9 +232,13 @@ const mapDispatch = (dispatch) => ({
       if (res.code === '1') {
         let info = Object.assign(res.data, {islogin: true})
         dispatch(actionCreators.setInfo(info))
-        this.history.push({
-          pathname: '/tab/mine'
-        })
+        if (this.ua === 'wechat') {
+          wechatLogingzhDefault()
+        } else {
+          this.history.push({
+            pathname: '/tab/home'
+          })
+        }
       } else {
         dispatch(commonActionCreators.toggleModal(res.msg))
       }
@@ -232,4 +250,4 @@ const mapDispatch = (dispatch) => ({
   }
 })
 
-export default connect(null, mapDispatch)(withRouter(Login))
+export default connect(mapState, mapDispatch)(withRouter(Login))

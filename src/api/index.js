@@ -19,6 +19,12 @@ export const loginByPwd = (params) => post('/app/main/login', params)
 // 1.5 短信快捷登陆
 export const loginByCode = (params) => post('/app/main/msglogin', params)
 
+// 1.5.3 WEB第三方账户登录（微信）
+export const wxLogin = params => post('/app/main/threeLoginByCode', params)
+
+// 1.5.4 第三方绑定用户（微信、qq、新浪）
+export const bindwx = param => post('/app/main/threeBindMobile', param)
+
 // 1.6.1 收货地址列表
 export const getAddrList = (params) => get('/app/main/myAddress', params)
 
@@ -111,6 +117,9 @@ export const tranferTofriend = param => post('/app/pay/accountTransfer_from1_to2
 
 // 4.5.4 转账记录（带分页）
 export const getTransList = param => post('/app/pay/transfer_log', param)
+
+// 4.7 微信获取openid-公众平台
+export const getOpenid = params => post('/app/pay/getWeChatOpenId',params)
 
 // 5.1 已购买视频列表（带分页）
 export const buyedViodeList = params => get('/app/video/myVideos', params)

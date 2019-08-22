@@ -69,3 +69,51 @@ export const getUA = () => {
     return 'other'
   }
 }
+
+//截取URL后面传来的参数
+export function GetQueryString(name) {
+  var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+  var r = window.location.search.substr(1).match(reg);
+  if(r!=null) {
+      return  decodeURI(r[2]);
+  } else {
+      return null;
+  }
+}
+
+const url = encodeURI('http://js.hzmjkw.cn/wxAuthorize')
+// 这个直接get访问重定向到接口会有跨域错误,还是要实验自己获取code
+const defaultUrl = encodeURI('http://js.hzmjkw.cn/tab/home')
+// const defaultUrl = encodeURI('http://localhost:8888/tab/home')
+
+const gzAppid = 'wxea4f14282fec2754'
+const kfAppid = ''
+/**
+ * 微信公众号静默授权登陆
+ * @param {url} 重定向地址
+ */
+
+export const wechatLogingzhDefault = name => {
+  window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${gzAppid}&redirect_uri=${defaultUrl}?type=wechat&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
+}
+
+/**
+ * 微信公众号登陆-点击授权
+ */
+export const wechatLogingzh = name => {
+  window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${gzAppid}&redirect_uri=${url}?type=wechat&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+}
+
+/**
+  * 微信开放平台登陆
+  */
+export const wechatLoginOpen = name => {
+  window.location.href = `https://open.weixin.qq.com/connect/qrconnect?appid=${kfAppid}&redirect_uri=${url}?type=wechatopen&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect`
+}
+
+/**
+ * QQ登陆
+ */
+export const qqLogin = name => {
+  window.location.href = `https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101446484&redirect_uri=${url}?type=qq`
+}

@@ -6,7 +6,9 @@ import { setStore, removeStore } from '$src/common/js/utils'
 const defaultState = fromJS({
   uid: '',
   token: '',
-  islogin: false
+  islogin: false,
+  ua: '',
+  openid: ""
 })
 
 export default (state=defaultState, action) => {
@@ -30,6 +32,15 @@ export default (state=defaultState, action) => {
         uid: '',
         token: '',
         islogin: false
+      })
+    case types.SET_UA: 
+      return state.merge({
+        ua: action.ua
+      })
+    case types.SET_OPENID:
+      setStore('openid', action.id)
+      return state.merge({
+        openid: action.id
       })
     default:
       // 注意这里要默认返回

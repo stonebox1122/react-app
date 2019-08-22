@@ -19,3 +19,17 @@ export const exit = info => {
     type: types.EXIT
   }
 }
+
+export const setUa = ua => {
+  return {
+    type: types.SET_UA,
+    ua
+  }
+}
+
+export const setOpenid = id => {
+  return {
+    type: types.SET_OPENID,
+    id
+  }
+}
