@@ -46,6 +46,16 @@ export default (state = defaultState, action) => {
       }
       mineInfo.userpurse.shoppingpoints = shoppingpoints
       return state.set('mineInfo',  fromJS(mineInfo));
+    case types.MALLPOINT_CHANGE:
+        let {userpurse:{mallpoints}} = mineInfo
+        mallpoints = parseFloat(mallpoints)
+        if (action.flag === 'increase') {
+          mallpoints += parseFloat(action.num)
+        } else {
+          mallpoints -= parseFloat(action.num)
+        }
+        mineInfo.userpurse.mallpoints = mallpoints
+        return state.set('mineInfo',  fromJS(mineInfo));
     default:
       return state;
   } 

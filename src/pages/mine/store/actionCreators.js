@@ -63,6 +63,14 @@ export const changeShoppoint = (num, flag) => {
     flag
   }
 }
+// 3-3 购物积分更改
+export const changeMallpoint = (num, flag) => {
+  return {
+    type: types.MALLPOINT_CHANGE,
+    num,
+    flag
+  }
+}
 
 //2-2 改变信息
 export const changeInfo = (info) => {

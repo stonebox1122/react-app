@@ -97,6 +97,9 @@ export const pointPay = params => post('/app/pay/goPointPayBuyProduct', params)
 // 4.2 微信支付-购买产品（拉起支付，含app、h5）
 export const getwxSign = param => post('/app/pay/goWechatBuyProduct', param)
 
+// 4.3.1 微信支付-充值（拉起支付，含app、h5）
+export const wxEncharge = parame => post('/app/pay/wechatRecharge', parame)
+
 // 4.3.2 充值记录（带分页）
 export const enchargeList = params => get('/app/pay/getRechargeLog', params)
 
