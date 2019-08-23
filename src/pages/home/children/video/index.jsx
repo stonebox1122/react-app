@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Scroll from '@/Scroll'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
-import {getVideo, toggleZan} from '$src/api'
+import {getVideo,wxBuyVideo, toggleZan} from '$src/api'
+import {wxGZHpay} from "$src/common/js/wxPay"
 import { Tabs, Icon, Toast, Modal, List, Radio } from 'antd-mobile';
 import style from './video.module.scss'
 import * as commonActionCreators from '~/common/store/actionCreators'
@@ -80,13 +81,39 @@ class Video extends Component {
     console.log( this._video.current === null);
   }
 
-  wxPay = () => {
-    console.log('微信支付');
+  wxPay = (amount) => {
+    let {token,ua,openid,userid,showModal} = this.props
+    if (ua !== 'wechat') {
+      Toast.fail('请在微信中打开')
+    }
+    
+    let query = {
+      userid, token, title: '开通视频',
+      amount, sys_type: 3,pay_type : 1,
+      private_id: this.state.info.s_id,
+      openid,
+    }
+
+    wxBuyVideo(query).then(res => {
+      if (res.code === '1') {
+        wxGZHpay(res.data, this.cb)
+      } else {
+        showModal(res.msg)
+      }
+    })
+    
     this.setState({
       showBuyModal: false
     })
   }
-  
+  // 支付成功后视频可以看
+  cb (type) {
+    if (type === 'success') {
+      Toast.success('支付成功, 请刷新观看')
+    } else {
+      Toast.fail(type)
+    }
+  }
   render() { 
     const tabs = [{ title: '简介', sub: '1' },{ title: '目录', sub: '2' }]
     let {info, list,play, mp4Src} = this.state
@@ -151,7 +178,7 @@ class Video extends Component {
           maskClosable={true}
           onClose={()=>this.setState({showBuyModal: false})}
           title={`购买:${info.s_title}`}
-          footer={[{ text: '立即支付', onPress: this.wxPay}]}
+          footer={[{ text: '立即支付', onPress:() => this.wxPay(info.s_price)}]}
         >
           <div >
             <p style={{color:"red"}}>{info.s_show_price}</p>
@@ -170,7 +197,9 @@ class Video extends Component {
 
 const mapState = state => ({
   token: state.getIn(['login', 'token']),
-  userid: state.getIn(['login', 'uid'])
+  userid: state.getIn(['login', 'uid']),
+  ua: state.getIn(['login', 'ua']),
+  openid: state.getIn(['login', 'openid']),
 })
 
 const mapDispatch = dispatch => ({

@@ -124,6 +124,9 @@ export const tranferTofriend = param => post('/app/pay/accountTransfer_from1_to2
 // 4.5.4 转账记录（带分页）
 export const getTransList = param => post('/app/pay/transfer_log', param)
 
+// 4.6 微信支付-购买/续费视频（拉起支付，含app、h5）
+export const wxBuyVideo = params => post('/app/pay/goWechatBuyVideo', params)
+
 // 4.7 微信获取openid-公众平台
 export const getOpenid = params => post('/app/pay/getWeChatOpenId',params)
 
