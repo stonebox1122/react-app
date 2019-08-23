@@ -204,34 +204,34 @@ class Mine extends PureComponent {
               title="全部订单"
               key="all"
               onPress={()=>this.handleShowCom("MyOrder", 0)}
-              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_all.png")} alt="icon"/>}
+              icon={<img style={{width: "22px", height: "22px"}} src={require("./img/personal_icon_all.png")} alt="icon"/>}
             />
             <TabBar.Item
               title="待付款"
               key="waitPay"
               onPress={()=>this.handleShowCom("MyOrder", 1)}
-              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_wait.png")} alt="icon"/>}
+              icon={<img style={{width: "22px", height: "22px"}} src={require("./img/personal_icon_wait.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dfk}
             />
             <TabBar.Item
               title="待发货"
               key="waitTrans"
               onPress={()=>this.handleShowCom("MyOrder", 2)}
-              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_transport.png")} alt="icon"/>}
+              icon={<img style={{width: "22px", height: "22px"}} src={require("./img/personal_icon_transport.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dfh}
             />
             <TabBar.Item
               title="待收货"
               key="waitrec"
               onPress={()=>this.handleShowCom("MyOrder", 3)}
-              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_receipt.png")} alt="icon"/>}
+              icon={<img style={{width: "22px", height: "22px"}} src={require("./img/personal_icon_receipt.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dsh}
             />
             <TabBar.Item
               title="待评价"
               key="waitCommit"
               onPress={()=>this.handleShowCom("MyOrder", 4)}
-              icon={<img style={{width: "22px"}} src={require("./img/personal_icon_evaluation.png")} alt="icon"/>}
+              icon={<img style={{width: "22px", height: "22px"}} src={require("./img/personal_icon_evaluation.png")} alt="icon"/>}
               badge={ordercount && ordercount.count_dpj}
             />
           </TabBar>

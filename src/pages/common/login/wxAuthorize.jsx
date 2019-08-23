@@ -27,7 +27,7 @@ class Authorize extends PureComponent {
       // 利用code获取openid并保存在本地
       let query = {
         code,
-        token: this.props.token
+        // token: this.props.token
       }
       wxLogin(query).then(res => {
         this.props.setOpenid(res.data.openid)
@@ -74,8 +74,8 @@ class Authorize extends PureComponent {
   //   }
   // }
   bind = () => {
-    let {phonenum, unionid} = this.state
-    if (!testPhoneNum(phonenum)) {
+    let {phone, unionid} = this.state
+    if (!testPhoneNum(phone)) {
       this.props.toggleModal('请输入正确的手机号')
       return
     }
@@ -85,7 +85,7 @@ class Authorize extends PureComponent {
     // }
     let query = {
       unionid,
-      mobile: phonenum,
+      mobile: phone,
       type: 1
     }
     bindwx (query).then(res => {
