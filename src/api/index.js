@@ -94,6 +94,9 @@ export const getOrderList = params => get('/app/orders/myOrders', params)
 // 4.1 积分支付-购买产品
 export const pointPay = params => post('/app/pay/goPointPayBuyProduct', params)
 
+// 4.2 微信支付-购买产品（拉起支付，含app、h5）
+export const getwxSign = param => post('/app/pay/goWechatBuyProduct', param)
+
 // 4.3.2 充值记录（带分页）
 export const enchargeList = params => get('/app/pay/getRechargeLog', params)
 

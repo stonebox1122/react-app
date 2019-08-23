@@ -1,6 +1,7 @@
 // 确认订单
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import NavgationBar from '@/NavgationBar'
 import Goods2 from '@/Goods/goods_2'
 import Address from '~/common/address'
@@ -10,7 +11,9 @@ import { TextareaItem, Toast } from 'antd-mobile';
 import * as cartActionCreators from '../../store/actionCreators'
 import * as commonActionCreators from '~/common/store/actionCreators'
 import { formatArr } from '$src/common/js/utils'
-import {confirmOrder,pointPay} from '$src/api'
+import {wxGZHpay} from '$src/common/js/wxPay'
+import {confirmOrder,pointPay, getwxSign} from '$src/api'
+
 import style from './index.module.scss'
 class ConfirmOrder extends PureComponent {
   constructor(props) {
@@ -56,12 +59,13 @@ class ConfirmOrder extends PureComponent {
         this.props.showModal('购物积分不足', '失败')
       }
     } else {
-      this.confirmOrderPre(this.wxPay) // 传入微信支付
+      this.confirmOrderPre(this.wxPay(this.pointPay)) // 传入微信支付
     }
   }
   // 确认下单 3.2 确认订单（预付单）
   confirmOrderPre = (cb) => {
-    let {info, userid, token, currentAddress} = this.props
+    let {info, userid, token, currentAddress,showModal} = this.props
+
     let newArr = info.map(e => {
       let {gid,num, valueid} = e
       return {gid, num, valueid}
@@ -77,7 +81,7 @@ class ConfirmOrder extends PureComponent {
       if (res.code === '1') {
         cb(res.data)
       } else {
-        this.props.showModal(res.msg)
+        showModal(res.msg)
       }
     })
   }
@@ -103,9 +107,41 @@ class ConfirmOrder extends PureComponent {
     })
   }
   // wx支付
-  wxPay = () => {
-    
+  wxPay = (options) => {
+    let {userid, token, openid, ua, showModal} = this.props
+    if (ua !== 'wechat') {
+      showModal('请在微信中打开使用微信支付')
+    }
+    let query = {
+      userid, token,
+      title: "商品下单",
+      amount: options.amount ,
+      sys_type: 3,
+      openid,
+      orderno: options.orderno
+    }
+    getwxSign(query).then(res =>{
+      if (res.code === '1') {
+        wxGZHpay(res.data, )
+      } else {
+        showModal(res.msg)
+      }
+      this.setState({
+        isShowDetail: true,
+        orderid:options.orderno
+      })
+    })
   }
+
+  // 支付成功的回调
+  cb = (type) => {
+    if (type === 'success') {
+      Toast.success('支付成功')
+    } else {
+      Toast.fail(type)
+    }
+  }
+
   changeMsg = (e) => {
     this.setState({
       leaveMsg:e
@@ -261,7 +297,9 @@ const mapState = (state) => ({
   addressList: state.getIn(['cart', 'addressList']),
   order: state.getIn(['cart', 'order']).toJS(),
   userid: state.getIn(['login', 'uid']),
+  ua:  state.getIn(['login', 'ua']),
   token: state.getIn(['login', 'token']),
+  openid: state.getIn(['login', 'openid']),
   currentAddress: state.getIn(['address', 'currentAddress']).toJS()
 })
 
@@ -272,6 +310,10 @@ const mapDispatch = (dispatch) => ({
     dispatch(action)
   },
   getOrder (query) {
+    if (!this.userid || !this.token)  {
+      Toast.fail('请先登录')
+      this.history.push("/login")
+    }
     const action = cartActionCreators.getOrder(query)
     dispatch(action)
   },
@@ -281,4 +323,4 @@ const mapDispatch = (dispatch) => ({
   }
 })
  
-export default connect(mapState, mapDispatch)(ConfirmOrder);
+export default connect(mapState, mapDispatch)(withRouter(ConfirmOrder));
