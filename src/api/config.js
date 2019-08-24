@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = '/api/jsmall'
   // baseUrl = 'http://api.hzmjkw.cn'
 } else {
-  baseUrl = 'http://api.hzmjkw.cn'
+  baseUrl = 'http://jsapi.qiankaiwangluo.com'
 }
 
 export {

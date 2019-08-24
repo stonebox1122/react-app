@@ -81,9 +81,9 @@ export function GetQueryString(name) {
   }
 }
 
-const url = encodeURI('http://js.hzmjkw.cn/wxAuthorize')
+const url = encodeURI('http://js.qiankaiwangluo.com/wxAuthorize')
 // 这个直接get访问重定向到接口会有跨域错误,还是要实验自己获取code
-const defaultUrl = encodeURI('http://js.hzmjkw.cn/tab/home')
+const defaultUrl = encodeURI('http://js.qiankaiwangluo.com/tab/home')
 // const defaultUrl = encodeURI('http://localhost:8888/tab/home')
 
 const gzAppid = 'wxea4f14282fec2754'
