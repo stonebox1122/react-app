@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import { connect  } from 'react-redux';
 import { LoadMore } from 'react-weui'
+import {wxshare} from '$src/common/js/wxShare'
+
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
 import Verification from '@/Verification'
@@ -23,6 +25,17 @@ class Login extends PureComponent {
       code: ''
     }
   }
+
+  componentDidMount() {
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '登陆吉善在线商城',
+      title: '吉善商城-登陆',
+      link: "http://js.qiankaiwangluo.com/login"
+    })
+  }
+
+
   // 改变登陆方式
   changeLogin = () => {
     let right

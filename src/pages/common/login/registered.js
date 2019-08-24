@@ -3,6 +3,8 @@ import { connect  } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import NavgationBar from '@/NavgationBar'
+import {wxshare} from '$src/common/js/wxShare'
+
 import Cell from '@/Cell'
 import Verification from '@/Verification'
 import { testPhoneNum } from '$src/common/js/utils'
@@ -27,6 +29,12 @@ class Registered extends PureComponent {
     id = id.split('=')[1];
     this.setState({
       id
+    })
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '注册加入吉善商城',
+      title: '吉善商城-注册',
+      link: "http://js.qiankaiwangluo.com/registered"
     })
   }
   

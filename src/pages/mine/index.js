@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { TabBar, Grid  } from 'antd-mobile';
+import {wxshare} from '$src/common/js/wxShare'
+
 import Set from './children/set'
 import PersonInfo from './children/personInfo'
 import ServerNode from './children/serverNode'
@@ -81,6 +83,13 @@ class Mine extends PureComponent {
     if (this.props.mine) {
       this.init()
     }
+    // 设置分享
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '吉善在线商城',
+      title: '吉善商城',
+      link: "http://js.qiankaiwangluo.com/tab/home"
+    })
   }
   init = () => {
     let {userid, token, initMine, isLogin} = this.props

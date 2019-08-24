@@ -1,5 +1,7 @@
 // 视频详情
 import React, { Component } from 'react';
+import {wxshare} from '$src/common/js/wxShare'
+
 import Scroll from '@/Scroll'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
@@ -22,6 +24,13 @@ class Video extends Component {
   }
   componentDidMount() {
     this.getVideoMsg(this.props.match.params.id)
+    // 设置分享
+    wxshare({
+      imgUrl: this.state.info.share_img,
+      desc: this.state.info.share_subtitle,
+      title: this.state.info.share_title,
+      link: this.state.info.share_url
+    })
   }
   back = () => {
     this.props.history.goBack();

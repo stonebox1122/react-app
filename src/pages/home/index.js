@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import { LoadMore } from 'react-weui';
 import {GetQueryString} from "$src/common/js/utils"
+import {wxshare} from '$src/common/js/wxShare'
 import {getOpenid} from '$src/api'
 import NavgationBar from '@/NavgationBar'
 import Loading from '@/Loading'
@@ -92,6 +93,13 @@ class Home extends Component {
     let {token,getHomeMsg} = this.props
     // 加载数据
     getHomeMsg({token : token || '888888'})
+    // 设置分享
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '吉善在线商城',
+      title: '吉善商城',
+      link: "http://js.qiankaiwangluo.com/tab/home"
+    })
   }
   componentDidUpdate () {
     // 初始化轮播图插件

@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import { Icon, Toast } from 'antd-mobile';
 import { Badge } from 'react-weui'
 import NavgationBar from '@/NavgationBar';
-// import Tab from '@/Tab';
+import {wxshare} from '$src/common/js/wxShare'
+
 import Scroll from '@/Scroll';
 import ConfirmOrder from '~/cart/children/ConfirmOrder'
 import NumberController from '@/NumberController'
@@ -40,6 +41,14 @@ class Detail extends PureComponent {
       gid: this.props.match.params.id
     }
     this.props.getDetail(query)
+
+    // 设置分享
+    wxshare({
+      imgUrl: this.props.detail.img,
+      desc: this.props.detail.subtitle,
+      title: this.props.detail.title,
+      link: window.location.href
+    })
   }
   componentDidUpdate () {
     // 初始化轮播图插件

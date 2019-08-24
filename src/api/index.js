@@ -25,6 +25,9 @@ export const wxLogin = params => post('/app/main/threeLoginByCode', params)
 // 1.5.4 第三方绑定用户（微信、qq、新浪）
 export const bindwx = param => post('/app/main/threeBindMobile', param)
 
+// 1.6 web分享（微信公众号）
+export const gethlSignature = param => get('/app/share/fromWeChat', param)
+
 // 1.6.1 收货地址列表
 export const getAddrList = (params) => get('/app/main/myAddress', params)
 

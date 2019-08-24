@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import { connect  } from 'react-redux';
 import { withRouter } from 'react-router';
 import NavgationBar from '@/NavgationBar'
+import {wxshare} from '$src/common/js/wxShare'
+
 import Cell from '@/Cell'
 import Verification from '@/Verification'
 import { testPhoneNum } from '$src/common/js/utils'
@@ -20,7 +22,12 @@ class Registered extends PureComponent {
     }
   }
   componentDidMount() {
-    console.log(this.props.match.params.id)
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '吉善商城首页',
+      title: '吉善商城',
+      link: "http://js.qiankaiwangluo.com/tab/home"
+    })
   }
   
   // 注册

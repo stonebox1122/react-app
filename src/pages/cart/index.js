@@ -4,6 +4,7 @@ import * as actionCreator from './store/actionCreators'
 import NavgationBar from '@/NavgationBar';
 import Scroll from '@/Scroll';
 import Goods2 from '@/Goods/goods_2'
+import {wxshare} from '$src/common/js/wxShare'
 import NumberController from '@/NumberController'
 import ConfirmOrder from '~/cart/children/ConfirmOrder'
 import {toFixed2} from '$src/common/js/utils'
@@ -18,6 +19,16 @@ class Cart extends PureComponent {
       info: []
     }
   }
+  componentDidMount() {
+    // 设置分享
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '吉善在线商城',
+      title: '吉善商城',
+      link: "http://js.qiankaiwangluo.com/tab/home"
+    })
+  }
+  
 
   // 删除模式/结算模式
   handlEdit = () => {

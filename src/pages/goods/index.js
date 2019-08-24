@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import {wxshare} from '$src/common/js/wxShare'
+
 import NavgationBar from '@/NavgationBar'
 import Scroll from '@/Scroll'
 import Goods1 from '@/Goods/goods_1'
@@ -15,6 +17,13 @@ class GoodsList extends PureComponent {
   componentDidMount() {
     // 初始化数据
     this.getlist()
+    // 设置分享
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '吉善在线商城',
+      title: '吉善商城',
+      link: "http://js.qiankaiwangluo.com/tab/home"
+    })
   }
   
   getlist = () => {
