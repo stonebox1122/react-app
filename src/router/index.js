@@ -70,7 +70,7 @@ export default class Routers extends Component {
             <Route path="/tab" exact component ={() =>
               <Redirect to="/tab/home"/>
             }/>
-            <Route path="/tab/" component = {() => 
+            <Route path="/tab" component = {() => 
               <Tabbar>
                 <Switch>
                   <Route path="/tab/home" component={Home}/>
@@ -86,6 +86,7 @@ export default class Routers extends Component {
             <Route path="/registered" component = {Registered}/>
             <Route path="/share/:id" component={Share}/> 
             <Route path="/wxAuthorize" component={Authorize}/>
+            <Route component={Login}/>
           </App>
         </Router>        
       </Provider>
