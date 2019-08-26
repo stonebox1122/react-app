@@ -17,7 +17,7 @@ export default (state=defalutState, action) => {
     case types.TOGGLE_SHOW_COM: // 切换子页面的显示隐藏
       let type = state.get('isShowCom')
       return state.set('isShowCom', !type)
-    case types.INIT_CART:
+    case types.INIT_CART:  // 初始化.清空
       let initList =action.list
       return state.set('list', fromJS(initList)).set('selectAll', fromJS(JSON.parse(action.selectAll)))
     case types.TOGGLE_SELECT: // 切换选中状态

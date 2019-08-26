@@ -74,6 +74,7 @@ export const getOrder = (query) => {
   return (dispatch) => {
     setOrder(query).then(res => {
       if (res.code === '1'){
+        dispatch(initCart([], false))
         dispatch(initOrder(res.data))
         dispatch(addressActionCreators.changeCurrentAddr(res.data.isdefault_address))
       } else {
