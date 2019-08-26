@@ -1,92 +1,127 @@
 .cover {
+  display: flex;
+  flex-direction: column;
   @extend %full-screen;
+  overflow: hidden;
   background-color: #F5F6F7;
-  .header {
-    display: flex;
-    align-items: center;
-    padding: 0 50px;
-    width: 100vw;
-    height: 198px;
-    background: linear-gradient(to right, #FFC105, #FED967);
-    .state {
+  .wrap {
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .header {
       display: flex;
-      font-size: 32px;
-      color: #fff;
-      img {
-        margin-right: 32px;
-        width: 31px;
-        height: 31px;
-      }
-    }
-  }
-  .address {
-    display: flex;
-    align-items: center;
-    padding: 24px;
-    box-sizing: border-box;
-    background-color: #fff;
-    .location-icon {
-      flex: 0 0 70px;
-      width: 70px;
-      height: 72px;
-    }
-    .location {
-      flex: 1;
-      padding-left: 24px;
-      font-size: 28px;
-      line-height: 40px;
-      color: #333;
-    }
-  }
-  .order-detail {
-    margin-top: 24px;
-    background-color: #fff;
-    padding: 24px;
-    .infos {
-      border-top: 1px dotted #333;
-      padding-top: 24px;
-      .item {
+      align-items: center;
+      padding: 0 50px;
+      width: 100vw;
+      height: 198px;
+      background: linear-gradient(to right, #FFC105, #FED967);
+      .state {
         display: flex;
-        justify-content: space-between;
-        padding: 12px 0;
-        font-size: 24px;
-        color: #999;
-        &.total {
-          padding: 24px 0;
-          font-size: 30px;
-          color: #333;
+        font-size: 32px;
+        color: #fff;
+        img {
+          margin-right: 32px;
+          width: 31px;
+          height: 31px;
         }
       }
     }
-  }
-  .leaveMsg {
-    margin-top: 24px;
-  }
-  .order-msg {
-    margin-top: 24px;
-    padding: 24px;
-    background-color: #fff;
-    .title {
-      padding-left: 12px;
-      color: #333;
-      font-size: 30px;
-      line-height: 40px;
-      border-left: 4px solid $mcolor;
-    }
-    .item {
+    .address {
       display: flex;
-      color: #999;
-      padding: 12px;
-      font-size: 24px;
+      align-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+      background-color: #fff;
+      .location-icon {
+        flex: 0 0 70px;
+        width: 70px;
+        height: 72px;
+      }
+      .location {
+        flex: 1;
+        padding-left: 24px;
+        font-size: 28px;
+        line-height: 40px;
+        color: #333;
+      }
+    }
+    .order-detail {
+      margin-top: 24px;
+      background-color: #fff;
+      padding: 24px;
+      .container {
+        margin-bottom: 24px;
+      }
+      .infos {
+        border-top: 1px dotted #333;
+        padding-top: 24px;
+        .item {
+          display: flex;
+          justify-content: space-between;
+          padding: 12px 0;
+          font-size: 24px;
+          color: #999;
+          &.total {
+            padding: 24px 0;
+            font-size: 30px;
+            color: #333;
+          }
+        }
+      }
+    }
+    .leaveMsg {
+      margin-top: 24px;
+    }
+    .order-msg {
+      margin-top: 24px;
+      padding: 24px;
+      background-color: #fff;
+      .title {
+        padding-left: 12px;
+        color: #333;
+        font-size: 30px;
+        line-height: 40px;
+        border-left: 4px solid $mcolor;
+      }
+      .item {
+        display: flex;
+        color: #999;
+        padding: 12px;
+        font-size: 24px;
+      }
     }
   }
   .bottom {
+    flex: 0 0 98px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
     width: 100vw;
     height: 98px;
     border-top: 1px solid #ddd;
-    margin-top: 24px;
     padding: 12px;
     box-sizing: border-box;
     background-color: #fff;
+    .btn-cover {
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+      width: 100%;
+      height: 100%;
+      .btn {
+        display: inline-block;
+        text-align: center;
+        font-size: 26px;
+        padding: 15px;
+        border: 1px solid #C0C0C0;
+        border-radius: 56px;
+        color: #666666;
+        margin-left: 20px;
+        &.active {
+          border-color: $mcolor;
+          color: $mcolor;
+        }
+      }
+    }
   }
 }

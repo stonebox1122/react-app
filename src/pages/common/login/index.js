@@ -145,7 +145,7 @@ class Login extends PureComponent {
     // navbar的右侧
     const rightItem = <span className={style['right-item']}>{!this.state.right ? '短信登录' : '账户登录'}</span>
     return (
-      <div>
+      <div className={style.cover}>
         {/* 顶部导航 */}
         <NavgationBar
           right = { rightItem } // 类似vue的具名插槽

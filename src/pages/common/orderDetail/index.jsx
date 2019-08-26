@@ -87,71 +87,131 @@ class OrderDetail extends Component {
     }
   }
   
+  // 根据订单状态返回对应的dom 底部操作
+  setStateType2 (type) {
+    switch (type) {
+      case 1:
+        return (
+          <div className={style['btn-cover']}>
+            <div className={style.btn}>
+              删除订单
+            </div>
+          </div>
+        )
+      case 2:
+        return (
+          <div className={style['btn-cover']}>
+            <div className={`${style.btn} ${style.active}`}>
+              去付款
+            </div>
+            <div className={`${style.btn}`}>
+              取消订单
+            </div>
+          </div>
+        )
+      case 3:
+        return (
+          <div className={style['btn-cover']}>
+            <div className={style.btn}>
+              提醒发货
+            </div>
+          </div>
+        )
+      case 4:
+        return (
+          <div className={style['btn-cover']}>
+            <div className={style.btn}>
+              确认收货
+            </div>
+          </div>
+        )
+      case 5:
+        return (
+          <div className={style['btn-cover']}>
+            <div className={style.btn}>
+              评价
+            </div>
+          </div>
+        )
+      case 6:
+        return (
+          <div className={style['btn-cover']}>
+            <div className={style.btn}>
+              删除订单
+            </div>
+          </div>
+        )
+      default:
+        break;
+    }
+  }
+
   render() { 
     let {back} = this.props
     let { data:{order, address, ordergoods}} = this.state
     return (
-      <div className={style.cover}>
+      <div >
         {
           order ?
-          <div>
+          <div className={style.cover}>
             <NavgationBar handleLeft={back} right="">订单详情</NavgationBar>
-            <header className={style.header}>
-              {this.setStateType(order.orderstate)}
-            </header>
-            <section className={style.address}> 
-              <img src={require('./img/details_image_adderss.png')} className={style['location-icon']} alt="location"/>
-              <div className={style.location}>
-                <p>{address.reciver_name} <span style={{color:"#999"}}>{address.reciver_mobile}</span></p>
-                <p>{address.reciver_address}</p>
-              </div>
-            </section>
-            <section className={style['order-detail']}>
-              <ul className={style.container}>
-                {
-                  ordergoods ?
-                  ordergoods.map((e,i) => {
-                    let {gimg:img, gtitle:title, gnum:sales, gprice:price, optiontype: subtitle, gorigprice} = e
-                    let obj = {img, title,sales,price,subtitle}
-                    return (
-                      <li key = {i}>
-                        <Goods2 height="80px"
-                          info={obj}
-                          bottom_left={<p><span>{e.gprice} </span> <del style={{color:"#999999"}}>{gorigprice}</del></p>}
-                          bottom_right={<div className={style['bottom-right']}> x{e.gnum}</div>}/>
-                      </li>
-                    )
-                  }) : ""
-                }
-              </ul>
-              <ul className={style.infos}>
-                <li className={style.item}>
-                  <span>商品总额</span>
-                  <span>{order.goodssumprice}</span> 
-                </li>
-                <li className={style.item}>
-                  <span>商城积分抵扣</span> 
-                  <span>{order.ferentialprice}</span>
-                </li>
-                <li className={style.item}>
-                  <span>配送费</span> 
-                  <span>{order.deliverprice}</span>
-                </li>
-                <li className={`${style.item} ${style.total} border-top`}>
-                  <span>订单总价</span> 
-                  <span style={{color:"#FF2121"}}>{order.ordersumprice}</span>
-                </li>
-              </ul>
-            </section>
-            <section className={style.leaveMsg}>
-              <TextareaItem
-                title="买家留言："
-                disabled
-                defaultValue={order.m_message}
-                autoHeight
-              />
-            </section>
-            <section className={style['order-msg']}>
+            <div className={style.wrap}>
+              <header className={style.header}>
+                {this.setStateType(order.orderstate)}
+              </header>
+              <section className={style.address}> 
+                <img src={require('./img/details_image_adderss.png')} className={style['location-icon']} alt="location"/>
+                <div className={style.location}>
+                  <p>{address.reciver_name} <span style={{color:"#999"}}>{address.reciver_mobile}</span></p>
+                  <p>{address.reciver_address}</p>
+                </div>
+              </section>
+              <section className={style['order-detail']}>
+                <ul className={style.container}>
+                  {
+                    ordergoods ?
+                    ordergoods.map((e,i) => {
+                      let {gimg:img, gtitle:title, gnum:sales, gprice:price, optiontype: subtitle, gorigprice} = e
+                      let obj = {img, title,sales,price,subtitle}
+                      return (
+                        <li key = {i} style={{marginBottom: "12px"}}>
+                          <Goods2 height="80px"
+                            info={obj}
+                            bottom_left={<p><span>{e.gprice} </span> <del style={{color:"#999999"}}>{gorigprice}</del></p>}
+                            bottom_right={<div className={style['bottom-right']}> x{e.gnum}</div>}/>
+                        </li>
+                      )
+                    }) : ""
+                  }
+                </ul>
+                <ul className={style.infos}>
+                  <li className={style.item}>
+                    <span>商品总额</span>
+                    <span>{order.goodssumprice}</span> 
+                  </li>
+                  <li className={style.item}>
+                    <span>商城积分抵扣</span> 
+                    <span>{order.ferentialprice}</span>
+                  </li>
+                  <li className={style.item}>
+                    <span>配送费</span> 
+                    <span>{order.deliverprice}</span>
+                  </li>
+                  <li className={`${style.item} ${style.total} border-top`}>
+                    <span>订单总价</span> 
+                    <span style={{color:"#FF2121"}}>{order.ordersumprice}</span>
+                  </li>
+                </ul>
+              </section>
+              <section className={style.leaveMsg}>
+                <TextareaItem
+                  title="买家留言："
+                  disabled
+                  defaultValue={order.m_message}
+                  autoHeight
+                />
+              </section>
+              <section className={style['order-msg']}>
               <p className={style.title}>订单信息</p>
               <ol>
                 <li className={style.item}>
@@ -171,10 +231,12 @@ class OrderDetail extends Component {
                 </li> */}
               </ol>
             </section>
+            </div>
             <section className={style.bottom}>
-
+              {this.setStateType2(order.orderstate)}
             </section>
-          </div> : ""
+          </div> 
+          : ""
         }
       </div>
     );

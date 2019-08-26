@@ -12,12 +12,14 @@ class OrderDetail extends PureComponent {
   orderState = (v) => {
     switch (v) {
       case 1:
-        return '待付款';
+        return '已取消';
       case 2:
-        return '待发货';
+        return '待付款';
       case 3:
-        return '待收货';
+        return '待发货';
       case 4:
+        return '待收货';
+      case 5:
         return '待评论';
       default:
         break;
@@ -27,19 +29,23 @@ class OrderDetail extends PureComponent {
     switch (v) {
       case 1:
         return (
-          <span className={style.tag}>付款</span>
+          <span className={style.tag}></span>
         );
       case 2:
         return (
-          <span className={style.tag}>提醒发货</span>
+          <span className={style.tag}>付款</span>
         );
       case 3:
         return (
-          <span className={style.tag}>确认收货</span>
+          <span className={style.tag}>提醒发货</span>
         );
       case 4:
         return (
-          <span className={style.tag}>评价</span>
+          <span className={style.tag}>确认收货</span>
+        );
+      case 5:
+        return (
+          <span className={style.tag}>评论</span>
         );
       default:
         break;

@@ -59,6 +59,10 @@ class ConfirmOrder extends PureComponent {
         this.props.showModal('购物积分不足', '失败')
       }
     } else {
+      if (this.props.ua !== 'wechat') {
+        this.props.showModal('请在微信中打开使用微信支付')
+        return
+      }
       this.confirmOrderPre(this.wxPay(this.pointPay)) // 传入微信支付
     }
   }
@@ -108,10 +112,8 @@ class ConfirmOrder extends PureComponent {
   }
   // wx支付
   wxPay = (options) => {
-    let {userid, token, openid, ua, showModal} = this.props
-    if (ua !== 'wechat') {
-      showModal('请在微信中打开使用微信支付')
-    }
+    let {userid, token, openid,  showModal} = this.props
+
     let query = {
       userid, token,
       title: "商品下单",
