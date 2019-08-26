@@ -50,25 +50,30 @@ class Mine extends PureComponent {
       }],
       managerCenter: [{
         icon: require('./img/personal_icon_gm.png'),
-        text: '一代会员',
+        text: '服务网点',
         key: 'ServerNode'
-      },{
-        icon: require('./img/personal_icon_sgm.png'),
-        text: '二代会员',
-        key: 2
-      },{
+      },
+      // {
+      //   icon: require('./img/personal_icon_sgm.png'),
+      //   text: '二代会员',
+      //   key: 2
+      // },
+      {
         icon: require('./img/personal_icon_promotion.png'),
         text: '推广二维码',
         key: 'Promotion'
-      },{
-        icon: require('./img/personal_icon_proxy.png'),
-        text: '申请代理',
-        key: 4
-      },{
-        icon: require('./img/personal_icon_sc.png'),
-        text: '申请服务中心',
-        key: 5
-      },{
+      },
+      // {
+      //   icon: require('./img/personal_icon_proxy.png'),
+      //   text: '申请代理',
+      //   key: 4
+      // },
+      // {
+      //   icon: require('./img/personal_icon_sc.png'),
+      //   text: '申请服务中心',
+      //   key: 5
+      // },
+      {
         icon: require('./img/personal_icon_member.png'),
         text: '申请会员',
         key: 'ApplicationVip'

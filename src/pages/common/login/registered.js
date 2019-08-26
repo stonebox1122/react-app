@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import NavgationBar from '@/NavgationBar'
 import {wxshare} from '$src/common/js/wxShare'
-
 import Cell from '@/Cell'
 import Verification from '@/Verification'
-import { testPhoneNum } from '$src/common/js/utils'
+import { testPhoneNum, GetQueryString } from '$src/common/js/utils'
 import * as actionCreators from './store/actionCreators';
 import * as commonActionCreators from '../store/actionCreators';
 import { sendCode, subRegistered, initPer } from '$src/api'
@@ -25,8 +24,7 @@ class Registered extends PureComponent {
     }
   }
   componentDidMount() {
-    let id = this.props.location.search;
-    id = id.split('=')[1];
+    let id = GetQueryString('id');
     this.setState({
       id
     })
@@ -128,7 +126,7 @@ class Registered extends PureComponent {
     // navbar的右侧
     const rightItem = <Link to="/login" className={style['right-item']}>登录</Link>
     return (
-      <div>
+      <div className={style.cover}>
         {/* 顶部导航 */}
         <NavgationBar
           right = { rightItem } // 类似vue的具名插槽

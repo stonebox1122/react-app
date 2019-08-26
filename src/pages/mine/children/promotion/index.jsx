@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import NavgationBar from '@/NavgationBar'
 import {getQr} from '$src/api'
+import {wxshare} from '$src/common/js/wxShare'
 import * as commonActionCreators from '~/common/store/actionCreators'
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
@@ -18,6 +19,13 @@ class Promotion extends PureComponent {
   }
   componentDidMount() {
     this._init()
+    // 设置分享
+    wxshare({
+      imgUrl: require("$static/img/icon-72@2x.png"),
+      desc: '吉善在线商城',
+      title: '吉善商城',
+      link: `http://js.qiankaiwangluo.com/registered?id=${this.info.ID}`
+    })
   }
   componentDidUpdate () {
     // 初始化轮播图插件
