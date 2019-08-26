@@ -250,15 +250,15 @@ class Detail extends PureComponent {
               {/* 图文详情 */}
               <section className={`${style.introduce} ${style.card}`}>
                 <p className={style.title}>图文详情</p>
-                {
-                  detail.tailimgs ? 
-                  detail.tailimgs.map(e => {
-                    return (
-                      <img className={style['bottom-img']} src={e.img} alt="img" key={e.imgid}/>
-                    )
-                  }): ""
-                }
               </section>
+              {
+                detail.tailimgs ? 
+                detail.tailimgs.map(e => {
+                  return (
+                    <img className={style['bottom-img']} src={e.img} alt="img" key={e.imgid}/>
+                  )
+                }): ""
+              }
             </div>
           </Scroll>
         </div>

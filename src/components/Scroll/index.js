@@ -27,7 +27,7 @@ class Scroll extends PureComponent {
     await this.props.pullUpHandler()
     this.myScroll.finishPullUp()
     
-    // this.myScroll.refresh()
+    this.myScroll.refresh()
   }
   render() { 
     return (
