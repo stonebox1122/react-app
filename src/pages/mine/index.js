@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { TabBar, Grid  } from 'antd-mobile';
 import {wxshare} from '$src/common/js/wxShare'
-
+import * as commonActionCreators from '~/common/store/actionCreators'
 import Set from './children/set'
 import PersonInfo from './children/personInfo'
 import ServerNode from './children/serverNode'
@@ -109,7 +109,9 @@ class Mine extends PureComponent {
 
   // 子组件显示
   handleShowCom = (name="Wallet",key=0) => {
-    if (this.props.isLogin !== true) {
+    let { userid, token, showModal} = this.props
+    if ( !userid || !token) {
+      showModal('请先登录')
       return false
     }
     let flag = this.state.isShowCom
@@ -282,6 +284,10 @@ const mapState = (state) => ({
 const mapDispatch = dispatch => ({
   initMine (query) {
     const action = mineActionCreators.loadMineInfo(query);
+    dispatch(action)
+  },
+  showModal (msg, title) {
+    const action = commonActionCreators.toggleModal(msg, title)
     dispatch(action)
   }
 })

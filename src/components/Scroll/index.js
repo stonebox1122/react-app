@@ -17,6 +17,7 @@ class Scroll extends PureComponent {
       scrollY: true
     })
     this.myScroll.on('pullingUp', this.pullingUpHandler.bind(this))
+    this.myScroll.refresh()
   }
   // 数据更新完render之后再刷新
   componentDidUpdate () {
@@ -26,7 +27,6 @@ class Scroll extends PureComponent {
   async pullingUpHandler() {
     await this.props.pullUpHandler()
     this.myScroll.finishPullUp()
-    
     this.myScroll.refresh()
   }
   render() { 

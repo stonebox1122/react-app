@@ -127,6 +127,10 @@ class MyOrder extends Component {
     })
   }
 
+  onRef = (ref) => {
+    console.log(ref)
+  }
+
   render() { 
     let {back} = this.props
     let {data, showCom, orderid} = this.state
