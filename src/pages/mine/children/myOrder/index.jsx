@@ -154,7 +154,9 @@ class MyOrder extends Component {
                   data[0].list.length>0 ?
                   data[0].list.map((e,i) => {
                     return (
-                      <li className={style.card} key={`${e.orderno}${i}`} onClick={() => this.showDetailPage(e.orderid)}>
+                      <li className={style.card}
+                          key={`${e.orderno}${i}`}
+                          onClick={() => this.showDetailPage(e.orderid)}>
                         <OrderDetail info={e}/>
                       </li>
                     )

@@ -74,8 +74,9 @@ class OrderDetail extends PureComponent {
                   let {gimg:img, gtitle:title, gnum:sales, gprice:price, optiontype: subtitle} = e
                   let obj = {img, title,sales,price,subtitle}
                   return (
-                    <li key = {i}>
-                      <Goods2 height="80px"
+                    <li key = {i} style={{marginBottom:"12px"}}>
+                      <Goods2
+                        height="80px"
                         info={obj}
                         bottom_left={<span>{e.gprice}</span>}
                         bottom_right={
