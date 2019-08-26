@@ -101,7 +101,7 @@ class OrderDetail extends Component {
       case 2:
         return (
           <div className={style['btn-cover']}>
-            <div className={`${style.btn} ${style.active}`}>
+            <div className={`${style.btn} ${style.active}`} onClick={(e)=>this.pay(e)}>
               去付款
             </div>
             <div className={`${style.btn}`}>
@@ -144,6 +144,10 @@ class OrderDetail extends Component {
       default:
         break;
     }
+  }
+
+  pay = (e) =>　{
+    console.log('弹出付款')
   }
 
   render() { 

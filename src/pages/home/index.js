@@ -85,7 +85,7 @@ class Home extends Component {
       }
       getOpenid(query).then(res => {
         if (res.code === '1') {
-          this.props.setOpenid(res.data.openid)
+          this.props.setOpenid(res.data)
         }
       })
     }

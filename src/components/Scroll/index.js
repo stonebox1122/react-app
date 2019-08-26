@@ -24,6 +24,7 @@ class Scroll extends Component {
     console.log('数据更新完 要刷新');
     this.myScroll.refresh()
   }
+
   // 监听上拉事件
   async pullingUpHandler() {
     await this.props.pullUpHandler()

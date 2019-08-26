@@ -54,6 +54,7 @@ class MyOrder extends Component {
     }
   }
   componentDidMount() {
+    console.log(this.props.type);
     // 初始化
     if (this.props.type !== 'undefined') {
       let i = this.props.type
@@ -147,8 +148,8 @@ class MyOrder extends Component {
       <div className={style.order}>
         <NavgationBar  handleLeft={back}
           right="">我的订单</NavgationBar>
-            <div>
-              <Tabs tabs={tabs}
+          <div>
+            <Tabs tabs={tabs}
               tabBarActiveTextColor="#FFC105"
               tabBarUnderlineStyle={{borderColor:"#FFC105"}}
               initialPage={this.props.type }
