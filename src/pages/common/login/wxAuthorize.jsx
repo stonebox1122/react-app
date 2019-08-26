@@ -4,11 +4,11 @@ import { withRouter } from 'react-router';
 import * as loginActionCreators from '~/common/login/store/actionCreators'
 import * as commonActionCreators from '../store/actionCreators';
 import {GetQueryString,wechatLogingzh,testPhoneNum} from "$src/common/js/utils"
-import {wxLogin, bindwx} from '$src/api'
+import {wxLogin, bindwx, sendCode, verficationCode} from '$src/api'
 import {LoadMore} from 'react-weui'
 import NavgationBar from '@/NavgationBar'
 import Cell from '@/Cell'
-// import Verification from '@/Verification'
+import Verification from '@/Verification'
 import style from './index.module.scss'
 
 class Authorize extends PureComponent {
@@ -17,8 +17,8 @@ class Authorize extends PureComponent {
     this.state = { 
       bind: true,
       unionid:"",
-      phone: ''
-      // code: ''
+      phone: '',
+      code: ''
     }
   }
   componentDidMount() {
@@ -53,45 +53,58 @@ class Authorize extends PureComponent {
     })
   }
   // 发送验证码
-  // sendMsg = () => {
-  //   // 先检测手机号对不对 对的话 发送验证码
-  //   let phonenum = this.state.phone
-  //   if (testPhoneNum(phonenum)) {
-  //     let query = {
-  //       mobile: phonenum,
-  //       type: '7'
-  //     }
-  //     sendCode(query).then(res => {
-  //       if (res.code !== '1') {
-  //         this.props.toggleModal(res.msg)
-  //       } else {
-  //         // 调用子组件倒计时
-  //         this.verification.countdown()
-  //       }
-  //     })
-  //   } else {
-  //     this.props.toggleModal('请输入正确的手机号')
-  //   }
-  // }
+  sendMsg = () => {
+    // 先检测手机号对不对 对的话 发送验证码
+    let phonenum = this.state.phone
+    if (testPhoneNum(phonenum)) {
+      let query = {
+        mobile: phonenum,
+        type: '7'
+      }
+      sendCode(query).then(res => {
+        if (res.code !== '1') {
+          this.props.toggleModal(res.msg)
+        } else {
+          // 调用子组件倒计时
+          this.verification.countdown()
+        }
+      })
+    } else {
+      this.props.toggleModal('请输入正确的手机号')
+    }
+  }
   bind = () => {
-    let {phone, unionid} = this.state
+    let {phone, unionid,code} = this.state
     if (!testPhoneNum(phone)) {
       this.props.toggleModal('请输入正确的手机号')
       return
     }
-    // if (code.length !== 6) {
-    //   this.props.toggleModal('验证码不正确')
-    //   return
-    // }
-    let query = {
-      unionid,
-      mobile: phone,
-      type: 1
+    if (code.length !== 6) {
+      this.props.toggleModal('验证码不正确')
+      return
     }
-    bindwx (query).then(res => {
+
+    // 1.验证验证码
+    let data = {
+      mobile: phone,
+      code,
+      type: 4
+    }
+    verficationCode(data).then(res => {
       if (res.code === '1') {
-        // 绑定成功重新拉授权
-        wechatLogingzh()
+        let query = {
+          unionid,
+          mobile: phone,
+          type: 1
+        }
+        bindwx (query).then(res => {
+          if (res.code === '1') {
+            // 绑定成功重新拉授权
+            wechatLogingzh()
+          } else {
+            this.props.toggleModal(res.msg)
+          }
+        })
       } else {
         this.props.toggleModal(res.msg)
       }
@@ -112,13 +125,13 @@ class Authorize extends PureComponent {
             label="手机号"
             changeInput= {this.changeInputNum.bind(this)}
           />
-          {/* <Cell
+          <Cell
             name="code"
             placeHoder="请输入验证码"
             label="验证码"
             slot= { <Verification ref={Verification => this.verification = Verification} sendMsg = { this.sendMsg }/> }
             changeInput= {this.changeInputNum.bind(this)}
-          /> */}
+          />
         </section>
       
         {/* 登陆 */}

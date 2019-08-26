@@ -63,30 +63,32 @@ export default class Routers extends Component {
       <Provider store={store}>
         <Router>
           <App>
-            {/* 访问根路径直接定向到首页 */}
-            <Route path="/" exact component ={() =>
-              <Redirect to="/tab/home"/>
-            }/>
-            <Route path="/tab" exact component ={() =>
-              <Redirect to="/tab/home"/>
-            }/>
-            <Route path="/tab" component = {() => 
-              <Tabbar>
-                <Switch>
-                  <Route path="/tab/home" component={Home}/>
-                  <Route path="/tab/goods" component={Goods}/>
-                  <Route path="/tab/cart" component={Cart}/>
-                  <Route path="/tab/mine" component={Mine}/>
-                </Switch>
-              </Tabbar>
-            }/>
-            <Route path="/video/:id" component = {Video}/>
-            <Route path="/detail/:id" component = {Detail}/>
-            <Route path="/login" component = {Login}/>
-            <Route path="/registered" component = {Registered}/>
-            <Route path="/share/:id" component={Share}/> 
-            <Route path="/wxAuthorize" component={Authorize}/>
-            <Route component={Login}/>
+            <Switch>
+              {/* 访问根路径直接定向到首页 */}
+              <Route path="/" exact component ={() =>
+                <Redirect to="/tab/home"/>
+              }/>
+              <Route path="/tab" exact component ={() =>
+                <Redirect to="/tab/home"/>
+              }/>
+              <Route path="/tab" component = {() => 
+                <Tabbar>
+                  <Switch>
+                    <Route path="/tab/home" component={Home}/>
+                    <Route path="/tab/goods" component={Goods}/>
+                    <Route path="/tab/cart" component={Cart}/>
+                    <Route path="/tab/mine" component={Mine}/>
+                  </Switch>
+                </Tabbar>
+              }/>
+              <Route path="/video/:id" component = {Video}/>
+              <Route path="/detail/:id" component = {Detail}/>
+              <Route path="/login" component = {Login}/>
+              <Route path="/registered" component = {Registered}/>
+              <Route path="/share/:id" component={Share}/> 
+              <Route path="/wxAuthorize" component={Authorize}/>
+              <Route component={Login}/>
+            </Switch>
           </App>
         </Router>        
       </Provider>
