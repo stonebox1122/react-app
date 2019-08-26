@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import BScroll from '@better-scroll/core'
 import Pullup from '@better-scroll/pull-up'
 import style from './index.module.scss'
 
 BScroll.use(Pullup)
-class Scroll extends PureComponent {
+class Scroll extends Component {
   componentDidMount() {
     this.myScroll = new BScroll('.scroll', {
       pullUpLoad: {
@@ -21,6 +21,7 @@ class Scroll extends PureComponent {
   }
   // 数据更新完render之后再刷新
   componentDidUpdate () {
+    console.log('数据更新完 要刷新');
     this.myScroll.refresh()
   }
   // 监听上拉事件

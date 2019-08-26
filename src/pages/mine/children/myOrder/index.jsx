@@ -18,6 +18,7 @@ class MyOrder extends Component {
     this.state = {
       showCom: false,
       orderid: '',
+      i: 0,
       data: {
         0: {
           hasMore: true,
@@ -107,6 +108,7 @@ class MyOrder extends Component {
      * 以免点击就加载
      */
     i = i === 0 ? i : i += 1
+    this.setState({i:i})
     if (this.state.data[i].hasMore && this.state.data[i].list.length === 0) {
       this.getList(i)
     }
@@ -133,7 +135,7 @@ class MyOrder extends Component {
 
   render() { 
     let {back} = this.props
-    let {data, showCom, orderid} = this.state
+    let {data, showCom, orderid, i} = this.state
     const tabs = [
       { title: '全部' },
       { title: '待付款'},
@@ -145,12 +147,16 @@ class MyOrder extends Component {
       <div className={style.order}>
         <NavgationBar  handleLeft={back}
           right="">我的订单</NavgationBar>
-        <Tabs tabs={tabs}
-          tabBarActiveTextColor="#FFC105"
-          tabBarUnderlineStyle={{borderColor:"#FFC105"}}
-          initialPage={this.props.type }
-          onTabClick={(tab, index) => this.changeTab(index)}
-        >
+            <div>
+              <Tabs tabs={tabs}
+              tabBarActiveTextColor="#FFC105"
+              tabBarUnderlineStyle={{borderColor:"#FFC105"}}
+              initialPage={this.props.type }
+              onTabClick={(tab, index) => this.changeTab(index)}
+            ></Tabs>
+          </div>
+        {
+          i === 0 ? 
           <div className={style.item}>
             <Scroll pullUpHandler={()=>this.getList(0)}>
               <ul className={style['scroll-wrap']}>
@@ -172,7 +178,10 @@ class MyOrder extends Component {
                 }
               </ul>
             </Scroll>
-          </div>
+          </div> : ""
+        }
+        {
+          i === 2 ?
           <div className={style.item}>
             <Scroll pullUpHandler={()=>this.getList(2)}>
               <ul className={style['scroll-wrap']}>
@@ -191,7 +200,10 @@ class MyOrder extends Component {
                 }
               </ul>
             </Scroll>
-          </div>
+          </div>:""
+        }
+        {
+          i === 3 ?
           <div className={style.item}>
             <Scroll pullUpHandler={()=>this.getList(3)}>
               <ul className={style['scroll-wrap']}>
@@ -210,7 +222,10 @@ class MyOrder extends Component {
                 }
               </ul>
             </Scroll>
-          </div>
+          </div> : ""
+        }
+        {
+          i === 4 ?
           <div className={style.item}>
             <Scroll pullUpHandler={()=>this.getList(4)}>
               <ul className={style['scroll-wrap']}>
@@ -229,7 +244,10 @@ class MyOrder extends Component {
                 }
               </ul>
             </Scroll>
-          </div>
+          </div> :""
+        }
+        {
+          i === 5 ?
           <div className={style.item}>
             <Scroll pullUpHandler={()=>this.getList(5)}>
               <ul className={style['scroll-wrap']}>
@@ -248,8 +266,8 @@ class MyOrder extends Component {
                 }
               </ul>
             </Scroll>
-          </div>
-        </Tabs>
+          </div> : ""
+        }
         {
           showCom ?
           <OrderDetailPage orderid= {orderid} back={this.hide}/> : ""
