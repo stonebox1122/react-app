@@ -28,6 +28,7 @@ class Registered extends PureComponent {
     this.setState({
       id
     })
+    this.initPerson(id)
     wxshare({
       imgUrl: require("$static/img/icon-72@2x.png"),
       desc: '注册加入吉善商城',
@@ -39,12 +40,8 @@ class Registered extends PureComponent {
   // 注册
   registered = () => {
     // 表单校验
-    let { share, phone, code } = this.state
+    let { share, phone, code, id } = this.state
 
-    if (share.length < 4 || share.length > 6) {
-      this.props.toggleModal('请确认分享人ID是否有误')
-      return
-    }
     if (!testPhoneNum(phone)) {
       this.props.toggleModal('请输入正确的手机号')
       return
@@ -54,7 +51,7 @@ class Registered extends PureComponent {
       return
     }
     let query = {
-      refno: share,
+      refno: id === '' ? share : id,
       mobile: phone,
       code
     }
@@ -109,6 +106,7 @@ class Registered extends PureComponent {
     }
   }
   initPerson (refno) {
+    if (!refno) return
     initPer({refno}).then(res => {
       console.log(res);
       if (res.code === '1') {

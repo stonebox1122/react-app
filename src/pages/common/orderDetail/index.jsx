@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import NavgationBar from '@/NavgationBar'
-import { TextareaItem } from 'antd-mobile';
+import { TextareaItem, Modal, Button, WhiteSpace, WingBlank  } from 'antd-mobile';
 import Goods2 from '@/Goods/goods_2'
 import style from './index.module.scss'
 import { getOrderDetail } from '$src/api'
 import * as commonActionCreators from '~/common/store/actionCreators'
+
+const operation = Modal.operation;
 
 class OrderDetail extends Component {
   constructor(props) {
@@ -239,6 +241,15 @@ class OrderDetail extends Component {
             <section className={style.bottom}>
               {this.setStateType2(order.orderstate)}
             </section>
+            <WingBlank size="lg">
+              <WhiteSpace size="lg" />
+              <Button onClick={() => operation([
+                { text: '标为未读', onPress: () => console.log('标为未读被点击了') },
+                { text: '置顶聊天', onPress: () => console.log('置顶聊天被点击了') },
+              ])}
+              >operation</Button>
+              <WhiteSpace size="lg" />
+            </WingBlank>
           </div> 
           : ""
         }
