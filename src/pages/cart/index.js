@@ -5,6 +5,7 @@ import NavgationBar from '@/NavgationBar';
 import Scroll from '@/Scroll';
 import Goods2 from '@/Goods/goods_2'
 import {wxshare} from '$src/common/js/wxShare'
+import {withRouter} from 'react-router'
 import NumberController from '@/NumberController'
 import ConfirmOrder from '~/cart/children/ConfirmOrder'
 import {toFixed2} from '$src/common/js/utils'
@@ -42,6 +43,10 @@ class Cart extends PureComponent {
   }
   // 提交
   sub = () => {
+    if (!this.props.userid ||!this.props.token) {
+      this.props.history.push('/login')
+      return
+    }
     let { list } =  this.props
     let flag = list.some((e)=> {
       return e.selected === true
@@ -214,4 +219,4 @@ const mapDispatch = (dispatch) => ({
     dispatch(action)
   }
 })
-export default connect(mapState,mapDispatch)(Cart);
+export default connect(mapState,mapDispatch)(withRouter(Cart));
