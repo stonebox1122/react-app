@@ -2,11 +2,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import { Icon, Toast } from 'antd-mobile';
 import { Badge } from 'react-weui'
 import NavgationBar from '@/NavgationBar';
 import {wxshare} from '$src/common/js/wxShare'
-
 import Scroll from '@/Scroll';
 import ConfirmOrder from '~/cart/children/ConfirmOrder'
 import NumberController from '@/NumberController'
@@ -65,6 +65,11 @@ class Detail extends PureComponent {
   }
   
   buyNow = () => {
+    if (!this.props.userid || !this.props.token) {
+      Toast.fail('请先登陆', .8)
+      this.props.history.push('/login')
+      return
+    }
     if (!this.state.kind.valueid) {
       Toast.fail('请选择规格', 1)
       return
@@ -317,4 +322,4 @@ const mapDispatch = (dispatch) => ({
   },
 })
  
-export default connect(mapState, mapDispatch)(Detail);
+export default connect(mapState, mapDispatch)(withRouter(Detail));
