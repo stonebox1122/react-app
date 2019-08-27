@@ -85,6 +85,9 @@ class Mine extends PureComponent {
     }
   }
   componentDidMount() {
+    if (!this.props.userid || !this.props.token) {
+      this.props.history.push('/login')
+    }
     if (this.props.mine) {
       this.init()
     }

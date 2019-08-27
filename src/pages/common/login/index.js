@@ -140,7 +140,9 @@ class Login extends PureComponent {
   wxLogin = () => {
     wechatLogingzh()
   }
-
+  back = () => {
+    this.props.history.push('tab/home')
+  }
   render () {
     // navbar的右侧
     const rightItem = <span className={style['right-item']}>{!this.state.right ? '短信登录' : '账户登录'}</span>
@@ -148,6 +150,7 @@ class Login extends PureComponent {
       <div className={style.cover}>
         {/* 顶部导航 */}
         <NavgationBar
+          handleLeft={this.back}
           right = { rightItem } // 类似vue的具名插槽
           handleRight = {this.changeLogin}
         >

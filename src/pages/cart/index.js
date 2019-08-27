@@ -20,6 +20,9 @@ class Cart extends PureComponent {
     }
   }
   componentDidMount() {
+    if (!this.props.userid ||!this.props.token) {
+      this.props.clear()
+    }
     // 设置分享
     wxshare({
       imgUrl: require("$static/img/icon-72@2x.png"),
@@ -175,6 +178,8 @@ class Cart extends PureComponent {
 }
  
 const mapState = (state) => ({
+  userid: state.getIn(['login', 'uid']),
+  token: state.getIn(['login', 'token']),
   list: state.getIn(['cart', 'list']).toJS(),
   selectAll: state.getIn(['cart', 'selectAll']),
   isShowCom: state.getIn(['cart', 'isShowCom'])
@@ -202,6 +207,10 @@ const mapDispatch = (dispatch) => ({
   },
   del () {
     const action = actionCreator.del()
+    dispatch(action)
+  },
+  clear () {
+    const action = actionCreator.initCart([], false)
     dispatch(action)
   }
 })
